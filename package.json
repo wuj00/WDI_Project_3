@@ -1,0 +1,17 @@
+{
+  "name": "spot_buds",
+  "version": "1.0.0",
+  "description": "a workout buddy finding app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicole, Lewis, Jen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.6",
+    "morgan": "^1.7.0"
+  }
+}
