@@ -1,6 +1,6 @@
 ##WDI Project 3: SpotBuds
 
-SpotBuds was created by Lewis Bracey, Nicole Thurnau, and Jennifer Wu as their third project fro General Assembly's WDI course in Santa Monica. 
+SpotBuds was created by Lewis Bracey, Nicole Thurnau, and Jennifer Wu as their third project for General Assembly's WDI course in Santa Monica. 
 
 ###Objective 
 
@@ -27,14 +27,14 @@ Necessary Deliverables
 - A Readme.md file (you are reading that!)
 
 ###Wireframes
-Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/wdi-project-3)Trello Board for Project 3's done column for wireframes. 
+Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/wdi-project-3)'s done column for wireframes. 
 
 ###Technologies Used
 - MongoDB.js
 - Express.js
 - Node.js
 - AJAX
-- CSS with Bootstrap or Momentum?
+- CSS with Bootstrap and Materialize 
 - HTML5
 - JQuery and JavaScript
 - APIs listed here
