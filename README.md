@@ -1,6 +1,6 @@
 ##WDI Project 3: SpotBuds
 
-SpotBuds was created by Lewis Bracey, Nicole Thurnau, and Jennifer Wu as their third project fro General Assemnbly's WDI course in Santa Monica. 
+SpotBuds was created by Lewis Bracey, Nicole Thurnau, and Jennifer Wu as their third project fro General Assembly's WDI course in Santa Monica. 
 
 ###Objective 
 
