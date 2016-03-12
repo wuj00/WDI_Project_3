@@ -26,6 +26,17 @@ Necessary Deliverables
 - A Git repository hosted on Github, with frequent commits from every team member dating back to the very beginning of the project
 - A Readme.md file (you are reading that!)
 
+###MVP
+- A working login page that includes both local and OAuth login options
+- A working create account feature that allows users to create a SpotBuds account
+- The ability for users to create, edit, and delete a profile
+- A homepage that contains a map with Spots where people exercise
+- Spots that contain events listed in chronological order
+- The ability for users to create a new event in a Spot
+- The ability for uses to RSVP to events in Spots
+- The ability for users to see how many people are going to an event
+- The ability for users to create, edit, and delete events
+
 ###Wireframes
 Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/wdi-project-3)'s done column for wireframes.
 
