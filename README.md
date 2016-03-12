@@ -32,6 +32,7 @@ Necessary Deliverables
 - The ability for users to create, edit, and delete a profile
 - A homepage that contains a map with Spots where people exercise
 - Spots that contain events listed in chronological order
+- The ability for users to create a new Spot 
 - The ability for users to create a new event in a Spot
 - The ability for uses to RSVP to events in Spots
 - The ability for users to see how many people are going to an event
