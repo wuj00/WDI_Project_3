@@ -6,6 +6,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 80%;
+        width: 80%;
+        margin-top: 40px !important;
+        margin: 0 auto;
+        border: 10px solid rgb(67, 158, 120);
+      }
+      .info-window-box {
+
+      }
+    </style>
   </head>
   <body>
     <div class="navbar-fixed">
@@ -30,6 +49,9 @@
 <script type="text/javascript">
 
 </script>
-
+  <%- body %>
   </body>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiziPo9qfv5AIDmkB4JREt9PyDBgphUzY&libraries=places&callback=initMap">
+  </script>
 </html>
