@@ -1,20 +1,47 @@
 
+<h4> <%#= user.local.name || user.facebook.name %> </h4>
   <div class="parallax-container">
      <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
    </div>
 
    <div class="profile-space">
-     <!-- <h4> <%#= user.local.name || user.facebook.name %> </h4> -->
+     <% if(user.local.name){ %>
+         <h3>Locally Stored User</h3>
+
+         <p>
+             <strong>Name</strong>: <%= user.local.name %><br>
+             <strong>id</strong>: <%= user._id %><br>
+             <strong>email</strong>: <%= user.local.email %><br>
+             <strong>password</strong>: <%= user.local.password %>
+               <div class="row">
+                 <div class="col s8">
+                   <h5>Descriptions</h5>
+                     <p>
+                       <%= user.local.description %>
+                     </p>
+                </div>
+              </div>
+         </p>
+         <% } else {%>
+           <h3>Facebook User</h3>
+           <p>
+               <strong>Name</strong>: <%= user.facebook.name %><br>
+               <strong>id</strong>: <%= user.facebook.id %><br>
+               <strong>email</strong>: <%= user.facebook.email %><br>
+               <strong>token</strong>: <%= user.facebook.token %>
+               <div class="row">
+                 <div class="col s8">
+                   <h5>Descriptions</h5>
+                     <p>
+                       <%= user.facebook.description %>
+                     </p>
+                </div>
+              </div>
+           </p>
+         <% } %>
      <br>
      <br>
      <div class="row">
-       <div class="col s8">
-         <h5>Descriptions</h5>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-           </p>
-       </div>
        <br>
        <div class="col s4 card-panel hoverable center-align">
          <h5>4 Favs</h5>
@@ -69,7 +96,7 @@
              </div>
              <div class="footer-copyright">
                <div class="container">
-               © 2014 Copyright SpotBuds
+               © 2016 Copyright SpotBuds
                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                </div>
              </div>
