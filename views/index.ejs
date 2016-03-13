@@ -1,11 +1,59 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Boilerplate</title>
-  </head>
-  <body>
-    <h1>Here is a crazy change, ahhhhhh</h1>
-    <h2>OMG BBQ</h2>
-  </body>
-</html>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+<div id="map"></div>
+
+<script>
+  // This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 34.024212, lng: -118.496475},
+      zoom: 15
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var service = new google.maps.places.PlacesService(map);
+
+    // var searchBox = $('#input-search-box')
+    // var googleSearchBox = new google.maps.places.SearchBox(searchBox);
+
+
+    service.getDetails({
+      placeId: 'ChIJGQCRws6kwoARq_Uj_7UKF7Q'
+    }, function(place, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          // Here were manipulating the place object to diplay the place name provided by google. We are also adding a list to the message box
+          infowindow.setContent('<div class="info-window-box"><strong>' + place.name + '</strong><br>' +
+            'Place ID: ' + place.name + '<br>' + place.formatted_address + '</div>' + '<ul><li id="field-hockey-details">Field Hockey Fun</li><li>Volleyball Game</li><li>Squats at Muscle Beach</li><li>Come play sand flag football by Jamie</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li></ul>');
+          infowindow.open(map, this);
+          // Here we are adding css to the info window that google provides where we want to show events to change the height of the info box and make it scrollable. We want to show five events (lis) before scrolling
+          $('.gm-style-iw').css({'max-height': '250px', 'overflow-y': 'auto'})
+          var my_li = $('#field-hockey-details')
+          var modal = $('#modal1')
+          my_li.on('click', function(){
+            console.log('my li clicked!!!', my_li)
+            modal.openModal()
+            // to close a modal
+            //   $('#modal1').closeModal()
+          })
+        });
+      }
+    });
+  }
+</script>

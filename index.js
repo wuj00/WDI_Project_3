@@ -6,3 +6,15 @@ var mongoose = require('mongoose')
 var passport = require('passport')
 
 var app = express()
+
+// ejs configuration
+app.set('view engine', 'ejs')
+app.use(expressLayouts)
+
+app.get('/', function(req, res){
+  res.render('index')
+})
+
+app.listen(3000, function(){
+  console.log('express server connected and listening on port 3000!')
+})
