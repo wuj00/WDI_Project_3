@@ -12,7 +12,7 @@ app.set('view engine', 'ejs')
 app.use(expressLayouts)
 
 app.get('/', function(req, res){
-  res.render('index')
+  res.render('profile')
 })
 
 
