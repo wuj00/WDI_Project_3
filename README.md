@@ -32,9 +32,9 @@ Necessary Deliverables
 - The ability for users to create, edit, and delete a profile
 - A homepage that contains a map with Spots where people exercise
 - Spots that contain events listed in chronological order
-- The ability for users to create a new Spot 
+- The ability for users to create a new Spot
 - The ability for users to create a new event in a Spot
-- The ability for uses to RSVP to events in Spots
+- The ability for users to RSVP to events in Spots
 - The ability for users to see how many people are going to an event
 - The ability for users to create, edit, and delete events
 
@@ -49,14 +49,14 @@ Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/w
 - CSS with Bootstrap and Materialize
 - HTML5
 - JQuery and JavaScript
-- APIs listed here
+- Google Maps API
 
 ###Approach Taken
 
 - 1) First, we drew out our Wireframes to diagram and plan our project's views
 - 2) Second, we made a planning board and wrote user-stories using [our Trello Board for Project 3](https://trello.com/b/lAAZSSCb/wdi-project-3).
 - 3) We created models, views, and controllers for our app. We achieved full CRUD using RESTful routing.
-- 4) After much debugging, we styled using blahblah and CSS.
+- 4) After much debugging, we styled using Materialize and CSS.
 
 ###Future Implementations
 ....
