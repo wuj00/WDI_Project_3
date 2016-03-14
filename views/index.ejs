@@ -16,18 +16,42 @@
   // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
   function initMap() {
+    // map for santa monica
+    var santaMonica = {lat: 34.024212, lng: -118.496475}
+
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 34.024212, lng: -118.496475},
       zoom: 15
     });
 
-    var infowindow = new google.maps.InfoWindow();
+    var infoWindow = new google.maps.InfoWindow();
 
     var service = new google.maps.places.PlacesService(map);
 
     // var searchBox = $('#input-search-box')
     // var googleSearchBox = new google.maps.places.SearchBox(searchBox);
 
+    service.nearbySearch({
+      location: santaMonica,
+      radius: 1000,
+      keyword: 'Santa Monica Pier'
+
+    }, function(results, status){
+      console.log(results.length)
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        results.forEach(function(el){
+          var placeLocation = el.geometry.location
+          var newMarker = new google.maps.Marker({
+            map: map,
+            position: el.geometry.location
+          })
+          google.maps.event.addListener(newMarker, 'click', function(){
+            infoWindow.setContent(el.name)
+            infoWindow.open(map, this)
+          })
+        })
+      }
+    })
 
     service.getDetails({
       placeId: 'ChIJGQCRws6kwoARq_Uj_7UKF7Q'
@@ -39,12 +63,12 @@
         });
         google.maps.event.addListener(marker, 'click', function() {
           // Here were manipulating the place object to diplay the place name provided by google. We are also adding a list to the message box
-          infowindow.setContent('<div class="info-window-box"><strong>' + place.name + '</strong><br>' +
+          infoWindow.setContent('<div class="info-window-box"><strong>' + place.name + '</strong><br>' +
             'Place ID: ' + place.name + '<br>' + place.formatted_address + '</div>' + '<ul><li id="field-hockey-details">Field Hockey Fun</li><li>Volleyball Game</li><li>Squats at Muscle Beach</li><li>Come play sand flag football by Jamie</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li></ul>');
-          infowindow.open(map, this);
+          infoWindow.open(map, this);
           // Here we are adding css to the info window that google provides where we want to show events to change the height of the info box and make it scrollable. We want to show five events (lis) before scrolling
           $('.gm-style-iw').css({'max-height': '250px', 'overflow-y': 'auto'})
-          var my_li = $('#field-hockey-details')
+          var my_li = $('#field-hockey-details');
           var modal = $('#modal1')
           my_li.on('click', function(){
             console.log('my li clicked!!!', my_li)
