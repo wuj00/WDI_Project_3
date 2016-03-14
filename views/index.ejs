@@ -5,11 +5,12 @@
     <p>A bunch of text</p>
   </div>
   <div class="modal-footer">
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    <a href="#!" id="close-button" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
   </div>
 </div>
 <input id="search-box" class="search-box-class" type="text" placeholder="Search for a place">
 <div id="map"></div>
+
 
 
 <script>
@@ -29,6 +30,7 @@
       center: {lat: -33.8688, lng: 151.2195},
       zoom: 13
     });
+
 
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position){
@@ -56,31 +58,78 @@
     });
 
     searchBoxGoogle.addListener('places_changed', function(){
-      searchMarkers.forEach(function(location){
-        location.setMap(null)
-      })
+      if (searchMarkers.length > 0) {
+        searchMarkers.forEach(function(location){
+          location.setMap(null)
+          console.log('this is the search markers array', searchMarkers)
+          searchMarkers = []
+          console.log(searchMarkers)
+        })
+      }
+
       var places = searchBoxGoogle.getPlaces()
       if (places.length === 0){
-        console.log('no places match your search of', $(inputBox).val())
+      //  console.log('no places match your search of', $(inputBox).val())
         return
       }
       places.forEach(function(place){
-        console.log(place.name)
-        var marker = new google.maps.Marker({
-          map: map,
-          title: place.name,
-          position: place.geometry.location
-        })
-        searchMarkers.push(marker)
+        //console.log(place.name)
+        if (spotBudEvents.includes(place.place_id)) {
+          console.log('already on map', place.name)
+        } else {
+          var marker = new google.maps.Marker({
+            map: map,
+            title: place.name,
+            position: place.geometry.location
+          })
+          searchMarkers.push(marker)
+          google.maps.event.addListener(marker, 'click', function(){
+            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + place.id + '<br>' + '<button id="add-event">Add an event</button>')
+            infoWindow.open(map, this)
+            $('#add-event').on('click', function(){
 
-        google.maps.event.addListener(marker, 'click', function(){
-          infoWindow.setContent(place.name)
-          infoWindow.open(map, this)
-        })
+              $('#modal1').append('<input id="in" type="text">')
+
+              $('#modal1').openModal()
+              $('#close-button').on('click', function(){
+                infoWindow.setContent($('#in').val())
+                
+              })
+              console.log('clicked!!!')
+              spotBudEvents.push(place.place_id)
+              console.log(searchMarkers)
+              searchMarkers.splice(searchMarkers.indexOf(marker), 1)
+              marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+              console.log('removing from ui')
+              console.log(searchMarkers)
+              // console.log(spotBudEvents.length)
+            })
+
+          })
+        }
+
       })
-      console.log(places.length, 'places found with search input', $(inputBox).val())
+      //console.log(places.length, 'places found with search input', $(inputBox).val())
 
     })
+
+    // function addMarker(location){
+    //   console.log(location)
+    //
+    //   var marker = new google.maps.Marker({
+    //     position: location,
+    //     map: map
+    //   })
+    //   console.log(marker.placeId)
+    //   spotBudEvents.push(marker)
+    //
+    //   console.log(spotBudEvents)
+    // }
+    //   map.addListener('click', function(event){
+    //     addMarker(event.latLng)
+    //   })
+
+
 
 
     // Nearby Search Example
