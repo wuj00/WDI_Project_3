@@ -136,7 +136,7 @@
             'Place ID: ' + place.name + '<br>' + place.formatted_address + '</div>' + '<ul><li id="field-hockey-details">Field Hockey Fun</li><li>Volleyball Game</li><li>Squats at Muscle Beach</li><li>Come play sand flag football by Jamie</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li></ul>');
           infoWindow.open(map, this);
           // Here we are adding css to the info window that google provides where we want to show events to change the height of the info box and make it scrollable. We want to show five events (lis) before scrolling
-          $('.gm-style-iw').css({'max-height': '250px', 'overflow-y': 'auto'})
+          $('.gm-style-iw').css({'max-height': '250px'})
           var my_li = $('#field-hockey-details');
           var modal = $('#modal1')
           my_li.on('click', function(){
