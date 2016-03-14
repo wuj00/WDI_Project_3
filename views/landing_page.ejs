@@ -1,25 +1,65 @@
+<style>
+  .input-login{
+    border: 5px !important;
+    border-color: grey !important;
+    outline: inherit;
+  }
+</style>
+
 <div class="text-center col-md-8 col-md-offset-2">
-    <h1><span class="fa fa-lock"></span>SpotBuds</h1>
+    <!-- <h1><span class="fa fa-lock"></span>SpotBuds</h1> -->
     <h3>Login</h3>
-    <form action="action_page.php">
-      <div class="">
-        username:<br>
-        <input id="username" class="input" type="text" name="username" />
-        <br>
-      </div>
-      <div class="">
-        email:<br>
-        <input id="email" class="input" type="email" name="email" />
-      </div>
-      <input type="submit">
-    </form>
-    
-    <a href="/" class="btn btn-default">Local Login</a>
     <br>
-    <h4>–––––– OR ––––––</h4>
+    <div class="row">
+      <form class="col s12" action="/map">
+        <div class="row">
+          <div class="input-field col s3">
+            Email:<br>
+            <input id="input-login" type="email" class="input">
+          </div>
+          <div class="input-field col s3">
+            Password:<br>
+            <input id="input-login" type="password" class="input">
+          </div>
+        </div>
+        <input type="submit" class="btn btn-default" value="Login">
+      </form>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+    <br>
     <h3>Signup!</h4>
     <br>
-    <a href="/signup" class="btn btn-default">Local Signup</a>
+    <div class="row">
+      <form class="col s12" action="/map">
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="username" type="text" class="input">
+            <label for="username">Username</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="email" type="email" class="input">
+            <label for="email">Email</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="password" type="password" class="input">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="password_confirm" type="password" class="input">
+            <label for="password_confirm">Password Confirm</label>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-default" value="Signup">
+      </form>
+    </div>
     <hr>
     <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
 </div>
@@ -29,12 +69,22 @@
 
 <!-- notes for JEN, don't bother with this -->
 
-<!-- <form action="demo_form.asp">
-  <label for="male">Male</label>
-  <input type="radio" name="gender" id="male" value="male"><br>
-  <label for="female">Female</label>
-  <input type="radio" name="gender" id="female" value="female"><br>
-  <label for="other">Other</label>
-  <input type="radio" name="gender" id="other" value="other"><br><br>
-  <input type="submit" value="Submit">
-</form> -->
+<form action="action_page.php" method="get">
+    <div class="row">
+      <form class="col s12" action="/map">
+        <div class="row">
+          <div class="input-field col s3">
+            Email:<br>
+            <input id="input-login" type="email" class="input">
+          </div>
+          <div class="input-field col s3">
+            Password:<br>
+            <input id="input-login" type="password" class="input">
+          </div>
+        </div>
+        <input type="submit" class="btn btn-default" value="Login">
+      </form>
+    </div>
+  </form>
+
+<!-- <form action="action_page.php" method="post"> -->
