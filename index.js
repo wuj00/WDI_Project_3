@@ -4,6 +4,7 @@ var expressLayouts = require('express-ejs-layouts')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var passport = require('passport')
+var routes = require('./routes/main_routes.js')
 
 var app = express()
 
@@ -11,13 +12,9 @@ var app = express()
 app.set('view engine', 'ejs')
 app.use(expressLayouts)
 
-app.get('/', function(req, res){
-  res.render('profile')
-})
 
-app.get('/login', function(req, res){
-  res.render('landing_page')
-})
+
+app.use('/', routes)
 
 app.get('/map', function(req, res){
   res.render('index')
