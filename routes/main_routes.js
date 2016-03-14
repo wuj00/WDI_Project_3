@@ -25,7 +25,7 @@ router.get('/profile', function(req, res){
   res.render('profile')
 })
 //this is the authentication version of the profile route, add that later
-router.get('/profile', function(rep, res){
+router.get('/logout', function(req, res){
   req.logout()
   res.redirect('/login')
 })
