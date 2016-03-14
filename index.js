@@ -19,6 +19,10 @@ app.get('/login', function(req, res){
   res.render('landing_page')
 })
 
+app.get('/map', function(req, res){
+  res.render('index')
+})
+
 app.listen(3000, function(){
   console.log('express server connected and listening on port 3000!')
 })
