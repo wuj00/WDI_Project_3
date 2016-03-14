@@ -4,14 +4,14 @@ var Schema = mongoose.Schema
 
 var userSchema = new Schema({
   local: {
-    name: String,
+    username: String,
     email: String,
     password: String,
     description: String
   },
   facebook: { //facebook stratgey - passwords already exist, we need their fb id
     id: String,
-    name: String,
+    username: String,
     token: String, //
     email: String,
     description: String
@@ -27,4 +27,4 @@ userSchema.methods.generateHash = function(password){
 
 var User = mongoose.model('User', userSchema)
 
-module.exports = User 
+module.exports = User
