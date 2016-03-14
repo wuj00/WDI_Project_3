@@ -22,6 +22,8 @@
     // map for santa monica
     var santaMonica = {lat: 34.024212, lng: -118.496475}
     var spotBudEvents = ['ChIJOymuApikwoARHpp1o3BWzlY','ChIJx92--cikwoARw22QhUijGmc','ChIJZcs3zNCkwoARjU42dRrVZfM','ChIJY9TAMwO7woARfm6h0NW_ycI','ChIJIXI2IdCkwoAR1jqp9T02htA','ChIJjYpkBmmjwoAR2Hft4wzsld0','ChIJGSZtRhO7woAR3OAfz9Ub3_U','ChIJ8z1Qsd26woAR_kIW46rb_8o']
+    var searchMarkers = []
+
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -33.8688, lng: 151.2195},
@@ -54,6 +56,9 @@
     });
 
     searchBoxGoogle.addListener('places_changed', function(){
+      searchMarkers.forEach(function(location){
+        location.setMap(null)
+      })
       var places = searchBoxGoogle.getPlaces()
       if (places.length === 0){
         console.log('no places match your search of', $(inputBox).val())
@@ -66,6 +71,8 @@
           title: place.name,
           position: place.geometry.location
         })
+        searchMarkers.push(marker)
+
         google.maps.event.addListener(marker, 'click', function(){
           infoWindow.setContent(place.name)
           infoWindow.open(map, this)
