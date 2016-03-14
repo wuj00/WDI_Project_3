@@ -1,90 +1,97 @@
 <style>
-  .input-login{
-    border: 5px !important;
-    border-color: grey !important;
-    outline: inherit;
+  #input-login{
+    background-color: #d9d9d9;
+    /*border-top-right-radius: 20px;
+    border-top-left-radius: 20px;*/
+    padding-left: 20px;
+  }
+  .row .col.s4 {
+    width: 25%;
+    margin-left: 20px;
+  }
+  .container{
+    position: center;
   }
 </style>
+<div class="container">
+  <div class="text-center col-md-8 col-md-offset-2">
+      <!-- <h1><span class="fa fa-lock"></span>SpotBuds</h1> -->
+      <h3>Login</h3>
+      <br>
+      <div class="row">
+        <form class="col s12" action="/map">
+          <div class="row">
+            <div class="input-field col s4">
+              Email:<br>
+              <input id="input-login" type="email" class="input">
+            </div>
+            <div class="input-field col s4">
+              Password:<br>
+              <input id="input-login" type="password" class="input">
+            </div>
+          </div>
+          <input type="submit" class="btn btn-default" value="Login">
+        </form>
+      </div>
 
-<div class="text-center col-md-8 col-md-offset-2">
-    <!-- <h1><span class="fa fa-lock"></span>SpotBuds</h1> -->
-    <h3>Login</h3>
-    <br>
-    <div class="row">
-      <form class="col s12" action="/map">
-        <div class="row">
-          <div class="input-field col s3">
-            Email:<br>
-            <input id="input-login" type="email" class="input">
+      <br>
+      <br>
+      <hr>
+      <br>
+      <h3>Create an Account!</h4>
+      <br>
+      <div class="row">
+        <form class="col s12" action="/map">
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="username" type="text" class="input">
+              <label for="username">Username</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="email" type="email" class="input">
+              <label for="email">Email</label>
+            </div>
           </div>
-          <div class="input-field col s3">
-            Password:<br>
-            <input id="input-login" type="password" class="input">
-          </div>
-        </div>
-        <input type="submit" class="btn btn-default" value="Login">
-      </form>
-    </div>
 
-    <br>
-    <br>
-    <hr>
-    <br>
-    <h3>Signup!</h4>
-    <br>
-    <div class="row">
-      <form class="col s12" action="/map">
-        <div class="row">
-          <div class="input-field col s3">
-            <input id="username" type="text" class="input">
-            <label for="username">Username</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="password" type="password" class="input">
+              <label for="password">Password</label>
+            </div>
           </div>
-          <div class="input-field col s3">
-            <input id="email" type="email" class="input">
-            <label for="email">Email</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="password_confirm" type="password" class="input">
+              <label for="password_confirm">Password Confirm</label>
+            </div>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="password" type="password" class="input">
-            <label for="password">Password</label>
+          <div class="row">
+            <div class="options">
+              <p>
+                <input class="with-gap" name="gender-options" type="radio" id="male" />
+                <label for="test1">Male</label>
+              </p>
+              <p>
+                <input class="with-gap" name="gender-options" type="radio" id="female" />
+                <label for="test2">Female</label>
+              </p>
+              <p>
+                <input class="with-gap" name="gender-options" type="radio" id="other"  />
+                <label for="test3">Other</label>
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="password_confirm" type="password" class="input">
-            <label for="password_confirm">Password Confirm</label>
-          </div>
-        </div>
-        <input type="submit" class="btn btn-default" value="Signup">
-      </form>
-    </div>
-    <hr>
-    <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
+          <input type="submit" class="btn btn-default" value="Signup">
+        </form>
+      </div>
+      <hr>
+      <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary">Facebook</a></h4>
+  </div>
 </div>
 
 
 
 
 <!-- notes for JEN, don't bother with this -->
-
-<form action="action_page.php" method="get">
-    <div class="row">
-      <form class="col s12" action="/map">
-        <div class="row">
-          <div class="input-field col s3">
-            Email:<br>
-            <input id="input-login" type="email" class="input">
-          </div>
-          <div class="input-field col s3">
-            Password:<br>
-            <input id="input-login" type="password" class="input">
-          </div>
-        </div>
-        <input type="submit" class="btn btn-default" value="Login">
-      </form>
-    </div>
-  </form>
 
 <!-- <form action="action_page.php" method="post"> -->
