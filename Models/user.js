@@ -4,20 +4,17 @@ var Schema = mongoose.Schema
 
 var userSchema = new Schema({
   local: {
-    username: String,
+    name: String,
     email: String,
     password: String,
     description: String
   },
   facebook: { //facebook stratgey - passwords already exist, we need their fb id
     id: String,
-    username: String,
+    name: String,
     token: String, //
     email: String,
     description: String
-  },
-  {
-    collection: 'spot_buds'
   }
 })
 
@@ -29,6 +26,6 @@ userSchema.methods.validPassword = function(password){
   return bcrypt.compareSync(password, this.local.password)
 }
 
-var User = mongoose.model('spot_buds', userSchema)
+var User = mongoose.model("User", userSchema)
 
 module.exports = User
