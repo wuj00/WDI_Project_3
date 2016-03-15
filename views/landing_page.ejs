@@ -11,7 +11,7 @@
     <h3>Login</h3>
     <br>
     <div class="row">
-      <form class="col s12" action="/map">
+      <form class="col s12" action="/profile" method="get">
         <div class="row">
           <div class="input-field col s3">
             Email:<br>
@@ -22,7 +22,8 @@
             <input id="input-login" type="password" class="input">
           </div>
         </div>
-        <input type="submit" class="btn btn-default" value="Login">
+        <button type="submit" class="btn btn-default">Sign in to site Please</button>
+      
       </form>
     </div>
 
@@ -33,7 +34,7 @@
     <h3>Signup!</h4>
     <br>
     <div class="row">
-      <form class="col s12" action="/map">
+      <form class="col s12" action="/signup" method="post">
         <div class="row">
           <div class="input-field col s3">
             <input id="username" type="text" class="input">
@@ -57,7 +58,7 @@
             <label for="password_confirm">Password Confirm</label>
           </div>
         </div>
-        <input type="submit" class="btn btn-default" value="Signup">
+        <button type="submit" class="btn btn-default">Signup Please</button>
       </form>
     </div>
     <hr>
@@ -69,7 +70,7 @@
 
 <!-- notes for JEN, don't bother with this -->
 
-<form action="action_page.php" method="get">
+<form action="/profile" method="get">
     <div class="row">
       <form class="col s12" action="/map">
         <div class="row">

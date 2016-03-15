@@ -1,46 +1,28 @@
+<div class="navbar-fixed">
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="/profile">Profile</a></li>
+    <li class="divider"></li>
+    <li><a href="/login">Logout</a></li>
+    <li class="divider"></li>
+    <li><a href="/map">Map</a></li>
+    <li class="divider"></li>
+  </ul>
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">SpotBuds Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name%><i class="material-icons right"></i></a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
   <div class="parallax-container">
      <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
    </div>
 
    <div class="profile-space">
-      <!-- <h4> <%= user.local.username || user.facebook.username %> </h4>
-      <% if(user.local.name){ %>
-         <!-- Locally Stored User -->
-
-         <!-- <p>
-             <strong>Name</strong>: <%#= user.local.username %><br>
-             <strong>id</strong>: <%#= user._id %><br>
-             <strong>email</strong>: <%#= user.local.email %><br>
-             <strong>password</strong>: <%#= user.local.password %>
-               <div class="row">
-                 <div class="col s8">
-                   <h5>Description</h5>
-                     <p>
-                       <%#= user.local.description %>
-                     </p>
-                     <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
-                </div>
-              </div>
-            </p> -->
-         <!-- <%# } else {%>
-           <!-- Facebook User -->
-           <!-- <p>
-               <strong>Name</strong>: <%#= user.facebook.username %><br>
-               <strong>id</strong>: <%#= user.facebook.id %><br>
-               <strong>email</strong>: <%#= user.facebook.email %><br>
-               <strong>token</strong>: <%#= user.facebook.token %>
-               <div class="row">
-                 <div class="col s8">
-                   <h5>Description</h5>
-                     <p>
-                       <%= user.facebook.description %>
-                     </p> -->
-                     <!-- <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
-                </div>
-              </div>
-            </p> --> -->
-         <!-- <%# } %> --> -->
+    <h1><%= user.local.name %>This is your name</h1>
      <br>
      <br>
      <div class="row">
@@ -103,3 +85,7 @@
                </div>
              </div>
            </footer>
+
+           <script>
+            $('#layout-nav').css({'display': 'none'})
+           </script>
