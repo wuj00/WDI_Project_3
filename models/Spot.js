@@ -6,11 +6,12 @@ var eventSchema = new mongoose.Schema({
   specific_location: String,
   going_buds: Number,
   maybe_buds: Number,
-  _created_by: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  _created_by: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  _location: {type: mongoose.Schema.Types.ObjectId, ref: 'Spot'}
 })
 var spotSchema = new mongoose.Schema({
   spot_location: {type: String, required: true, unique: true},
-  spot_events: [eventSchema]
+  spot_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 })
 
 var Spot = mongoose.model('Spot', spotSchema)
