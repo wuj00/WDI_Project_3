@@ -24,6 +24,17 @@
       .info-window-box {
 
       }
+      nav #input-login{
+        background-color: white;
+        padding-left: 20px;
+      }
+      nav .row {
+        width: 60%;
+        position: inherit;
+      }
+      nav #nav-mobile{
+        position: inherit;
+      }
       #search-box {
        background-color: white;
        font-size: 15px;
@@ -38,14 +49,43 @@
       <ul id="dropdown1" class="dropdown-content">
         <li><a href="/profile">Profile</a></li>
         <li class="divider"></li>
-        <li><a href="/login">Logout</a></li>
-        <li class="divider"></li>
         <li><a href="/map">Map</a></li>
         <li class="divider"></li>
+        <li><a href="/login" class="modal-content">Login</a></li>
+        <li class="divider"></li>
+        <li><a href="/logout">Logout</a></li>
+        <li class="divider"></li>
       </ul>
+        <!-- <li id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        </div> -->
+
         <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">SpotBuds Logo</a>
+          <a href="/map" class="brand-logo">SpotBuds Logo</a>
+
+          <!-- <div class="text-center login">
+            <div class="row">
+              <form class="col s12" action="/map">
+                <div class="input-field col s4">
+                  <input id="input-login" type="email" class="input" placeholder="Email">
+                </div>
+                <div class="input-field col s4">
+                  <input id="input-login" type="password" class="input" placeholder="Password">
+                </div>
+                <div class="input-field col s4">
+                  <input type="submit" class="btn btn-default" value="Login">
+                </div>
+              </form>
+            </div>
+          </div> -->
+
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Username<i class="material-icons right"></i></a></li>
           </ul>
@@ -58,10 +98,9 @@
     $('.parallax').parallax();
   })
 
+  // var modal = $('#modal1')
 </script>
+
   <%- body %>
   </body>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiziPo9qfv5AIDmkB4JREt9PyDBgphUzY&libraries=places&callback=initMap">
-  </script>
 </html>

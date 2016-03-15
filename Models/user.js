@@ -15,8 +15,12 @@ var userSchema = new Schema({
     token: String, //
     email: String,
     description: String
+  },
+  {
+    collection: 'spot_buds'
   }
 })
+
 userSchema.methods.generateHash = function(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
 }
@@ -25,6 +29,6 @@ userSchema.methods.validPassword = function(password){
   return bcrypt.compareSync(password, this.local.password)
 }
 
-var User = mongoose.model('User', userSchema)
+var User = mongoose.model('spot_buds', userSchema)
 
 module.exports = User
