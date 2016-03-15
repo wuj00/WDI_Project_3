@@ -19,7 +19,7 @@
   </ul>
     <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">SpotBuds Logo</a>
+      <a href="/map" class="brand-logo">SpotBuds Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right"></i></a></li>
       </ul>
@@ -36,17 +36,16 @@
     <h3>Welcome, <%= user.facebook.name ||  user.local.name%></h3>
 
     <div class="row">
-         <div class="col s8">
+         <div class="col s8" id="description">
            <h5>Description</h5>
            <% if(user.local.name){ %>
-               <p>
+               <p contenteditable="true">
                  <%= user.local.description %>
-                 Poutine master cleanse shabby chic ethical celiac brooklyn aesthetic tote bag semiotics. Intelligentsia yuccie kickstarter, listicle hashtag butcher meditation 3 wolf moon actually DIY lumbersexual ugh ennui hella. Pork belly YOLO viral, actually cray truffaut selvage vegan tattooed hashtag meh next level. Cold-pressed chartreuse pitchfork synth drinking vinegar shabby chic. Humblebrag freegan green juice aesthetic, actually tofu blog ugh selvage master cleanse hoodie mumblecore. 90's post-ironic slow-carb, schlitz sustainable waistcoat pork belly cold-pressed. Tilde four dollar toast listicle, kitsch affogato waistcoat migas neutra.
-               </p>
+                </p>
                <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
 
           <% } else {%>
-               <p>
+               <p contenteditable="">
                  <%= user.facebook.description %>
                </p>
                <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
@@ -111,6 +110,21 @@
              </div>
            </footer>
 
-           <script>
-            $('#layout-nav').css({'display': 'none'})
-           </script>
+<script>
+  // $(function(){
+  //   console.log("it's working!")
+  //
+  //   function updateUser(userId){
+  //     console.log(userId)
+  //     $.ajax({
+  //       url: '/api/todos/' + todoId,
+  //       method: "PATCH"
+  //     }).done(function(data){
+  //       // manipulate DOM to show new status for todo element.
+  //       console.log(data)
+  //     })
+  //   }
+  // })
+
+    $('#layout-nav').css({'display': 'none'});
+</script>
