@@ -12,6 +12,8 @@ var cookieParser = require('cookie-parser')
 var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
 var Spot = require('./models/Spot.js')
+var Event = require('./models/Event.js')
+var User = require('./models/User.js')
 
 mongoose.connect('mongodb://localhost/spot_buds', function(err){
   if(err) return console.log('Cannot connect, weep')

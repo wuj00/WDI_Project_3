@@ -24,6 +24,8 @@
   <div class="modal-content">
     <h4>Modal Header</h4>
     <p>A bunch of text</p>
+    <p>enter in a title for your event</p>
+    <input type="text" id="event-title">
   </div>
   <div class="modal-footer">
     <a href="#!" id="close-button" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
@@ -138,7 +140,7 @@ function showUser(){
                       infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
                       infoWindow.open(map, this)
                       $('#add-event-hardcoded').on('click', function(){
-                        console.log('clicked!!!')
+                        console.log('clicked go today!!!')
                         $('#modal1').openModal()
                       })
                     })
@@ -149,10 +151,17 @@ function showUser(){
 
               $('#modal1').openModal()
               $('#close-button').on('click', function(){
-                infoWindow.setContent($('#in').val())
-
+                $.ajax({
+                  method: 'post',
+                  url: '/events',
+                  data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title').val()}),
+                  contentType: 'application/json'
+                })
+                .done(function(data){
+                  infoWindow.setContent($('#event-title').val() + 'it worked!!!! added event!')
+                })
               })
-              console.log('clicked!!!')
+              console.log('clicked already fleek!!!')
 
               console.log(searchMarkers)
               searchMarkers.splice(searchMarkers.indexOf(marker), 1)
@@ -247,8 +256,19 @@ function showUser(){
               infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
               infoWindow.open(map, this)
               $('#add-event-hardcoded').on('click', function(){
-                console.log('clicked!!!')
+                console.log('clicked this is it!!!')
                 $('#modal1').openModal()
+                $('#close-button').on('click', function(){
+                  $.ajax({
+                    method: 'post',
+                    url: '/events',
+                    data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title').val()}),
+                    contentType: 'application/json'
+                  })
+                  .done(function(data){
+                    infoWindow.setContent($('#event-title').val() + 'it worked!!!! added event to already pin!')
+                  })
+                })
               })
             })
           } else {

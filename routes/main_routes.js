@@ -2,14 +2,24 @@ var express = require('express')
 var passport = require('passport')
 var userRouter = express.Router()
 var Spot = require('../models/Spot.js')
+var Event = require('../models/Event.js')
+var User = require('../models/User.js')
 
 
 
-
+userRouter.get('/users', function(req, res){
+  User.find({}).populate('user_events').exec(function(err, results){
+    if (err) throw err
+    console.log(results)
+    res.json(results)
+  })
+})
 
 userRouter.get('/spots', function(req, res){
-  Spot.find({}, function(err, spots){
-    res.json(spots)
+  Spot.find({}).populate('spot_events').exec(function(err, results){
+    if (err) throw err
+      console.log(results)
+      res.json(results)
   })
 })
 
@@ -20,7 +30,44 @@ userRouter.post('/spots', function(req, res){
   })
 })
 
+userRouter.get('/events', function(req, res){
+  Event.find({}, function(err, events){
+    res.json(events)
+  })
+})
 
+
+userRouter.post('/events', isLoggedIn, function(req, res){
+  console.log(req.body.spot_location)
+  User.findOne({_id: req.user._id}, function(err, user){
+    Spot.findOne({spot_location: req.body.spot_location}, function(err, spot){
+      console.log(spot, 'this is spot')
+
+      var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title})
+      newEvent.save(function(err, new_event){
+        console.log(new_event, 'this is what user returns')
+        req.user.user_events.push(new_event)
+        req.user.save(function(){
+          spot.spot_events.push(new_event)
+          spot.save(function(){
+            res.json({message: 'it worked', success: true})
+          })
+        })
+      })
+    })
+  })
+})
+
+// Flow for creating an event
+// 1. find the current user with session cookie
+// 2. find the spot using the request params spot id
+// 3. create the event from form data with the user id and spot id and title
+// 4. save the created event
+// 5. on save push the new event into the user's user_events
+// 6. save the user
+// 7. on saving of the user, push the new event into the spot's spot_events
+// 8. save the spot
+// 9. respond with json or render
 
 
 

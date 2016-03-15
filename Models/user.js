@@ -17,7 +17,6 @@ var user_schema = new Schema({
     decription: String
   },
   user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
-
 })
 
 
