@@ -1,0 +1,22 @@
+{
+	"variants": {
+		"resize": {
+			"mini" : "300x200",
+			"preview": "800x600"
+		},
+		"crop": {
+			"thumb": "200x200"
+		}
+	},
+
+	"storage": {
+		"aws": {
+			"key" : "AKIAJKFH3A2XF5NMGU5Q",
+			"secret" : "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",
+			"bucket" : "spotbuds"
+		},
+    "dir": {
+        "path" : "./tmp/" 
+    }
+	}
+}
