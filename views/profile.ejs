@@ -9,43 +9,43 @@
    </div>
 
    <div class="profile-space">
-     <!-- <h4> <%#= user.local.name || user.facebook.name %> </h4> -->
-     <!-- <%# if(user.local.name){ %>
-         <h3>Locally Stored User</h3>
+      <!-- <h4> <%= user.local.username || user.facebook.username %> </h4>
+      <% if(user.local.name){ %>
+         <!-- Locally Stored User -->
 
-         <p>
-             <strong>Name</strong>: <%#= user.local.name %><br>
+         <!-- <p>
+             <strong>Name</strong>: <%#= user.local.username %><br>
              <strong>id</strong>: <%#= user._id %><br>
              <strong>email</strong>: <%#= user.local.email %><br>
-             <strong>password</strong>: <%#= user.local.password %> -->
+             <strong>password</strong>: <%#= user.local.password %>
                <div class="row">
                  <div class="col s8">
                    <h5>Description</h5>
                      <p>
-                       <!-- <%#= user.local.description %> -->
+                       <%#= user.local.description %>
                      </p>
                      <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
                 </div>
               </div>
-         <!-- </p>
-         <#% } else {%>
-           <h3>Facebook User</h3>
-           <p>
-               <strong>Name</strong>: <%#= user.facebook.name %><br>
+            </p> -->
+         <!-- <%# } else {%>
+           <!-- Facebook User -->
+           <!-- <p>
+               <strong>Name</strong>: <%#= user.facebook.username %><br>
                <strong>id</strong>: <%#= user.facebook.id %><br>
                <strong>email</strong>: <%#= user.facebook.email %><br>
-               <strong>token</strong>: <%#= user.facebook.token %> -->
+               <strong>token</strong>: <%#= user.facebook.token %>
                <div class="row">
                  <div class="col s8">
                    <h5>Description</h5>
                      <p>
-                       <!-- <%#= user.facebook.description %> -->
-                     </p>
-                     <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
+                       <%= user.facebook.description %>
+                     </p> -->
+                     <!-- <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
                 </div>
               </div>
-           <!-- </p>
-         <%# } %> -->
+            </p> --> -->
+         <!-- <%# } %> --> -->
      <br>
      <br>
      <div class="row">
