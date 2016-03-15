@@ -15,6 +15,13 @@ userRouter.get('/users', function(req, res){
   })
 })
 
+userRouter.patch('/users/:id', function(req, res){
+  User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
+    if(err) console.log(err)
+    res.json({success: true, user: user})
+  })
+})
+
 userRouter.get('/spots', function(req, res){
   Spot.find({}).populate('spot_events').exec(function(err, results){
     if (err) throw err
