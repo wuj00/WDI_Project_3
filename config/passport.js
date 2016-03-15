@@ -4,6 +4,7 @@ var
   FacebookStrategy = require('passport-facebook').Strategy,
   User = require('../models/User.js'),
   configAuth = require('./auth.js')
+
 passport.serializeUser(function(user, done){
   done(null, user.id)
 })
@@ -35,6 +36,7 @@ passport.use('local-signup', new LocalStrategy({
     })
   })
 }))
+
 // local login strategy:
 passport.use('local-login', new LocalStrategy({
   usernameField: 'email',
