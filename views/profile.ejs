@@ -20,7 +20,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">SpotBuds Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.facebook.name %><i class="material-icons right"></i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right"></i></a></li>
       </ul>
     </div>
   </nav>
