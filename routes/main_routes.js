@@ -1,6 +1,33 @@
 var express = require('express')
 var passport = require('passport')
 var userRouter = express.Router()
+var Spot = require('../models/Spot.js')
+
+
+
+
+
+userRouter.get('/spots', function(req, res){
+  Spot.find({}, function(err, spots){
+    res.json(spots)
+  })
+})
+
+userRouter.post('/spots', function(req, res){
+  Spot.create(req.body, function(err, spot){
+    if (err) throw err
+    res.json({success: true, spot: spot})
+  })
+})
+
+
+
+
+
+
+userRouter.get('/map', isLoggedIn, function(req, res){
+  res.render('index', {user: req.user})
+})
 
 userRouter.route('/login')
   .get(function(req, res){
@@ -26,7 +53,7 @@ userRouter.get('/profile', isLoggedIn, function(req, res){
 
 userRouter.get('/logout', function(req, res){
   req.logout()
-  res.redirect('/')
+  res.redirect('/login')
 })
 
 userRouter.get('/auth/facebook', passport.authenticate('facebook', {

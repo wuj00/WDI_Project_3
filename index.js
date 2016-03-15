@@ -11,6 +11,7 @@ var session = require('express-session')
 var cookieParser = require('cookie-parser')
 var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
+var Spot = require('./models/Spot.js')
 
 mongoose.connect('mongodb://localhost/spot_buds', function(err){
   if(err) return console.log('Cannot connect, weep')
@@ -36,12 +37,6 @@ app.use(ejsLayouts)
 
 //app has access to /login, /profile, and /logout because of this
 app.use('/', routes)
-
-
-
-app.get('/map', function(req, res){
-  res.render('index')
-})
 
 app.listen(3000, function(){
   console.log('express server connected and listening on port 3000!')

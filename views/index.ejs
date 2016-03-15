@@ -1,3 +1,23 @@
+<div class="navbar-fixed">
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="/profile">Profile</a></li>
+    <li class="divider"></li>
+    <li><a href="/logout">Logout</a></li>
+    <li class="divider"></li>
+    <li><a href="/map">Map</a></li>
+    <li class="divider"></li>
+    <li><a id="edit-profile" href="/profile">Settings</a></li>
+    <li class="divider"></li>
+  </ul>
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">SpotBuds Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.facebook.name %><i class="material-icons right"></i></a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -15,6 +35,9 @@
 
 
 <script>
+
+
+
 function showUser(){
   console.log(user.local.username)
 }
@@ -28,12 +51,14 @@ function showUser(){
     var santaMonica = {lat: 34.024212, lng: -118.496475}
     var spotBudEvents = ['ChIJOymuApikwoARHpp1o3BWzlY','ChIJx92--cikwoARw22QhUijGmc','ChIJZcs3zNCkwoARjU42dRrVZfM','ChIJY9TAMwO7woARfm6h0NW_ycI','ChIJIXI2IdCkwoAR1jqp9T02htA','ChIJjYpkBmmjwoAR2Hft4wzsld0','ChIJGSZtRhO7woAR3OAfz9Ub3_U','ChIJ8z1Qsd26woAR_kIW46rb_8o']
     var searchMarkers = []
+    var allMarkers = []
 
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -33.8688, lng: 151.2195},
       zoom: 13
     });
+
 
 
     if (navigator.geolocation){
@@ -91,7 +116,35 @@ function showUser(){
             infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + place.id + '<br>' + '<button id="add-event">Add an event</button>')
             infoWindow.open(map, this)
             $('#add-event').on('click', function(){
-
+              console.log(place.place_id)
+              $.ajax({
+                method: 'post',
+                url: '/spots',
+                data: JSON.stringify({spot_location: place.place_id.toString()}),
+                contentType: 'application/json'
+              })
+              .done(function(new_spot){
+                console.log(new_spot, 'this is the new spot')
+                service.getDetails({
+                  placeId: new_spot.spot.spot_location
+                }, function(place, status){
+                  if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    var marker = new google.maps.Marker({
+                      map: map,
+                      position: place.geometry.location,
+                      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                    })
+                    google.maps.event.addListener(marker, 'click', function(){
+                      infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
+                      infoWindow.open(map, this)
+                      $('#add-event-hardcoded').on('click', function(){
+                        console.log('clicked!!!')
+                        $('#modal1').openModal()
+                      })
+                    })
+                  }
+                })
+              })
               $('#modal1').append('<input id="in" type="text">')
 
               $('#modal1').openModal()
@@ -100,7 +153,7 @@ function showUser(){
 
               })
               console.log('clicked!!!')
-              spotBudEvents.push(place.place_id)
+
               console.log(searchMarkers)
               searchMarkers.splice(searchMarkers.indexOf(marker), 1)
               marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
@@ -162,27 +215,59 @@ function showUser(){
     // marker colors - blue : http://maps.google.com/mapfiles/ms/icons/blue-dot.png
     // green - http://maps.google.com/mapfiles/ms/icons/green-dot.png
 
-    spotBudEvents.forEach(function(id){
-      service.getDetails({
-        placeId: id
-      }, function(place, status){
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-          })
-          google.maps.event.addListener(marker, 'click', function(){
-            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
-            infoWindow.open(map, this)
-            $('#add-event-hardcoded').on('click', function(){
-              console.log('clicked!!!')
-              $('#modal1').openModal()
+
+
+
+    $.ajax({
+      method: 'get',
+      url: '/spots'
+    })
+    .done(function(spots){
+      console.log('dropping pins!!!!!!!')
+      if (allMarkers.length > 0) {
+        allMarkers.forEach(function(location){
+          location.setMap(null)
+          allMarkers = []
+        })
+      }
+      console.log(spots)
+
+      spots.forEach(function placeMarkers(spot){
+        service.getDetails({
+          placeId: spot.spot_location
+        }, function(place, status){
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location,
+              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
             })
-          })
-        }
+            allMarkers.push(marker)
+            google.maps.event.addListener(marker, 'click', function(){
+              infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
+              infoWindow.open(map, this)
+              $('#add-event-hardcoded').on('click', function(){
+                console.log('clicked!!!')
+                $('#modal1').openModal()
+              })
+            })
+          } else {
+            // using recursion to display all markers to the screen
+            setTimeout(function(){ placeMarkers(spot)}, 500)
+            console.log(status, 'not working nooooo')
+          }
+        })
       })
     })
+
+    function fill_map(data){
+
+
+    }
+
+
+
+
 
     service.getDetails({
       placeId: 'ChIJGQCRws6kwoARq_Uj_7UKF7Q'
@@ -211,7 +296,11 @@ function showUser(){
       }
     });
   }
+
 </script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiziPo9qfv5AIDmkB4JREt9PyDBgphUzY&libraries=places&callback=initMap">
+</script>
+<script>
+ $('#layout-nav').css({'display': 'none'})
 </script>
