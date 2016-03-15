@@ -4,10 +4,7 @@ var
   FacebookStrategy = require('passport-facebook').Strategy,
   User = require('../models/User.js'),
   configAuth = require('./auth.js')
-<<<<<<< HEAD
-=======
 
->>>>>>> 3058f6183243d28281f4b42e698c81f83369ddc8
 passport.serializeUser(function(user, done){
   done(null, user.id)
 })
@@ -16,10 +13,6 @@ passport.deserializeUser(function(id, done){
     done(err, user)
   })
 })
-<<<<<<< HEAD
-=======
-
->>>>>>> 3058f6183243d28281f4b42e698c81f83369ddc8
 // our strategy for creating users:
 passport.use('local-signup', new LocalStrategy({
   // map email and password to passport's default keys
