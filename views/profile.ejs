@@ -1,3 +1,10 @@
+
+<!-- /*<style>
+  .responsive-img{
+    border-radius: 500px;
+  }
+</style>*/ -->
+
 <div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="/profile">Profile</a></li>
@@ -24,7 +31,10 @@
    </div>
 
    <div class="profile-space">
-    <h1><%= user.facebook.name %>This is your name</h1>
+
+    <h1><%= user.facebook.name ||  user.local.name%></h1>
+
+
      <br>
      <br>
      <div class="row">
@@ -44,16 +54,16 @@
        <div class="col s12 center-align">
          <h5>Recent SpotBuds</h5>
          <div class="col s3 center-align">Bud 1
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="circle responsive-img">
+           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
          <div class="col s3 center-align">Bud 2
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="circle responsive-img">
+           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
          <div class="col s3 center-align">Bud 3
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="circle responsive-img">
+           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
          <div class="col s3 center-align">Bud 4
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="circle responsive-img">
+           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
      </div>
    </div>
@@ -82,7 +92,7 @@
              </div>
              <div class="footer-copyright">
                <div class="container">
-               © 2016 Copyright SpotBuds
+               © 2016 Copyright <a href="/map" class="white-text">SpotBuds</a>
                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                </div>
              </div>

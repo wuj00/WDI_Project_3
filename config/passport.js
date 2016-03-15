@@ -8,13 +8,11 @@ var
 passport.serializeUser(function(user, done){
   done(null, user.id)
 })
-
 passport.deserializeUser(function(id, done){
   User.findById(id, function(err, user){
     done(err, user)
   })
 })
-
 // our strategy for creating users:
 passport.use('local-signup', new LocalStrategy({
   // map email and password to passport's default keys
@@ -52,7 +50,6 @@ passport.use('local-login', new LocalStrategy({
     return done(null, user)
   })
 }))
-
 passport.use(new FacebookStrategy({
   clientID: configAuth.facebook.clientID,
   clientSecret: configAuth.facebook.clientSecret,
@@ -73,5 +70,4 @@ passport.use(new FacebookStrategy({
       })
     })
 }))
-
 module.exports = passport

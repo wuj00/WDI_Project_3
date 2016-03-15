@@ -20,6 +20,7 @@ var user_schema = new Schema({
   }
 })
 
+
 user_schema.methods.generateHash = function(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
 }
@@ -27,6 +28,7 @@ user_schema.methods.generateHash = function(password){
 user_schema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password)
 }
+
 
 var User = mongoose.model("User", user_schema)
 
