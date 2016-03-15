@@ -97,7 +97,7 @@ function showUser(){
               $('#modal1').openModal()
               $('#close-button').on('click', function(){
                 infoWindow.setContent($('#in').val())
-                
+
               })
               console.log('clicked!!!')
               spotBudEvents.push(place.place_id)
@@ -173,8 +173,12 @@ function showUser(){
             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
           })
           google.maps.event.addListener(marker, 'click', function(){
-            infoWindow.setContent(place.name + '<br>' + place.formatted_address)
+            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
             infoWindow.open(map, this)
+            $('#add-event-hardcoded').on('click', function(){
+              console.log('clicked!!!')
+              $('#modal1').openModal()
+            })
           })
         }
       })
