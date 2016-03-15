@@ -7,17 +7,17 @@ var user_schema = new Schema({
     name: String,
     email: String,
     password: String,
-    description: String,
-    user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Spot'}]
+    description: String
   },
   facebook: {
     id: String,
     name: String,
     token: String,
     email: String,
-    decription: String,
-    user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Spot'}]
-  }
+    decription: String
+  },
+  user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
+
 })
 
 
