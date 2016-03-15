@@ -1,0 +1,46 @@
+<h3>Create an Account!</h4>
+<br>
+<div class="row">
+  <form class="col s12" method="post" action="/signup">
+    <div class="row">
+      <div class="input-field col s3">
+        <input name="name" type="text" class="input">
+        <label for="name">Username</label>
+      </div>
+      <div class="input-field col s3">
+        <input email="email" type="email" class="input">
+        <label for="email">Email</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input name="password" type="password" class="input">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="password_confirm" type="password" class="input">
+        <label for="password_confirm">Password Confirm</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="options">
+        <p>
+          <input class="with-gap" name="group1" type="radio" id="male" />
+          <label for="male">Male</label>
+        </p>
+        <p>
+          <input class="with-gap" name="group1" type="radio" id="female" />
+          <label for="female">Female</label>
+        </p>
+        <p>
+          <input class="with-gap" name="group1" type="radio" id="other"  />
+          <label for="other">Other</label>
+        </p>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Sign Up!</button>
+  </form>
+</div>
