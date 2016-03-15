@@ -6,17 +6,16 @@ var user_schema = new Schema({
   local: {
     name: String,
     email: String,
-    password: String,
-    description: String
+    password: String
   },
   facebook: {
     id: String,
     name: String,
     token: String,
-    email: String,
-    decription: String
+    email: String
   },
-  user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
+  user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
+  description: String
 })
 
 
