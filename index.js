@@ -17,13 +17,11 @@ var User = require('./models/User.js') //Make uppercase later
 
 // App Constants
 var PORT = process.env.PORT || 3000
-// var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
+var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
+// var LOCAL_ DB_URL = 'mongodb://localhost/spot_buds'
 
 // Connect to Mongo DB Via Remote Heroku
-// mongoose.connect(DB_URL)
-
-//Connect to Mongo DB locally using mongoose
-mongoose.connect('mongodb://localhost/spot_buds', function(err){
+mongoose.connect(DB_URL, function(err){
   if(err) return console.log('Cannot connect, weep')
   console.log('Connected to MongoDb, woot!')
 })
