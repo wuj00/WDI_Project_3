@@ -38,18 +38,31 @@
     <div class="row">
          <div class="col s8" id="description">
            <h5>Description</h5>
-           <% if(user.local.name){ %>
-               <p contenteditable="true">
-                 <%= user.local.description %>
-                </p>
-               <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
-
-          <% } else {%>
-               <p contenteditable="true">
-                 <%= user.facebook.description %>
+               <p>
+                 <%= user.description %>
                </p>
-               <a class="waves-effect waves-light btn" id="edit-button">Edit Profile</a>
-          <% } %>
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+          <!-- Modal Structure -->
+              <div id="modal1" class="modal">
+                <div class="modal-content">
+                  <h4>Edit Your Settings!</h4>
+                  <form action="/users/:id" method="patch">
+                    <% if(user.local.name){ %>
+                      <input id="localName" type="text" name="local[name]">Username
+                      <input id="localEmail" type="text" name="local[email]">Email
+                      <input id="localPassword" type="text" name="local[password]">Password
+                    <% } else {%>
+                      <input id="fbName" type="text" name="facebook[name]">Username
+                      <input id="fbEmail" type="text" name="facebook[email]">Email
+                    <% } %>
+                    <input id="Descr" type="text" name="description">Description (Tell us about yourself and the activities you like!)
+                  </form>
+
+                </div>
+                <div class="modal-footer">
+                  <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+                </div>
+              </div>
           </div>
        <div class="col s4 card-panel hoverable center-align">
          <h5>4 Favs</h5>
@@ -108,23 +121,45 @@
                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                </div>
              </div>
+
+             <div id="user" data-id=<%= user.id %> >
+
+             </div>
            </footer>
 
 <script>
-  // $(function(){
-  //   console.log("it's working!")
-  //
-  //   function updateUser(userId){
-  //     console.log(userId)
-  //     $.ajax({
-  //       url: '/api/todos/' + todoId,
-  //       method: "PATCH"
-  //     }).done(function(data){
-  //       // manipulate DOM to show new status for todo element.
-  //       console.log(data)
-  //     })
-  //   }
-  // })
+  $(function(){
+    console.log("it's working!")
+    function updateUser(){
+      var userId = ($('#user').data("id"))
+      var user = {local: {
+          name: $('#localName').val(),
+          email:$('#localEmail').val(),
+          password: $('#localPassword').val()
+        },
+        facebook: {
+          name:$('#fbName').val(),
+          email: $('#fbEmail').val()
+        },
+        description: $('#Descr').val() }
+
+      $.ajax({
+        url: '/users/' + userId,
+        method: "PATCH",
+        data: JSON.stringify(user),
+        contentType: 'application/json'
+      }).done(function(data){
+        // manipulate DOM to show new status for todo element.
+        console.log(data)
+      })
+    }
+
+    var $editButton = $('#edit-button')
+    $editButton.on('click', function(evt){
+      console.log()
+      updateUser()
+    })
+  })
 
     $('#layout-nav').css({'display': 'none'});
 </script>
