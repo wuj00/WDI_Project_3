@@ -6,7 +6,6 @@ var Event = require('../models/Event.js')
 var User = require('../models/User.js')
 
 
-
 userRouter.get('/users', function(req, res){
   User.find({}).populate('user_events').exec(function(err, results){
     if (err) throw err
@@ -75,8 +74,6 @@ userRouter.post('/events', isLoggedIn, function(req, res){
 // 7. on saving of the user, push the new event into the spot's spot_events
 // 8. save the spot
 // 9. respond with json or render
-
-
 
 
 userRouter.get('/map', isLoggedIn, function(req, res){
