@@ -4,6 +4,8 @@ var userRouter = express.Router()
 var Spot = require('../models/Spot.js')
 var Event = require('../models/Event.js')
 var User = require('../models/User.js')
+var multer = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 
 userRouter.get('/users', function(req, res){
@@ -13,8 +15,8 @@ userRouter.get('/users', function(req, res){
     res.json(results)
   })
 })
-
-userRouter.patch('/users/:id', function(req, res){
+//route for profile updates includes photo element
+userRouter.patch('/users/:id', upload.single('avatar'), function(req, res){
   User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
     if(err) console.log(err)
     res.json({success: true, user: user})
