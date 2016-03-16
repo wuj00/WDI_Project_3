@@ -48,14 +48,14 @@
                   <h4>Edit Your Settings!</h4>
                   <form action="/users/:id" method="patch">
                     <% if(user.local.name){ %>
-                      <input id="localName" type="text" name="local[name]">Username
-                      <input id="localEmail" type="text" name="local[email]">Email
-                      <input id="localPassword" type="text" name="local[password]">Password
+                      <input id="localName" type="text" name="local[name]" value= <%=user.local.name%> >Username
+                      <input id="localEmail" type="text" name="local[email]" value= <%=user.local.email%> >Email
+                      <input id="localPassword" type="text" name="local[password]" value= <%=user.local.password%> >Password
                     <% } else {%>
-                      <input id="fbName" type="text" name="facebook[name]">Username
-                      <input id="fbEmail" type="text" name="facebook[email]">Email
+                      <input id="fbName" type="text" name="facebook[name]" value= <%=user.facebook.name%> >Username
+                      <input id="fbEmail" type="text" name="facebook[email]" value= <%=user.facebook.email%> >Email
                     <% } %>
-                    <input id="Descr" type="text" name="description">Description (Tell us about yourself and the activities you like!)
+                    <input id="Descr" type="text" name="description" value= <%=user.description%> >Description (Tell us about yourself and the activities you like!)
                   </form>
 
                 </div>
@@ -152,7 +152,14 @@
         // manipulate DOM to show new status for todo element.
         console.log(data)
       })
-    }
+
+    //   $.ajax({
+    //     url:'/users' + userId,
+    //     method: "GET",
+    //   }).done(function(data){
+    //
+    //   })
+    // }
 
     var $editButton = $('#edit-button')
     $editButton.on('click', function(evt){
