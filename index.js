@@ -13,18 +13,20 @@ var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
 var Spot = require('./models/Spot.js')
 var Event = require('./models/Event.js')
-var User = require('./models/User.js') //Make uppercase later
+var User = require('./models/User.js')
 
 // App Constants
 var PORT = process.env.PORT || 3000
-var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
+// // Connect to DB using Heroku
+// var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
+//
+// mongoose.connect(DB_URL)
 
-// Connect to DB
-mongoose.connect(DB_URL)
-// , function(err){
-//   if(err) return console.log('Cannot connect, weep')
-//   console.log('Connected to MongoDb, woot!')
-// }
+// Connect to Mongo DB locally
+mongoose.connect('mongodb://localhost/spot_buds', function(err){
+  if(err) return console.log('Cannot connect, weep')
+  console.log('Connected to MongoDb, woot!')
+})
 
 
 //middleware
