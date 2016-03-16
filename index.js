@@ -23,7 +23,7 @@ var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbud
 mongoose.connect(DB_URL), function(err){
   if(err) return console.log('Cannot connect, weep')
   console.log('Connected to MongoDb, woot!')
-})
+}
 
 
 //middleware
@@ -33,7 +33,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 6000000}
+  cookie: {_expires: 6000000},
+  resave: true,
+  saveUninitialized: true
 }))
 app.use(passport.initialize()) //initializes the session duh
 app.use(passport.session()) //tells passport to be in charge of the session
@@ -46,6 +48,6 @@ app.use(ejsLayouts)
 //app has access to /login, /profile, and /logout because of this
 app.use('/', routes)
 
-app.listen(3000, function(){
+app.listen(PORT, function(){
   console.log('express server connected and listening on port 3000!')
 })
