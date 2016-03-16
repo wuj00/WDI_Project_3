@@ -148,7 +148,6 @@
         data: JSON.stringify(user),
         contentType: 'application/json'
       }).done(function(data){
-        // manipulate DOM to show new status for todo element.
         console.log(data)
       })
 
@@ -166,6 +165,7 @@
       updateUser()
     })
   })
-
+</script>  
+<script>
     $('#layout-nav').css({'display': 'none'});
 </script>
