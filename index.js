@@ -13,7 +13,7 @@ var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
 var Spot = require('./models/Spot.js')
 var Event = require('./models/Event.js')
-var User = require('./models/User.js')
+var User = require('./models/user.js')
 
 // App Constants
 var PORT = process.env.PORT || 3000
