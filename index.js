@@ -45,7 +45,7 @@ app.use(flash()) //there could be flash messages here, use them in the view plea
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)
 
-//
+//root route
 app.get('/', function(req, res){
   res.redirect('/login')
 })
