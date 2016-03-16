@@ -49,5 +49,5 @@ app.use(ejsLayouts)
 app.use('/', routes)
 
 app.listen(PORT, function(){
-  console.log('express server connected and listening on port 3000!')
+  console.log('express server connected and listening on port !', PORT)
 })
