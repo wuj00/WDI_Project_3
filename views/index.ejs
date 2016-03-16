@@ -92,6 +92,7 @@ function showUser(){
 
     var service = new google.maps.places.PlacesService(map);
 
+    var conDiv = $('<div id="con-div"></div>')
     // creates search box, puts the input into the map ui and sets up auto complete
     var inputBox = document.getElementById('search-box')
     var searchBoxGoogle = new google.maps.places.SearchBox(inputBox)
@@ -162,6 +163,7 @@ function showUser(){
               })
 
               $('#modal1').openModal()
+
               $('#close-button').on('click', function(){
                 $.ajax({
                   method: 'post',
@@ -259,23 +261,35 @@ function showUser(){
     $('body').on('click', '#close-button2', function(){
       postEvent(selectedPlace)
     })
-
+    var spot_div = $('<div id="result"></div>')
 
     $.ajax({
       method: 'get',
       url: '/spots'
     })
     .done(function(spots){
-      console.log('dropping pins!!!!!!!')
+
+
+      //console.log('dropping pins!!!!!!!')
       if (allMarkers.length > 0) {
         allMarkers.forEach(function(location){
           location.setMap(null)
           allMarkers = []
         })
       }
-      console.log(spots)
+      console.log(spots, 'these are all the spots yo')
+      var toSpot = null
+      for (var i = 0; i < spots.length; i +=1){
+        if (spots[i].spot_events.length > 0) {
+          spots[i].spot_events.forEach(function(sE){
+            //console.log(sE.title, i)
+            toSpot = i
+          })
+        }
+      }
 
       spots.forEach(function placeMarkers(spot){
+
         service.getDetails({
           placeId: spot.spot_location
         }, function(place, status){
@@ -284,22 +298,52 @@ function showUser(){
             var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              title: spot.spot_location
             })
             allMarkers.push(marker)
+
+            //console.log(marker.title)
+
+            // spot_div.html('')
+
+            var spot_ul = $('<ul></ul>')
+
+
             google.maps.event.addListener(marker, 'click', function(){
               selectedPlace = place
-              console.log(place)
-              // spot.spot_events.forEach(function(el){
-              //   spot.name += el.title
-              // })
-              infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
-              infoWindow.open(map, this)
+              //console.log(place)
+              spots.forEach(function(spot){
+                var uInfoWindow = new google.maps.InfoWindow()
+                spot.spot_events.forEach(function(spEvent){
+                  spot_ul.html('')
+                  // console.log(spot.spot_location)
+                  if (marker.title === spot.spot_location) {
+                    for (var j = 0; j < spot.spot_events.length; j += 1) {
+                        spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
+                        // console.log(spot.spot_events.length, 'len')
+                        infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
+                    }
+
+                  }
+
+                })
+                // spot_ul.html().toString()
+                // console.log(spot_ul.html().toString())
+
+
+
+              })
+              // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
+
+              infoWindow.open(map, marker)
+
+
             })
           } else {
             // using recursion to display all markers to the screen
             setTimeout(function(){ placeMarkers(spot)}, 500)
-            console.log(status, 'not working nooooo')
+            //console.log(status, 'not working nooooo')
           }
         })
       })
