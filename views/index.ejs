@@ -34,6 +34,19 @@
 <input id="search-box" class="search-box-class" type="text" placeholder="Search for a place">
 <div id="map"></div>
 
+<!-- Modal for already dropped pin -->
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+    <p>enter in a title for your event</p>
+    <input type="text" id="event-title2">
+  </div>
+  <div class="modal-footer">
+    <a href="#!" id="close-button2" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+
 
 
 <script>
@@ -147,7 +160,6 @@ function showUser(){
                   }
                 })
               })
-              $('#modal1').append('<input id="in" type="text">')
 
               $('#modal1').openModal()
               $('#close-button').on('click', function(){
@@ -159,6 +171,7 @@ function showUser(){
                 })
                 .done(function(data){
                   infoWindow.setContent($('#event-title').val() + 'it worked!!!! added event!')
+
                 })
               })
               console.log('clicked already fleek!!!')
@@ -223,8 +236,29 @@ function showUser(){
 
     // marker colors - blue : http://maps.google.com/mapfiles/ms/icons/blue-dot.png
     // green - http://maps.google.com/mapfiles/ms/icons/green-dot.png
+    var selectedPlace = null
+    function postEvent(place){
+      console.log('Adding an event...')
+      $.ajax({
+        method: 'post',
+        url: '/events',
+        data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title2').val()}),
+        contentType: 'application/json'
+      })
+      .done(function(data){
+        infoWindow.setContent($('#event-title2').val())
 
+      })
+    }
 
+    $('body').on('click', '#add-event-hardcoded2', function(){
+      console.log('clicked this is it!!!')
+      $('#modal2').openModal()
+    })
+
+    $('body').on('click', '#close-button2', function(){
+      postEvent(selectedPlace)
+    })
 
 
     $.ajax({
@@ -245,6 +279,7 @@ function showUser(){
         service.getDetails({
           placeId: spot.spot_location
         }, function(place, status){
+
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             var marker = new google.maps.Marker({
               map: map,
@@ -253,23 +288,13 @@ function showUser(){
             })
             allMarkers.push(marker)
             google.maps.event.addListener(marker, 'click', function(){
-              infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
+              selectedPlace = place
+              console.log(place)
+              // spot.spot_events.forEach(function(el){
+              //   spot.name += el.title
+              // })
+              infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
               infoWindow.open(map, this)
-              $('#add-event-hardcoded').on('click', function(){
-                console.log('clicked this is it!!!')
-                $('#modal1').openModal()
-                $('#close-button').on('click', function(){
-                  $.ajax({
-                    method: 'post',
-                    url: '/events',
-                    data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title').val()}),
-                    contentType: 'application/json'
-                  })
-                  .done(function(data){
-                    infoWindow.setContent($('#event-title').val() + 'it worked!!!! added event to already pin!')
-                  })
-                })
-              })
             })
           } else {
             // using recursion to display all markers to the screen
