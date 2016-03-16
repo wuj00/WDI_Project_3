@@ -13,12 +13,19 @@ var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
 var Spot = require('./models/Spot.js')
 var Event = require('./models/Event.js')
-var User = require('./models/User.js')
+var User = require('./models/User.js') //Make uppercase later
 
-mongoose.connect('mongodb://localhost/spot_buds', function(err){
-  if(err) return console.log('Cannot connect, weep')
-  console.log('Connected to MongoDb, woot!')
-})
+// App Constants
+var PORT = process.env.PORT || 3000
+var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
+
+// Connect to DB
+mongoose.connect(DB_URL)
+// , function(err){
+//   if(err) return console.log('Cannot connect, weep')
+//   console.log('Connected to MongoDb, woot!')
+// }
+
 
 //middleware
 app.use(logger('dev'))
@@ -27,7 +34,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 6000000}
+  cookie: {_expires: 6000000},
+  resave: true,
+  saveUninitialized: true
 }))
 app.use(passport.initialize()) //initializes the session duh
 app.use(passport.session()) //tells passport to be in charge of the session
@@ -40,6 +49,6 @@ app.use(ejsLayouts)
 //app has access to /login, /profile, and /logout because of this
 app.use('/', routes)
 
-app.listen(3000, function(){
-  console.log('express server connected and listening on port 3000!')
+app.listen(PORT, function(){
+  console.log('express server connected and listening on port !', PORT)
 })
