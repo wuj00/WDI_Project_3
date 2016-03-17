@@ -5,21 +5,34 @@ var Spot = require('../models/Spot.js')
 var Event = require('../models/Event.js')
 var User = require('../models/User.js')
 var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
 
 
 userRouter.get('/users', function(req, res){
   User.find({}).populate('user_events').exec(function(err, results){
     if (err) throw err
-    console.log(results)
     res.json(results)
   })
 })
 //route for profile updates includes photo element
-userRouter.patch('/users/:id', upload.single('avatar'), function(req, res){
-  User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
-    if(err) console.log(err)
-    res.json({success: true, user: user})
+userRouter.patch('/users/:id', multer({ dest: './uploads/'}).single('avatar'), function(req, res){
+  console.log(req)
+  res.json({message: "Check yo terminal foo!"})
+  // User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
+  //   if(err) console.log(err)
+  //   res.json({success: true, user: user})
+  //   console.log(user)
+  // })
+})
+
+userRouter.post('/users/:id', multer({ dest: './uploads/'}).single('avatar'), function(req, res){
+  console.log(req.files)
+  console.log(req.file)
+})
+
+userRouter.get('/users/:id', isLoggedIn, function(req, res){
+  User.findOne({_id: req.user._id}, function(err, user){
+    if(err) throw err
+    res.json(user)
   })
 })
 
