@@ -1,66 +1,118 @@
 <style>
   body {
-    /*background-color: black;
-    background-image: url("/assets/images/Logo-text-white.png");
+    background-color: black;
+    background-image: url("/assets/images/Logo-text-lowopacity.png");
     background-position: center;
     background-attachment: fixed;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-opacity:*/
-  }
-  #input-login{
-    background-color: #d9d9d9;
-    /*border-top-right-radius: 20px;
-    border-top-left-radius: 20px;*/
-    padding-left: 20px;
-  }
-  .row .col.s4 {
-    width: 25%;
-    margin-left: 20px;
   }
   .container{
-    position: center;
+    /*background-color: #455a64;*/
+    box-shadow: white;
+
+    width: 600px;
+    padding: 50px;
   }
-  .my-img img {
+  a {
+    color: #ffd54f;
+  }
+  /*.my-img img {
     width: 100%;
     position: center;
-    /*position: fixed;*/
     opacity: 0.8;
+  }*/
+
+/*~~~~~~~~~~~ for input forms ~~~~~~~~~~~~~~~~*/
+  .input-field label {
+    font-size: 0.8rem;
+    color: white;
+  }
+  label {
+     color: white;
+  }
+  input[type=text], input[type=password], input[type=email], textarea.materialize-textarea {
+      border-bottom: 1px solid white;
+  }
+  input[type=email]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
+     color: #ffd54f;
+   }
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*~~~~~~~~~~ for horizonal line ~~~~~~~~~~~*/
+  .subtitle {
+  font-size: 30px;
+  }
+  .fancy {
+    overflow: hidden;
+    text-align: center;
+  }
+  .fancy span {
+    position: relative;
+  }
+  .fancy span:before,
+  .fancy span:after {
+    line-height: 7px;
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    width: 600px;
+    height: $linesHeight;
+    top: 50%;
+    margin-top: floor(-$linesHeight / 2);
+  }
+  .fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+  .fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  .btn-center {
+    text-align: center;
+  }
+  p {
+    margin-bottom: -10px;
   }
 </style>
 
-    <img src="/assets/images/Logo-text-white.png" class "my-img" alt="Logo">
+    <!-- <img src="/assets/images/Logo-text-white.png" class "my-img" alt="Logo"> -->
 
 <div class="container">
-  <div class="text-center col-sm-6 col-sm-offset-3">
+  <div class="text-center col-md-8 col-md-offset-2">
+    <h3><strong>LOGIN</strong></h3>
     <br>
-    <h1>Login</h1>
-    <br>
-
     <% if (message.length > 0) { %>
       <div class="alert alert-danger"><%= message %></div>
     <% } %>
 
-    <form class="col s12" action="/login" method="post">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
+    <form class="form-content" action="/login" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="input" name="email">
+          <label for="email" class="active">Email</label>
         </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="input" name="password">
+          <label for="password" class="active">Password</label>
         </div>
-        <button type="submit" class="btn btn-info btn-lg">Login</button>
+      </div>
+      <div class="btn-center">
+        <button type="submit" class="btn btn-info">Login</button>
+      </div>
     </form>
+
     <br>
-    <hr>
-    <br>
-    <div style="width: 100%; height: 20px; border-bottom: 1px solid white; text-align: center">
-      <span style="font-size: 40px; padding: 0 10px;">
-        OR <!--Padding is optional-->
-      </span>
+    <p class="subtitle fancy"><span><strong>OR</strong></span></p>
+    <div class="btn-center">
+      <h6> Login with </h6><br><a href="/auth/facebook" class="btn btn-primary btn-large">FACEBOOK</a>
     </div>
-    <h5>Or, login with </h5><a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a>
+    <br>
     <p>Don't have an account? <a href="/signup">Signup!</a></p>
     <p>Go back <a href="/">home.</a></p>
   </div>
