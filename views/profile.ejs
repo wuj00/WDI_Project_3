@@ -38,7 +38,7 @@
     <div class="row">
          <div class="col s8" id="description">
            <h5>Description</h5>
-               <p>
+                <p class = "user-description">
                  <%= user.description %>
                </p>
                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
@@ -60,7 +60,10 @@
 
                     </div>
                     <div class="modal-footer">
-                      <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+                      <a type="submit"
+                      href="/profile"
+                      class="modal-action modal-close waves-effect waves-green btn-flat"
+                      action="/users/:id" method="PATCH" id="edit-button">Update</a>
                     </div>
                   </div>
               </div>
@@ -133,10 +136,8 @@
       //ajax that will allow a get to be carried out once the edit button is clicked
       //profile image using gravatar
       $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5(userEmail) + '?s=600')
-    })
-</script>
+    // })
 
-<script>
 //attempt to send a user to another user's page...need to use the info from the RSVPs to events you created
   // var $budPic = $(".bud")
   // $budPick.on('click', function(evt){
@@ -145,13 +146,12 @@
   // $(function(){
   //
   // })
-</script>
 
-<script>
-$(function(){
+// $(function(){
       console.log("it's working!")
 
 
+<<<<<<< HEAD
       function refreshProfile(){
         $.ajax({
           url: '/profile',
@@ -161,6 +161,21 @@ $(function(){
           console.log(data)
         })
       }
+=======
+      // function refreshProfile(user, userId){
+      //   console.log("This is the refresh")
+      //   $.ajax({
+      //     url: '/users/' + userId,
+      //     method: 'GET'
+      //     // data: user,
+      //     // contentType: 'application/json'
+      //   }).done(function(data){
+      //     // console.log("this is the refresh profile data", data)
+      //     $(".user-description").text(data.description)
+      //     // document.location.reload()
+      //   })
+      // }
+>>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
       function updateUser(){
        var userId = ($('#user').data("id"))
        var user = {local: {
@@ -181,19 +196,26 @@ $(function(){
          contentType: 'application/json'
        }).done(function(data){
          // manipulate DOM to show new status for todo element.
+<<<<<<< HEAD
          console.log(data)
+=======
+        //  refreshProfile(user, userId)
+         console.log(data)
+         $(".user-description").text(data.user.description)
+
+        //  console.log(data)
+>>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
        })
      }
      var $editButton = $('#edit-button')
      $editButton.on('click', function(evt){
+       evt.preventDefault()
        console.log("button clicked")
        updateUser()
        refreshProfile()
      })
+     $('#layout-nav').css({'display': 'none'});
    })
 
-</script>
 
-<script>
-    $('#layout-nav').css({'display': 'none'});
 </script>
