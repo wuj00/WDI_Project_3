@@ -13,20 +13,14 @@ userRouter.get('/users', function(req, res){
     res.json(results)
   })
 })
-//route for profile updates includes photo element
-userRouter.patch('/users/:id', multer({ dest: './uploads/'}).single('avatar'), function(req, res){
-  console.log(req)
-  res.json({message: "Check yo terminal foo!"})
-  // User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
-  //   if(err) console.log(err)
-  //   res.json({success: true, user: user})
-  //   console.log(user)
-  // })
-})
 
-userRouter.post('/users/:id', multer({ dest: './uploads/'}).single('avatar'), function(req, res){
-  console.log(req.files)
-  console.log(req.file)
+userRouter.patch('/users/:id', function(req, res){
+  console.log(req)
+  User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
+    if(err) console.log(err)
+    res.json({success: true, user: user})
+    console.log(user)
+  })
 })
 
 userRouter.get('/users/:id', isLoggedIn, function(req, res){
