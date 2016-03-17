@@ -156,7 +156,7 @@ $(function(){
       function refreshProfile(user, userId){
         console.log("This is the refresh")
         $.ajax({
-          url: '/user' + userId,
+          url: '/users/' + userId,
           method: 'GET',
           data: user,
           contentType: 'application/json'
