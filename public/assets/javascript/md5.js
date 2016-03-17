@@ -1,4 +1,5 @@
 //MD5 code below allows email addresses to become codified so that you can use it with gravatar
+//code courtesy of https://css-tricks.com/snippets/javascript/javascript-md5/
 // MD5 START
 var MD5 = function (string) {
 

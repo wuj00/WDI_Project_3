@@ -78,16 +78,16 @@
        </div>
        <div class="col s12 center-align">
          <h5>Recent SpotBuds</h5>
-         <div class="col s3 center-align">Bud 1
+         <div class="col s3 center-align bud">Bud 1
            <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
-         <div class="col s3 center-align">Bud 2
+         <div class="col s3 center-align bud">Bud 2
            <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
-         <div class="col s3 center-align">Bud 3
+         <div class="col s3 center-align bud">Bud 3
            <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
-         <div class="col s3 center-align">Bud 4
+         <div class="col s3 center-align bud">Bud 4
            <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
          </div>
      </div>
@@ -133,8 +133,19 @@
       var userEmail = "<%= user.facebook.email ||  user.local.email%>"
       //ajax that will allow a get to be carried out once the edit button is clicked
       //profile image using gravatar
-      $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5("userEMail") + '?s=600')
+      $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5("userEmail") + '?s=600')
     })
+</script>
+
+<script>
+//attempt to send a user to another user's page...need to use the info from the RSVPs to events you created
+  var $budPic = $(".bud")
+  $budPick.on('click', function(evt){
+
+  })
+  $(function(){
+
+  })
 </script>
 
 <script>
