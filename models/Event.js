@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var eventSchema = new mongoose.Schema({
   title: {type: String, required: true},
+  spot_author: String,
+  photo: String,
   description: String,
   time: String,
   how_many_buds: Number,

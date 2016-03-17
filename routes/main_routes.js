@@ -57,10 +57,15 @@ userRouter.post('/events', isLoggedIn, function(req, res){
   User.findOne({_id: req.user._id}, function(err, user){
     Spot.findOne({spot_location: req.body.spot_location}, function(err, spot){
       console.log(spot, 'this is spot')
+      if (user.local.email) {
+        var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location, photo: req.user.local.email, spot_author: req.user.local.name})
 
-      var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location})
+      } else if (user.facebook.email) {
+        var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location, photo: req.user.facebook.email, spot_author: req.user.facebook.name})
+
+      }
       newEvent.save(function(err, new_event){
-        console.log(new_event, 'this is what user returns')
+        console.log(new_event, '<<<<<<< this is what the new event is')
         req.user.user_events.push(new_event)
         req.user.save(function(){
           spot.spot_events.push(new_event)
