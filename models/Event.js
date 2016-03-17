@@ -5,7 +5,7 @@ var eventSchema = new mongoose.Schema({
   photo: String,
   description: String,
   time: String,
-  how_many_buds: Number,
+  how_many_buds: String,
   specific_location: String,
   going_buds: {type: Number, default: 0},
   maybe_buds: {type: Number, default: 0},
