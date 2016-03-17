@@ -66,6 +66,7 @@
               </div>
        <div class="col s4 card-panel hoverable center-align">
          <h5>4 Favs</h5>
+         <i class="fa fa-bicycle"></i>
          <br><br><br><br><br><br><br>
          <div class="">
 
@@ -152,13 +153,15 @@ $(function(){
       console.log("it's working!")
 
 
-      function refreshProfile(){
+      function refreshProfile(user, userId){
+        console.log("This is the refresh")
         $.ajax({
-          url: '/profile',
+          url: '/user' + userId,
           method: 'GET',
-          data: user.local || user.facebook
+          data: user,
+          contentType: 'application/json'
         }).done(function(data){
-          console.log(data)
+          console.log("this is the refresh profile data", data)
         })
       }
       function updateUser(){
@@ -181,14 +184,16 @@ $(function(){
          contentType: 'application/json'
        }).done(function(data){
          // manipulate DOM to show new status for todo element.
-         console.log(data)
+         refreshProfile(user)
+         console.log('hello?')
+        //  console.log(data)
        })
      }
      var $editButton = $('#edit-button')
      $editButton.on('click', function(evt){
        console.log("button clicked")
        updateUser()
-       refreshProfile()
+
      })
    })
 
