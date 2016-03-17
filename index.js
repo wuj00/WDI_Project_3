@@ -53,5 +53,5 @@ app.get('/', function(req, res){
 app.use('/', routes)
 
 app.listen(PORT, function(){
-  console.log('express server connected and listening on port !', PORT)
+  console.log('express server connected and listening on port!', PORT)
 })
