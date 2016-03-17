@@ -16,7 +16,7 @@ var user_schema = new Schema({
     email: String
   },
   user_events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
-  description: String
+  description: String,
 })
 
 

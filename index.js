@@ -3,6 +3,7 @@ var app = express()
 var ejs = require('ejs')
 var ejsLayouts = require('express-ejs-layouts')
 var flash = require('connect-flash')
+var path = require('path')
 var bodyParser = require('body-parser')
 var logger = require('morgan')
 var mongoose = require('mongoose')
@@ -11,6 +12,7 @@ var session = require('express-session')
 var cookieParser = require('cookie-parser')
 var routes = require('./routes/main_routes.js')
 var passportConfig = require('./config/passport.js')
+var multer = require('multer')
 var Spot = require('./models/Spot.js')
 var Event = require('./models/Event.js')
 var User = require('./models/User.js')
@@ -26,6 +28,8 @@ mongoose.connect(DB_URL, function(err){
   console.log('Connected to MongoDb, woot!')
 })
 
+app.use(express.static(path.join(__dirname, "/public")))
+
 //middleware
 app.use(logger('dev'))
 app.use(cookieParser())
@@ -40,7 +44,7 @@ app.use(session({
 app.use(passport.initialize()) //initializes the session duh
 app.use(passport.session()) //tells passport to be in charge of the session
 app.use(flash()) //there could be flash messages here, use them in the view please!
-
+// app.use(multer({dest:'./uploads/'}))
 // ejs configuration
 app.set('view engine', 'ejs')
 app.use(ejsLayouts)

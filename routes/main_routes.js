@@ -4,20 +4,29 @@ var userRouter = express.Router()
 var Spot = require('../models/Spot.js')
 var Event = require('../models/Event.js')
 var User = require('../models/User.js')
+var multer = require('multer')
 
 
 userRouter.get('/users', function(req, res){
   User.find({}).populate('user_events').exec(function(err, results){
     if (err) throw err
-    console.log(results)
     res.json(results)
   })
 })
 
 userRouter.patch('/users/:id', function(req, res){
+  console.log(req)
   User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true}, function(err, user){
     if(err) console.log(err)
     res.json({success: true, user: user})
+    console.log(user)
+  })
+})
+
+userRouter.get('/users/:id', isLoggedIn, function(req, res){
+  User.findOne({_id: req.user._id}, function(err, user){
+    if(err) throw err
+    res.json(user)
   })
 })
 
