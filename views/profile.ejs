@@ -42,6 +42,7 @@
                  <%= user.description %>
                </p>
                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+               <a class="waves-effect waves-light btn" id="delete-button" action="/users" method="delete">Delete Profile</a>
               <!-- Modal Structure -->
                   <div id="modal1" class="modal">
                     <div class="modal-content">
@@ -78,6 +79,12 @@
        <br>
        <div class="col s12">
           <h5>Biceps Rating</h5>
+          <h6>Click Logo to Rate User</h6>
+            <div id="bicep-rating-div">
+              <div class="tiny-logo">
+                <img id="tiny-logo-img" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>
+              </div>
+            </div>
           <br><br><br><br><br>
        </div>
        <div class="col s12 center-align">
@@ -149,7 +156,7 @@
   // })
 
 // $(function(){
-      console.log("it's working!")
+
 
 
       // function refreshProfile(user, userId){
@@ -199,6 +206,28 @@
        updateUser()
 
      })
+          var $newTinyLogoImg = $('<img id="new-tiny-logo-img" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>')
+          var $tinyLogoDiv = $('.tiny-logo')
+          var $bicepRating = $("#bicep-rating-div")
+          var $origTinyLogoImg = $('')
+          $tinyLogoDiv.on('click', function(){
+            console.log("logo click")
+            $tinyLogoDiv.append($newTinyLogoImg)
+
+          // $bicepRating.append($tinyLogoDiv.append($newTinyLogoImg))
+        })
+
+
+     //add bicep rating directly to profile
+    //  var $tinyLogoImg = $('#tiny-logo')
+    //  var $tinyLogoDiv = $('.tiny-logo')
+    //  var $bicepRating = $("#bicep-rating-div")
+    //  $tinyLogoImg.on('click', function(){
+    //    console.log("logo click")
+    //    $bicepRating.append($tinyLogoImg)
+    //  })    //.append($tinyLogo)
+
+
      $('#layout-nav').css({'display': 'none'});
    })
 
