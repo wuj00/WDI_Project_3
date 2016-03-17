@@ -100,7 +100,8 @@ userRouter.route('/login')
   })
   .post(passport.authenticate('local-login', {
     successRedirect: '/profile',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
   }))
 
 userRouter.route('/signup')
@@ -109,7 +110,8 @@ userRouter.route('/signup')
   })
   .post(passport.authenticate('local-signup', {
     successRedirect: '/profile',
-    failureRedirect: '/signup'
+    failureRedirect: '/signup',
+    failureFlash: true
   }))
 
 userRouter.get('/profile', isLoggedIn, function(req, res){
