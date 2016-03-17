@@ -133,7 +133,7 @@
       var userEmail = "<%= user.facebook.email ||  user.local.email%>"
       //ajax that will allow a get to be carried out once the edit button is clicked
       //profile image using gravatar
-      $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5("userEmail") + '?s=600')
+      $('#profile-image').attr('src', 'http://gravatar.com/avatar/' + MD5(userEmail) + '?s=600')
     })
 </script>
 
