@@ -27,7 +27,7 @@
 
   <div class="parallax-container">
      <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
-     <img style="width:300px; height: 300px; margin-left: 575px; margin-top: 135px; border: 5px solid white" id="profile-image" class="responsive-img" >
+     <img id="profile-image" style="width:300px; height: 300px; margin-left: 575px; margin-top: 135px; border: 5px solid white" class="responsive-img" >
    </div>
 
 
@@ -126,8 +126,7 @@
 
              </div>
            </footer>
-<script src = "/assets/javascript/md5.js">
-</script>
+
 <script type="text/javascript" >
     $(function(){
       var userEmail = "<%= user.facebook.email ||  user.local.email%>"
@@ -139,18 +138,29 @@
 
 <script>
 //attempt to send a user to another user's page...need to use the info from the RSVPs to events you created
-  var $budPic = $(".bud")
-  $budPick.on('click', function(evt){
-
-  })
-  $(function(){
-
-  })
+  // var $budPic = $(".bud")
+  // $budPick.on('click', function(evt){
+  //
+  // })
+  // $(function(){
+  //
+  // })
 </script>
 
 <script>
 $(function(){
       console.log("it's working!")
+
+
+      function refreshProfile(){
+        $.ajax({
+          url: '/profile',
+          method: 'GET',
+          data: user.local || user.facebook
+        }).done(function(data){
+          console.log(data)
+        })
+      }
       function updateUser(){
        var userId = ($('#user').data("id"))
        var user = {local: {
@@ -178,6 +188,7 @@ $(function(){
      $editButton.on('click', function(evt){
        console.log("button clicked")
        updateUser()
+       refreshProfile()
      })
    })
 
