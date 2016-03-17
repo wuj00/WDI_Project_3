@@ -38,10 +38,21 @@ userRouter.get('/spots', function(req, res){
   })
 })
 
+
 userRouter.post('/spots', function(req, res){
   Spot.create(req.body, function(err, spot){
     if (err) throw err
     res.json({success: true, spot: spot})
+  })
+})
+
+userRouter.get('/spots/:id', function(req, res){
+  Spot.findOne({_id: req.params.id}).populate('spot_events').exec(function(err, spot){
+    if (req.user.local.email) {
+      res.json({spot: spot, photo: req.user.local.email})
+    } else if (req.user.facebook.email) {
+      res.json({spot: spot, photo: req.user.facebook.email})
+    }
   })
 })
 
@@ -55,7 +66,7 @@ userRouter.get('/events', function(req, res){
 userRouter.post('/events', isLoggedIn, function(req, res){
   console.log(req.body.spot_location)
   User.findOne({_id: req.user._id}, function(err, user){
-    Spot.findOne({spot_location: req.body.spot_location}, function(err, spot){
+    Spot.findOne({spot_location: req.body.spot_location}).populate('spot_events').exec(function(err, spot){
       console.log(spot, 'this is spot')
       if (user.local.email) {
         var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location, photo: req.user.local.email, spot_author: req.user.local.name})
@@ -65,12 +76,18 @@ userRouter.post('/events', isLoggedIn, function(req, res){
 
       }
       newEvent.save(function(err, new_event){
-        console.log(new_event, '<<<<<<< this is what the new event is')
+        console.log(new_event, '<------ this is what the new event is')
         req.user.user_events.push(new_event)
         req.user.save(function(){
           spot.spot_events.push(new_event)
-          spot.save(function(){
-            res.json({message: 'it worked', success: true})
+          spot.save(function(err, spotSave){
+            if (user.local.email) {
+              res.json({message: 'it worked', success: true, the_event: new_event, the_spot: spotSave, photo: req.user.local.email})
+
+            } else if (user.facebook.email) {
+              res.json({message: 'it worked', success: true, the_event: new_event, the_spot: spotSave, photo: req.user.facebook.email})
+
+            }
           })
         })
       })
