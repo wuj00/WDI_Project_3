@@ -42,6 +42,7 @@
    }
   input[type="radio"]:not(:checked)+label:before {
     border: 2px solid white;
+  }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 /*~~~~~~~~~~ for horizonal line ~~~~~~~~~~~*/
@@ -146,10 +147,12 @@
           <button type="submit" class="btn btn-info">Join Now!</button>
         </form>
       </div>
-      <br>
-      <hr>
-      <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a></h4>
+    <br>
+    <p class="subtitle fancy"><span><strong>OR</strong></span></p>
+    <div class="btn-center">
+      <h6> Login with </h6><br><a href="/auth/facebook" class="btn btn-primary btn-large">FACEBOOK</a>
     </div>
-        <p>Already have an account? <a href="/login">Login!</a></p>
-        <p>Go back <a href="/">home.</a></p>
+    <br>
+    <p>Already have an account? <a href="/login">Login!</a></p>
+    <p>Go back <a href="/">home.</a></p>
   </div>
