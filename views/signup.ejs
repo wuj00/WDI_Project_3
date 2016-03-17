@@ -19,16 +19,16 @@
     margin-left: 20px;
   }
   .container{
-    position: center;
+    position: relative;
+    width: 500px;
   }
-  .my-img img {
-    width: 100%;
-    position: center;
-    /*position: fixed;*/
-    opacity: 0.8;
+  form{
+    display: inline-block;
   }
 </style>
 
+
+<!-- <form class="col s12" action="/signup" method="post"> -->
 
 
 <div class="container">
@@ -42,25 +42,25 @@
     <% } %>
 
     <div class="row">
-      <form action="/signup" method="post">
+      <form class="col s12" action="/signup" method="post">
         <div class="row">
-          <div class="input-field col s3">
+          <div class="input-field col s6">
             <input id="username" type="text" class="input">
             <label for="username">Username</label>
           </div>
-          <div class="input-field col s3">
+          <div class="input-field col s6">
             <input id="email" type="email" class="input">
             <label for="email">Email</label>
           </div>
-
+        </div>
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
               <input id="password" type="password" class="input">
               <label for="password">Password</label>
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
               <input id="password_confirm" type="password" class="input">
               <label for="password_confirm">Password Confirm</label>
             </div>
@@ -82,17 +82,15 @@
                 <label for="other">Other</label>
               </p>
             </div>
-          <button type="submit" class="btn btn-default">Join Us!</button>
-          </form>
-        </div>
-        <hr>
-        <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a></h4>
+          </div>
+          <!-- <button type="submit" class="btn btn-default">Join Us!</button> -->
+          <button type="submit" class="btn btn-warning">Signup</button>
+        </form>
       </div>
+      <br>
+      <hr>
+      <h4>Or Login With <a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a></h4>
     </div>
+        <p>Already have an account? <a href="/login">Login!</a></p>
+        <p>Go back <a href="/">home.</a></p>
   </div>
-</div>
-
-    <p>Or, <a href="/login">Login</a></p>
-    <p>Go back <a href="/">home</a>.</p>
-
-</div>

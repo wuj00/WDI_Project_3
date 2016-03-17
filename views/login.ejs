@@ -28,17 +28,20 @@
     opacity: 0.8;
   }
 </style>
+
+    <img src="/assets/images/Logo-text-white.png" class "my-img" alt="Logo">
+
 <div class="container">
   <div class="text-center col-sm-6 col-sm-offset-3">
     <br>
     <h1>Login</h1>
     <br>
-    
+
     <% if (message.length > 0) { %>
       <div class="alert alert-danger"><%= message %></div>
     <% } %>
 
-    <form action="/login" method="post">
+    <form class="col s12" action="/login" method="post">
         <div class="form-group">
             <label>Email</label>
             <input type="text" class="form-control" name="email">
@@ -50,11 +53,6 @@
         <button type="submit" class="btn btn-info btn-lg">Login</button>
     </form>
     <br>
-
-    <div class="my-img">
-          <img src="/assets/images/Logo-text-white.png" alt="Logo">
-    </div>
-
     <hr>
     <br>
     <div style="width: 100%; height: 20px; border-bottom: 1px solid white; text-align: center">
@@ -63,7 +61,7 @@
       </span>
     </div>
     <h5>Or, login with </h5><a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a>
-    <p>Or, don't have an account? <a href="/signup">Signup!</a></p>
+    <p>Don't have an account? <a href="/signup">Signup!</a></p>
     <p>Go back <a href="/">home.</a></p>
   </div>
 </div>
