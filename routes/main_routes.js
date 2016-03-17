@@ -58,7 +58,7 @@ userRouter.post('/events', isLoggedIn, function(req, res){
     Spot.findOne({spot_location: req.body.spot_location}, function(err, spot){
       console.log(spot, 'this is spot')
 
-      var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title})
+      var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location})
       newEvent.save(function(err, new_event){
         console.log(new_event, 'this is what user returns')
         req.user.user_events.push(new_event)
