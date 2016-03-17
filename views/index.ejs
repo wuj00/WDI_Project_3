@@ -1,3 +1,19 @@
+<style>
+li {
+  list-style-type: none;
+}
+.row {
+  margin-bottom: 10px;
+}
+.row .col.s12 {
+  width: 625px !important;
+  height: 500px !important;
+}
+.gm-style .gm-style-iw {
+  width: 680px !important;
+}
+</style>
+
 <div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="/profile">Profile</a></li>
@@ -36,14 +52,95 @@
 
 <!-- Modal for already dropped pin -->
 <div id="modal2" class="modal">
-  <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-    <p>enter in a title for your event</p>
-    <input type="text" id="event-title2">
+  <div class="modal-content" style="overflow-x: hidden;">
+    <h4>Create an Event</h4>
+    <p>Please Enter in all information</p>
+
+
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" id="event-title-for-db-pin" class="validate">
+          <label for="event-title-for-db-pin">Add a Title:</label>
+        </div>
+      </div>
+    </form>
+    </div>
+
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="description-text-input-for-db-pin" class="materialize-textarea"></textarea>
+          <label for="description-text-input-for-db-pin">Add a description:</label>
+        </div>
+      </div>
+    </form>
   </div>
+
+  <div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input type="text" id="specific-location-text-for-db-pin" class="validate">
+        <label for="specific-location-text-for-db-pin">Give a specific location:</label>
+      </div>
+    </div>
+  </form>
+  </div>
+
+
+
+    <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px;">
+    <select id="hour-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
+      <option value="" disabled selected>Hour</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    :
+    <select id="mins-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
+      <option value="" disabled selected>Mins</option>
+      <option value="00">00</option>
+      <option value="15">15</option>
+      <option value="30">30</option>
+      <option value="45">45</option>
+    </select>
+    <select id="am-pm-for-db-pin" class="browser-default" style="max-width: 58px; max-height: 30px; display: inline; margin-left: 4px;">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+        <label>Select a time</label>
+  </container>
+  <br>
+  <br>
+  <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px;">
+    <select id="how-many-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline; margin-left: 4px;">
+      <option value="" disabled selected>Buds</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="5+">5+</option>
+    </select>
+        <label>Number of buds needed</label>
+  </container>
+
+  </div>
+  <br>
   <div class="modal-footer">
-    <a href="#!" id="close-button2" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    <a style="margin-right: 375px !important;" href="#!" id="create-event-for-db-pin" class="modal-action modal-close waves-effect waves-green btn">Create Event</a>
   </div>
 </div>
 
@@ -64,13 +161,14 @@ function showUser(){
 
     // map for santa monica
     var santaMonica = {lat: 34.024212, lng: -118.496475}
-    var spotBudEvents = ['ChIJOymuApikwoARHpp1o3BWzlY','ChIJx92--cikwoARw22QhUijGmc','ChIJZcs3zNCkwoARjU42dRrVZfM','ChIJY9TAMwO7woARfm6h0NW_ycI','ChIJIXI2IdCkwoAR1jqp9T02htA','ChIJjYpkBmmjwoAR2Hft4wzsld0','ChIJGSZtRhO7woAR3OAfz9Ub3_U','ChIJ8z1Qsd26woAR_kIW46rb_8o']
+    // 'ChIJOymuApikwoARHpp1o3BWzlY','ChIJx92--cikwoARw22QhUijGmc','ChIJZcs3zNCkwoARjU42dRrVZfM','ChIJY9TAMwO7woARfm6h0NW_ycI','ChIJIXI2IdCkwoAR1jqp9T02htA','ChIJjYpkBmmjwoAR2Hft4wzsld0','ChIJGSZtRhO7woAR3OAfz9Ub3_U','ChIJ8z1Qsd26woAR_kIW46rb_8o'
+    var spotBudEvents = []
     var searchMarkers = []
     var allMarkers = []
 
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -33.8688, lng: 151.2195},
+      center: {lat: 34.052235, lng: -118.243683},
       zoom: 13
     });
 
@@ -194,47 +292,6 @@ function showUser(){
 
     })
 
-    // function addMarker(location){
-    //   console.log(location)
-    //
-    //   var marker = new google.maps.Marker({
-    //     position: location,
-    //     map: map
-    //   })
-    //   console.log(marker.placeId)
-    //   spotBudEvents.push(marker)
-    //
-    //   console.log(spotBudEvents)
-    // }
-    //   map.addListener('click', function(event){
-    //     addMarker(event.latLng)
-    //   })
-
-
-
-
-    // Nearby Search Example
-    // service.nearbySearch({
-    //   location: santaMonica,
-    //   radius: 1000,
-    //   keyword: 'Vons'
-    //
-    // }, function(results, status){
-    //   // console.log(results.length)
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     results.forEach(function(el){
-    //       var placeLocation = el.geometry.location
-    //       var newMarker = new google.maps.Marker({
-    //         map: map,
-    //         position: el.geometry.location
-    //       })
-    //       google.maps.event.addListener(newMarker, 'click', function(){
-    //         infoWindow.setContent(el.name)
-    //         infoWindow.open(map, this)
-    //       })
-    //     })
-    //   }
-    // })
 
     // marker colors - blue : http://maps.google.com/mapfiles/ms/icons/blue-dot.png
     // green - http://maps.google.com/mapfiles/ms/icons/green-dot.png
@@ -244,11 +301,11 @@ function showUser(){
       $.ajax({
         method: 'post',
         url: '/events',
-        data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title2').val()}),
+        data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title-for-db-pin').val(), description: $('#description-text-input-for-db-pin').val(), specific_location: $('#specific-location-text-for-db-pin').val(), how_many_buds: $('#how-many-db-pin option:selected').text(), time: $('#hour-for-db-pin option:selected').text() + ':' + $('#mins-for-db-pin option:selected').text() + $('#am-pm-for-db-pin option:selected').text()}),
         contentType: 'application/json'
       })
       .done(function(data){
-        infoWindow.setContent($('#event-title2').val())
+        infoWindow.setContent($('#event-title-for-db-pin').val())
 
       })
     }
@@ -258,7 +315,7 @@ function showUser(){
       $('#modal2').openModal()
     })
 
-    $('body').on('click', '#close-button2', function(){
+    $('body').on('click', '#create-event-for-db-pin', function(){
       postEvent(selectedPlace)
     })
     var spot_div = $('<div id="result"></div>')
@@ -307,21 +364,31 @@ function showUser(){
 
             // spot_div.html('')
 
-            var spot_ul = $('<ul></ul>')
-
+            var spot_ul = $('<ul id="ulul"></ul>')
 
             google.maps.event.addListener(marker, 'click', function(){
               selectedPlace = place
               //console.log(place)
               spots.forEach(function(spot){
                 var uInfoWindow = new google.maps.InfoWindow()
+
+
                 spot.spot_events.forEach(function(spEvent){
                   spot_ul.html('')
+
                   // console.log(spot.spot_location)
                   if (marker.title === spot.spot_location) {
                     for (var j = 0; j < spot.spot_events.length; j += 1) {
-                        spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
+                      //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
+                      spot_ul.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="http://tr3.cbsistatic.com/fly/362-fly/bundles/techrepubliccore/images/icons/standard/icon-user-default.png" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px;">' + spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + spot.spot_events[j]._created_by + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a style="float: left;" href="#" class="waves-effect waves-light btn"><i id="event-going-text" class="right">4</i>' + spot.spot_events[j].going_buds + '</a> <!-- Maybe Button With Integer --> <a style="float: right;" href="#" class="waves-effect waves-light btn"><i id="event-maybe-text" class="right">5</i>' + spot.spot_events[j].maybe_buds + '</a> </div> </div> </div> </li>'))
+
+
+
+
+
+
                         // console.log(spot.spot_events.length, 'len')
+
                         infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
                     }
 
