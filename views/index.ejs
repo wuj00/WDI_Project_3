@@ -374,7 +374,7 @@ function showUser(){
                 var uInfoWindow = new google.maps.InfoWindow()
 
 
-                spot.spot_events.forEach(function(spEvent){
+                spot.spot_events.reverse().forEach(function(spEvent){
                   spot_ul.html('')
 
                   // console.log(spot.spot_location)
