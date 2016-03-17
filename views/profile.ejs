@@ -82,7 +82,7 @@
           <h6>Click Logo to Rate User</h6>
             <div id="bicep-rating-div">
               <div class="tiny-logo">
-                <img id="tiny-logo-img" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>
+                <img id="orig-tiny-logo-img" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>
               </div>
             </div>
           <br><br><br><br><br>
@@ -208,14 +208,17 @@
      })
           var $newTinyLogoImg = $('<img id="new-tiny-logo-img" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>')
           var $tinyLogoDiv = $('.tiny-logo')
-          var $bicepRating = $("#bicep-rating-div")
-          var $origTinyLogoImg = $('')
-          $tinyLogoDiv.on('click', function(){
+          var $bicepRating = $("#new-bicep-rating-div")
+          var $newTinyLogoDiv = $('#new-tiny-logo-div')
+          
+            for(i = 0; i<=5; i +=1){
+            $tinyLogoDiv.on('click', function(){
             console.log("logo click")
             $tinyLogoDiv.append($newTinyLogoImg)
-
+            })
+          }
           // $bicepRating.append($tinyLogoDiv.append($newTinyLogoImg))
-        })
+
 
 
      //add bicep rating directly to profile
