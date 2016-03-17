@@ -1,4 +1,35 @@
-<div class="col-sm-6 col-sm-offset-3">
+<style>
+  body {
+    /*background-color: black;
+    background-image: url("/assets/images/Logo-text-white.png");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-opacity:*/
+  }
+  #input-login{
+    background-color: #d9d9d9;
+    /*border-top-right-radius: 20px;
+    border-top-left-radius: 20px;*/
+    padding-left: 20px;
+  }
+  .row .col.s4 {
+    width: 25%;
+    margin-left: 20px;
+  }
+  .container{
+    position: center;
+  }
+  .my-img img {
+    width: 100%;
+    position: center;
+    /*position: fixed;*/
+    opacity: 0.8;
+  }
+</style>
+<div class="container">
+  <div class="text-center col-sm-6 col-sm-offset-3">
     <h1>Login</h1>
 
     <% if (message.length > 0) { %>
@@ -14,17 +45,23 @@
             <label>Password</label>
             <input type="password" class="form-control" name="password">
         </div>
-
         <button type="submit" class="btn btn-info btn-lg">Login</button>
     </form>
+    <br>
 
-<img src="/assets/images/SpotBuds-LOGO-white.png" alt="Logo">
+    <div class="my-img">
+          <img src="/assets/images/Logo-text-white.png" alt="Logo">
+    </div>
 
     <hr>
-
-    <h2>Or Login With <a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a></h2>
-
-    <p>Or, <a href="/signup">Signup</a></p>
-    <p>Go back <a href="/">home</a>.</p>
-
+    <br>
+    <div style="width: 100%; height: 20px; border-bottom: 1px solid white; text-align: center">
+      <span style="font-size: 40px; padding: 0 10px;">
+        OR <!--Padding is optional-->
+      </span>
+    </div>
+    <h5>Or, login with </h5><a href="/auth/facebook" class="btn btn-primary btn-lg">Facebook</a>
+    <p>Or, don't have an account? <a href="/signup">Signup!</a></p>
+    <p>Go back <a href="/">home.</a></p>
+  </div>
 </div>
