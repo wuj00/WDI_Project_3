@@ -30,6 +30,13 @@ userRouter.get('/users/:id', isLoggedIn, function(req, res){
   })
 })
 
+userRouter.delete('/users/:id', isLoggedIn, function(req,res){
+    User.remove({_id: req.params.id}, function(err, user){
+      console.log(err)
+      res.json(user)
+    })
+  })
+
 userRouter.get('/spots', function(req, res){
   Spot.find({}).populate('spot_events').exec(function(err, results){
     if (err) throw err
