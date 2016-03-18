@@ -78,17 +78,63 @@ userRouter.patch('/events/:id', function(req, res){
     console.log(req.body.going, 'going val con')
     console.log(req.body.maybe, 'maybe val con')
     if (req.body.going === true) {
-      event.going_buds += 1
-      event.save(function(err, data){
-        if (err) throw err
-        res.json({message: 'going went up 1', data: data})
-      })
+      console.log(event.going_buds_users, 'this is the length')
+      if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
+        event.going_buds_users.push(req.user._id)
+        event.going_buds += 1
+        event.save(function(err, data){
+          if (err) throw err
+          res.json({message: 'going went up 1', data: data})
+        })
+      } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
+        event.going_buds = event.going_buds
+        // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
+        // event.maybe_buds_users.push(req.user._id)
+        // event.maybe_buds += 1
+        // event.going_buds -= 1
+        event.save(function(err, data){
+          if (err) throw err
+          res.json({message: 'going equal going stays the same', data: data})
+        })
+      }
+      else if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) !== -1) {
+        event.maybe_buds_users.splice(event.maybe_buds_users.indexOf(req.user_id), 1)
+        event.going_buds_users.push(req.user._id)
+        event.maybe_buds -= 1
+        event.going_buds += 1
+        event.save(function(err, data){
+          if (err) throw err
+          res.json({message: 'maybe went down 1 and going went up one', data: data})
+        })
+      }
+      else {
+        res.json({message: 'nope on going add'})
+      }
+
     } else if (req.body.maybe === true) {
-      event.maybe_buds += 1
-      event.save(function(err, data){
-        if (err) throw err
-        res.json({message: 'maybe went up 1', data: data})
-      })
+      if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
+        event.maybe_buds_users.push(req.user._id)
+        event.maybe_buds += 1
+        event.save(function(err, data){
+          if (err) throw err
+          res.json({message: 'maybe went up 1', data: data})
+        })
+      }
+      else if (event.maybe_buds_users.indexOf(req.user._id) === -1 && event.going_buds_users.indexOf(req.user._id) !== -1){
+        event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
+        event.maybe_buds_users.push(req.user._id)
+        event.maybe_buds += 1
+        event.going_buds -= 1
+        event.save(function(err, data){
+          if (err) throw err
+          res.json({message: 'maybe went up 1 and going went down one', data: data})
+        })
+      }
+      
+      else {
+        res.json({message: 'nope on maybe add'})
+      }
+
     }
   })
 })
