@@ -107,7 +107,7 @@ userRouter.post('/events', isLoggedIn, function(req, res){
 
       }
       newEvent.save(function(err, new_event){
-        console.log(new_event, '<<<<<<< this is what the new event is')
+        console.log(new_event, '<------ this is what the new event is')
         req.user.user_events.push(new_event)
         req.user.save(function(){
           spot.spot_events.push(new_event)
@@ -148,7 +148,8 @@ userRouter.route('/login')
   })
   .post(passport.authenticate('local-login', {
     successRedirect: '/profile',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
   }))
 
 userRouter.route('/signup')
@@ -157,7 +158,8 @@ userRouter.route('/signup')
   })
   .post(passport.authenticate('local-signup', {
     successRedirect: '/profile',
-    failureRedirect: '/signup'
+    failureRedirect: '/signup',
+    failureFlash: true
   }))
 
 userRouter.get('/profile', isLoggedIn, function(req, res){

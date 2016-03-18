@@ -21,7 +21,7 @@ var User = require('./models/User.js')
 // App Constants
 var PORT = process.env.PORT || 3000
 var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
-// var LOCAL_ DB_URL = 'mongodb://localhost/spot_buds'
+// var LOCAL_DB_URL = 'mongodb://localhost/spot_buds'
 
 // Connect to Mongo DB Via Remote Heroku
 mongoose.connect(DB_URL, function(err){
@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 6000000},
+  cookie: {_expires: 10000000},
   resave: true,
   saveUninitialized: true
 }))
@@ -58,5 +58,5 @@ app.get('/', function(req, res){
 app.use('/', routes)
 
 app.listen(PORT, function(){
-  console.log('express server connected and listening on port !', PORT)
+  console.log('express server connected and listening on port!', PORT)
 })

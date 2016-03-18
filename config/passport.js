@@ -20,6 +20,8 @@ passport.use('local-signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function(req, email, password, done){
+  console.log(req)
+  console.log(email)
   // check if there's already a matching user:
   User.findOne({'local.email': email}, function(err, user){
     if (err) return done(err)
