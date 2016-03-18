@@ -77,39 +77,84 @@ userRouter.patch('/events/:id', function(req, res){
     console.log(req.body, 'this is body')
     console.log(req.body.going, 'going val con')
     console.log(req.body.maybe, 'maybe val con')
+    // console.log(event.going_buds, 'going buds count yo')
+    // console.log(Number(event.how_many_buds), 'this is how many poeple limit')
+    if (req.user.local.name === event.spot_author || req.user.facebook.name === event.spot_author) {
+      res.json({message: 'no go, user cannot rsvp to their own event.'})
+    } else {
+
     if (req.body.going === true) {
-      console.log(event.going_buds_users, 'this is the length')
-      if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
-        event.going_buds_users.push(req.user._id)
-        event.going_buds += 1
-        event.save(function(err, data){
-          if (err) throw err
-          res.json({message: 'going went up 1', data: data})
-        })
-      } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
-        event.going_buds = event.going_buds
-        // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
-        // event.maybe_buds_users.push(req.user._id)
-        // event.maybe_buds += 1
-        // event.going_buds -= 1
-        event.save(function(err, data){
-          if (err) throw err
-          res.json({message: 'going equal going stays the same', data: data})
-        })
+      if (event.how_many_buds !== '6+' && (event.going_buds < Number(event.how_many_buds))) {
+        // console.log(event.going_buds_users, 'this is the length')
+        if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
+          event.going_buds_users.push(req.user._id)
+          event.going_buds += 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'going went up 1', data: data})
+          })
+        } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
+          event.going_buds = event.going_buds
+          // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
+          // event.going_buds -= 1
+          // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
+          // event.maybe_buds_users.push(req.user._id)
+          // event.maybe_buds += 1
+          // event.going_buds -= 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'going equal going stays the same', data: data})
+          })
+        }
+        else if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) !== -1) {
+          event.maybe_buds_users.splice(event.maybe_buds_users.indexOf(req.user_id), 1)
+          event.going_buds_users.push(req.user._id)
+          event.maybe_buds -= 1
+          event.going_buds += 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'maybe went down 1 and going went up one', data: data})
+          })
+        }
+        else {
+          res.json({message: 'nope on going add'})
+        }
+      } else if (event.how_many_buds !== '6+' && (event.going_buds >= Number(event.how_many_buds))) {
+        res.json({message: 'limit maxed out no more rsvp for going.'})
+      } else if (event.how_many_buds === '6+') {
+        if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
+          event.going_buds_users.push(req.user._id)
+          event.going_buds += 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'going went up 1', data: data})
+          })
+        } else if (event.going_buds_users.indexOf(req.user._id) !== -1 && event.maybe_buds_users.indexOf(req.user._id) === -1){
+          event.going_buds = event.going_buds
+          // event.going_buds_users.splice(event.going_buds_users.indexOf(req.user_id), 1)
+          // event.maybe_buds_users.push(req.user._id)
+          // event.maybe_buds += 1
+          // event.going_buds -= 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'going equal going stays the same', data: data})
+          })
+        }
+        else if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) !== -1) {
+          event.maybe_buds_users.splice(event.maybe_buds_users.indexOf(req.user_id), 1)
+          event.going_buds_users.push(req.user._id)
+          event.maybe_buds -= 1
+          event.going_buds += 1
+          event.save(function(err, data){
+            if (err) throw err
+            res.json({message: 'maybe went down 1 and going went up one', data: data})
+          })
+        }
+        else {
+          res.json({message: 'nope on going add'})
+        }
       }
-      else if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) !== -1) {
-        event.maybe_buds_users.splice(event.maybe_buds_users.indexOf(req.user_id), 1)
-        event.going_buds_users.push(req.user._id)
-        event.maybe_buds -= 1
-        event.going_buds += 1
-        event.save(function(err, data){
-          if (err) throw err
-          res.json({message: 'maybe went down 1 and going went up one', data: data})
-        })
-      }
-      else {
-        res.json({message: 'nope on going add'})
-      }
+
 
     } else if (req.body.maybe === true) {
       if (event.going_buds_users.indexOf(req.user._id) === -1 && event.maybe_buds_users.indexOf(req.user._id) === -1) {
@@ -130,18 +175,19 @@ userRouter.patch('/events/:id', function(req, res){
           res.json({message: 'maybe went up 1 and going went down one', data: data})
         })
       }
-      
+
       else {
         res.json({message: 'nope on maybe add'})
       }
 
     }
+  }
   })
 })
 
 
 userRouter.post('/events', isLoggedIn, function(req, res){
-  console.log(req.body.spot_location)
+  //console.log(req.body.spot_location)
   User.findOne({_id: req.user._id}, function(err, user){
     Spot.findOne({spot_location: req.body.spot_location}).populate('spot_events').exec(function(err, spot){
       console.log(spot, 'this is spot')
@@ -153,7 +199,7 @@ userRouter.post('/events', isLoggedIn, function(req, res){
 
       }
       newEvent.save(function(err, new_event){
-        console.log(new_event, '<<<<<<< this is what the new event is')
+        //console.log(new_event, '<<<<<<< this is what the new event is')
         req.user.user_events.push(new_event)
         req.user.save(function(){
           spot.spot_events.push(new_event)
