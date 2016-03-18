@@ -174,9 +174,6 @@ span{
   // })
 
 // $(function(){
-
-
-
       // function refreshProfile(user, userId){
       //   console.log("This is the refresh")
       //   $.ajax({
@@ -224,43 +221,19 @@ span{
        updateUser()
 
      })
-     //append bicep rating to user
+     //append star rating to user
           var $starDiv = $("#star")
           var $star = $('.star')
-
-            // for(i = 0; i<=5; i +=1){
-            // $star.on("click" ,function(){
-            //   console.log("star clicked")
-            //   $starDiv.append("<span star>☆</span>")
-            // })
-
-
-                $star.on('click', function(){
-                  for(count = 0; count<4; count +=1){
-                    if (count === 4){
-                      
-                    }
-                  $starDiv.append('"<span star>☆</span>"')
-                  }
-                })
-
-              // $star.on('click', (function(){
-              //   for(i=0; )
-              //     if ($star >= 5) return;
-              //     var $star = $('.star')
-              //     maxAppend++;
-              //     $('#star').append($star);
-              // }));
-
-     //add bicep rating directly to profile
-    //  var $tinyLogoImg = $('#tiny-logo')
-    //  var $tinyLogoDiv = $('.tiny-logo')
-    //  var $bicepRating = $("#bicep-rating-div")
-    //  $tinyLogoImg.on('click', function(){
-    //    console.log("logo click")
-    //    $bicepRating.append($tinyLogoImg)
-    //  })    //.append($tinyLogo)
-
+          var count = 0
+          $star.on('click', function(){
+              if (count < 4){
+                  $starDiv.append('<span star>☆</span>')
+                  count +=1
+              }
+              else {
+                return ("too many")
+              }
+            })
 
      $('#layout-nav').css({'display': 'none'});
    })
