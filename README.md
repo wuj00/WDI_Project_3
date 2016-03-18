@@ -36,7 +36,7 @@ Necessary Deliverables
 - The ability for users to create a new event in a Spot
 - The ability for users to RSVP to events in Spots
 - The ability for users to see how many people are going to an event
-- The ability for users to create, edit, and delete events
+- The ability for users to create and edit events
 
 ###Wireframes
 Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/wdi-project-3)'s done column for wireframes.
@@ -46,7 +46,7 @@ Please see our team [Trello Board for Project 3](https://trello.com/b/lAAZSSCb/w
 - Express.js
 - Node.js
 - AJAX
-- CSS with Bootstrap and Materialize
+- CSS with Materialize library
 - HTML5
 - JQuery and JavaScript
 - Google Maps API
