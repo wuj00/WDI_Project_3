@@ -66,7 +66,7 @@
     width: 600px;
     height: $linesHeight;
     top: 50%;
-    margin-top: floor(-$linesHeight / 2);
+    margin-top: floor($line-height / 2);
   }
   .fancy span:before {
     right: 100%;
@@ -151,13 +151,13 @@
           </div>
         </div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <button type="submit" class="btn btn-info">Join Now!</button>
+        <button type="submit" class="btn waves-effect waves-light btn-info">Join Now!</button>
       </form>
     </div>
     <br>
     <p class="subtitle fancy"><span><strong>OR</strong></span></p>
     <div class="btn-center">
-      <h6> Login with </h6><br><a href="/auth/facebook" class="btn btn-primary btn-large">FACEBOOK</a>
+      <h6> Login with </h6><br><a href="/auth/facebook" class="btn waves-effect waves-light btn-primary btn-large">FACEBOOK</a>
     </div>
     <br>
     <p>Already have an account? <a href="/login">Login!</a></p>

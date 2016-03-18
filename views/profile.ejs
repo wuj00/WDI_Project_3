@@ -28,10 +28,24 @@
       .card-panel {
         margin: 0;
       }
-      .container .row {
-      margin-left: -5rem;
-      margin-right: -40rem;
+      .container {
+        margin-left: -5rem;
+        margin-right: -40rem;
       }
+      .container2 {
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .footer-copyright {
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      /*.row .col {
+        padding: 0;
+      }*/
 </style>
 
 
@@ -70,78 +84,60 @@
 
 <!-- ~~PROFILE SECTION~~ -->
 <div class="section white">
-  <div class="row container">
+  <div class="container2">
     <div class="profile-space">
-      <div class="row">
-          <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
-        <div class="col s8" id="description">
-          <h5>Description</h5>
-          <p class = "user-description">
-           <%= user.description %>
-          </p>
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+      <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
+      <div class="col s8" id="description">
+        <h5>Description</h5>
+        <p class = "user-description">
+          <%= user.description %>
+        </p>
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+
   <!-- ~~~~~~~~~~~~~Modal Structure~~~~~~~~~~~~~~~~~~~ -->
-  <div class="row container">
-
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Edit Your Settings!</h4>
-              <!-- <form action="/users/:id" method="patch">-->
-
-                <% if (user.local.name){ %>
-                <div class="row">
-                  <form class="form-content" action="/users/:id" method="patch">
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <input id="localName" type="text" class="input" name="local[name]" value=<%=user.local.name%>>
-                        <label for="username">Username</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <input id="localEmail" type="email" class="input" name="local[email]" value=<%=user.local.email%>>
-                        <label for="email">Email</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <input id="localPassword" type="text" class="input" name="local[password]">
-                        <label for="password">Password</label>
-                      </div>
-                <% } else {%>
-                      <div class="input-field col s12">
-                        <input id="fbName" type="text" class="input" name="facebook[name]" value=<%=user.facebook.name%>>
-                        <label for="fbName">Username</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <input id="fbEmail" type="email" class="input" name="facebook[email]" value=<%=user.facebook.nameb%>>
-                        <label for="fbEmail">Email</label>
-                      </div>
-                <% } %>
-                      <div class="input-field col s12">
-                        <input id="Descr" type="text" class="input" name="description" value= <%=user.description%>>
-                        <label for="Descr">Description (Tell us about yourself and the activities you like!)</label>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-                  <!-- <input id="localName" type="text" name="local[name]" value= <%= user.local.name %> Username
-                  <input id="localEmail" type="text" name="local[email]" value= <%= user.local.email %> Email
-                  <input id="localPassword" type="text" name="local[password]" value= <%= user.local.password %> Password
-                <% } else {%>
-                  <input id="fbName" type="text" name="facebook[name]" value= <%= user.facebook.name %> Username
-                  <input id="fbEmail" type="text" name="facebook[email]" value= <%= user.facebook.email %> Email
-                <% } %>
-                <input id="Descr" type="text" name="description" value= <%=user.description%> >Description (Tell us about yourself and the activities you like!)
-              </form>
-            </div> -->
-
-              <div class="modal-footer">
-                <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
-              </div>
+  <div class="container">
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Edit Your Settings!</h4>
+        <% if (user.local.name){ %>
+        <div class="text-center col-md-8 col-md-offset-2">
+          <form class="form-content" action="/users/:id" method="patch">
+            <div class="input-field col s9">
+              <input id="localName" type="text" class="input" name="local[name]" value= <%=user.local.name%> >
+              <label for="username">Username</label>
             </div>
-          </div>
+            <div class="input-field col s9">
+              <input id="localEmail" type="email" class="input" name="local[email]" value= <%=user.local.email%> >
+              <label for="email">Email</label>
+            </div>
+            <div class="input-field col s9">
+              <input id="localPassword" type="text" class="input" name="local[password]">
+              <label for="password">Password</label>
+            </div>
+      <% } else { %>
+            <div class="input-field col s9">
+              <input id="fbName" type="text" class="input" name="facebook[name]" value= <%=user.facebook.name%> >
+              <label for="fbName">Username</label>
+            </div>
+            <div class="input-field col s9">
+              <input id="fbEmail" type="email" class="input" name="facebook[email]" value= <%=user.facebook.name%> >
+              <label for="fbEmail">Email</label>
+            </div>
+      <% } %>
+            <div class="input-field col s9">
+              <input id="Descr" type="text" class="input" name="description" value= <%=user.description%> >
+              <label for="Descr">Description (Tell us about yourself and the activities you like!)</label>
+            </div>
+          </form>
         </div>
+        <div class="modal-footer">
+          <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
+        <div class="row">
           <div class="col s4 card-panel hoverable center-align">
             <h5>4 Favs</h5>
             <br><br><br><br><br><br><br>
@@ -152,71 +148,61 @@
             <br><br><br><br><br>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col s12 center-align">
+          <h5>Recent SpotBuds</h5>
+            <div class="col s3 center-align bud">Bud 1
+              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            </div>
+            <div class="col s3 center-align bud">Bud 2
+              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            </div>
+            <div class="col s3 center-align bud">Bud 3
+              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            </div>
+            <div class="col s3 center-align bud">Bud 4
+              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-<div class="parallax-container">
-  <div class="parallax">
-    <img src="/assets/images/-1750769553.jpg">
-  </div>
-</div>
-
-
-<div class="section white">
-  <div class="row container">
-    <!-- <h2 class="grey-text header">Parallax</h2>
-    <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p> -->
-    <div class="col s12 center-align">
-    <h5>Recent SpotBuds</h5>
-      <div class="col s3 center-align bud">Bud 1
-        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-      </div>
-      <div class="col s3 center-align bud">Bud 2
-        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-      </div>
-      <div class="col s3 center-align bud">Bud 3
-        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-      </div>
-      <div class="col s3 center-align bud">Bud 4
-        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="/assets/images/Canine Aviator.jpg">
       </div>
     </div>
-  </div>
-</div>
 
-<div class="parallax-container">
-  <div class="parallax"><img src="/assets/images/Canine Aviator.jpg"></div>
-</div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 <!-- ~~~~FOOTER~~~~~~~~~~~~~ -->
-   <footer class="page-footer">
-             <div class="container">
-               <div class="row">
-                 <div class="col l6 s12">
-                   <h5 class="white-text">Footer Content</h5>
-                   <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-                 </div>
-                 <div class="col l4 offset-l2 s12">
-                   <h5 class="white-text">Links</h5>
-                   <ul>
-                     <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                     <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                     <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                     <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-             <div class="footer-copyright">
-               <div class="container">
-               © 2016 Copyright <a href="/map" class="white-text">SpotBuds</a>
-               <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-               </div>
-             </div>
+          <div class="container3">
+            <footer class="page-footer">
+              <div class="row">
+                <div class="col l6 s12">
+                  <h5 class="white-text">Footer Content</h5>
+                  <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                  <h5 class="white-text">Links</h5>
+                  <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                  </ul>
+                </div>
+              </div>
+            <div class="container3">
+              <div class="footer-copyright">
+                © 2016 Copyright <a href="/map" class="white-text">SpotBuds</a>
+              <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+              </div>
+            </div>
+          </div>
 
              <div id="user" data-id=<%= user.id %> >
 
