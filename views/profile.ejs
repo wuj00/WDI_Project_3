@@ -13,6 +13,13 @@ a {
   display: inherit;
   margin-top: 100px;
 }
+.circle-img {
+  width: 70%;
+  height: auto;
+  border: 2px solid #bdbdbd; /*light grey*/
+  border-radius: 300px;
+  margin: 10px;
+}
 .rating {
   unicode-bidi: bidi-override;
 /*direction: rtl;*/
@@ -39,7 +46,7 @@ footer.page-footer {
  padding-top: 0px;
  background-color: #ee6e73;
 }
-.parallax img {
+img.parallax {
   min-height: 20%;
 }
 div.col.s4.card-panel.hoverable.center-align {
@@ -75,6 +82,9 @@ div.col.l6.s12 {
 div.col.l4.offset-l2 {
   padding: 10px 10px 10px 50px;
 }
+.row .col {
+  padding: 0;
+}
 </style>
 
 
@@ -94,7 +104,7 @@ div.col.l4.offset-l2 {
     <div class="nav-wrapper">
         <a href="/map"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right"></i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right">perm_identity</i></a></li>
       </ul>
     </div>
   </nav>
@@ -118,7 +128,7 @@ div.col.l4.offset-l2 {
       <a class="waves-effect waves-light btn btn-small modal-trigger" href="#modal1">Edit Profile</a>
       <a id="delete-button" class="waves-effect waves-light btn btn-small">Delete Account</a>
       <!-- <a class="waves-effect waves-light btn" -->
-      <a class="waves-effect waves-orange btn-flat" style="float: right; color: #ff6e40" href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up To Gravatar To Upload a Profile Pic</a>
+      <a class="waves-effect waves-orange btn-flat" style="float: right; color: #ff6e40" href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up To Gravatar To Upload a Profile Pic <i class="material-icons">trending_flat</i></a>
       <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
       <div class="col s8" id="description">
         <h5>Description</h5>
@@ -172,15 +182,19 @@ div.col.l4.offset-l2 {
         <div class="row">
           <div class="col s4 card-panel hoverable center-align">
             <h5>4 Favs</h5>
-            <div class="col s3 center-align bud">Fav 1
-              <img src="https://romanisima.files.wordpress.com/2015/03/480950.jpg" />
+            <div class="col s3 center-align bud">
+              <p>Fav 1</p>
+              <img src="/assets/images/yoga-sun.png" class="circle-img" />
             </div>
-            <div class="col s3 center-align bud">Fav 2
-              <img src="https://romanisima.files.wordpress.com/2015/03/480950.jpg" />
-            </div><div class="col s3 center-align bud">Fav 3
-              <img src="https://romanisima.files.wordpress.com/2015/03/480950.jpg" />
-            </div><div class="col s3 center-align bud">Fav 4
-              <img src="https://romanisima.files.wordpress.com/2015/03/480950.jpg" />
+            <div class="col s3 center-align bud">
+              <p>Fav 2</p>
+              <img src="/assets/images/yoga-sun.png" class="circle-img" />
+            </div><div class="col s3 center-align bud">
+              <p>Fav 3</p>
+              <img src="/assets/images/yoga-sun.png" class="circle-img" />
+            </div><div class="col s3 center-align bud">
+              <p>Fav 4</p>
+              <img src="/assets/images/yoga-sun.png" class="circle-img" />
             </div>
           </div>
           <br>
@@ -194,17 +208,21 @@ div.col.l4.offset-l2 {
         <div class="row">
           <div class="col s12 center-align">
           <h5>Recent SpotBuds</h5>
-            <div class="col s3 center-align bud">Bud 1
-              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            <div class="col s3 center-align bud">
+              <p>Bud 1</p>
+              <img src="/assets/images/running-sun.png" class="circle-img">
             </div>
-            <div class="col s3 center-align bud">Bud 2
-              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            <div class="col s3 center-align bud">
+              <p>Bud 2</p>
+              <img src="/assets/images/Logo-icon-white.png" class="circle-img">
             </div>
-            <div class="col s3 center-align bud">Bud 3
-              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            <div class="col s3 center-align bud">
+              <p>Bud 3</p>
+              <img src="/assets/images/workout-girl.png" class="circle-img">
             </div>
-            <div class="col s3 center-align bud">Bud 4
-              <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+            <div class="col s3 center-align bud">
+              <p>Bud 4</p>
+              <img src="/assets/images/lego-workout.png" class="circle-img">
             </div>
           </div>
         </div>
