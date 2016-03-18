@@ -17,6 +17,29 @@ li {
 .gm-style .gm-style-iw {
   width: 680px !important;
 }
+.container {
+  margin-left: -5rem;
+  margin-right: -40rem;
+}
+div#materialize-lean-overlay-2.lean-overlay {
+  opacity: 0;
+  display: none;
+}
+.lean-overlay {
+    position: fixed;
+    z-index: 999;
+    top: -100px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 125%;
+    width: 100%;
+    opacity: 0;
+    background-color: none;
+    background: none;
+    display: none;
+}
+
 h4 {
   color: #ff6e40;
 }
@@ -41,10 +64,10 @@ h4 {
         <a href="/map"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
       <ul id="nav-mobile" class="right">
         <!-- Directions Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Using SpotBuds</a>
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal3">Using SpotBuds</a>
         <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-          <div class="modal-content">
+        <div id="modal3" class="modal">
+          <div class="modal-content" style="color: gray; max-height: 400px; overflow-y: scroll !important;">
             <h4>Find a Spot and meet some Buds!</h4>
             <p>
               <h5>Welcome, <%= user.facebook.name || user.local.name%></h5>
