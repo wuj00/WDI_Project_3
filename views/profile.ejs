@@ -1,10 +1,42 @@
 <style>
-  /*this styling lets the images be more circular*/
-  .responsive-img{
-    border-radius: 500px;
-  }
+      body {
+        color: grey;
+      }
+      /*this styling lets the images be more circular*/
+      .responsive-img{
+        border: 10px solid white;
+        border-radius: 500px;
+        margin: auto;
+        display: inherit;
+        margin-top: 100px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+      footer.page-footer {
+         margin-top: 0px;
+         padding-top: 0px;
+        background-color: #ee6e73;
+      }
+      .parallax img {
+        min-height: 20%;
+      }
+      div.col.s4.card-panel.hoverable.center-align {
+        float: right;
+      }
+      .card-panel {
+        margin: 0;
+      }
+      .container .row {
+      margin-left: -5rem;
+      margin-right: -40rem;
+      }
 </style>
-<div class="navbar-fixed">
+
+
+<!-- ~~~~~~~~~~~~~ NAVBAR ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="navbar-fixed" id="profile-nav">
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="/profile">Profile</a></li>
     <li class="divider"></li>
@@ -17,7 +49,7 @@
   </ul>
     <nav>
     <div class="nav-wrapper">
-      <a href="/map" class="brand-logo">SpotBuds Logo</a>
+        <a href="/map"><img src="/assets/images/Logo-icon-white.png" class="nav-img"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right"></i></a></li>
       </ul>
@@ -25,81 +57,142 @@
   </nav>
 </div>
 
-  <div class="parallax-container">
-     <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
-     <img id="profile-image" style="width:300px; height: 300px; margin-left: 575px; margin-top: 135px; border: 5px solid white" class="responsive-img" >
-   </div>
-
-
-    </div>
-   <div class="profile-space">
-    <h3>Welcome, <%= user.facebook.name ||  user.local.name%></h3>
-
-    <div class="row">
-         <div class="col s8" id="description">
-           <h5>Description</h5>
-                <p class = "user-description">
-                 <%= user.description %>
-               </p>
-               <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
-              <!-- Modal Structure -->
-                  <div id="modal1" class="modal">
-                    <div class="modal-content">
-                      <h4>Edit Your Settings!</h4>
-                      <form action="/users/:id" method="patch">
-                        <% if(user.local.name){ %>
-                          <input id="localName" type="text" name="local[name]" value= <%=user.local.name%> >Username
-                          <input id="localEmail" type="text" name="local[email]" value= <%=user.local.email%> >Email
-                          <input id="localPassword" type="text" name="local[password]" value= <%=user.local.password%> >Password
-                        <% } else {%>
-                          <input id="fbName" type="text" name="facebook[name]" value= <%=user.facebook.name%> >Username
-                          <input id="fbEmail" type="text" name="facebook[email]" value= <%=user.facebook.email%> >Email
-                        <% } %>
-                        <input id="Descr" type="text" name="description" value= <%=user.description%> >Description (Tell us about yourself and the activities you like!)
-                      </form>
-
-                    </div>
-                    <div class="modal-footer">
-                      <a type="submit"
-                      href="/profile"
-                      class="modal-action modal-close waves-effect waves-green btn-flat"
-                      action="/users/:id" method="PATCH" id="edit-button">Update</a>
-                    </div>
-                  </div>
-              </div>
-       <div class="col s4 card-panel hoverable center-align">
-         <h5>4 Favs</h5>
-         <br><br><br><br><br><br><br>
-         <div class="">
-
-         </div>
-       </div>
-       <br>
-       <div class="col s12">
-          <h5>Biceps Rating</h5>
-          <br><br><br><br><br>
-       </div>
-       <div class="col s12 center-align">
-         <h5>Recent SpotBuds</h5>
-         <div class="col s3 center-align bud">Bud 1
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-         </div>
-         <div class="col s3 center-align bud">Bud 2
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-         </div>
-         <div class="col s3 center-align bud">Bud 3
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-         </div>
-         <div class="col s3 center-align bud">Bud 4
-           <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
-         </div>
-     </div>
-   </div>
- </div>
- <div class="parallax-container">
-    <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                        <!-- PARALLAX SECTION -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<div class="parallax-container">
+  <div class="parallax">
+    <img src="/assets/images/eiffel-tower-paris-in-the-fall-season-panoramic-view-3840x2400-wide-wallpapers.net.jpg">
   </div>
+  <img id="profile-image" style="width:300px; height: 300px;" class="responsive-img" >
+</div>
 
+
+<!-- ~~PROFILE SECTION~~ -->
+<div class="section white">
+  <div class="row container">
+    <div class="profile-space">
+      <div class="row">
+          <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
+        <div class="col s8" id="description">
+          <h5>Description</h5>
+          <p class = "user-description">
+           <%= user.description %>
+          </p>
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+  <!-- ~~~~~~~~~~~~~Modal Structure~~~~~~~~~~~~~~~~~~~ -->
+  <div class="row container">
+
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h4>Edit Your Settings!</h4>
+              <!-- <form action="/users/:id" method="patch">-->
+
+                <% if (user.local.name){ %>
+                <div class="row">
+                  <form class="form-content" action="/users/:id" method="patch">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="localName" type="text" class="input" name="local[name]" value=<%=user.local.name%>>
+                        <label for="username">Username</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="localEmail" type="email" class="input" name="local[email]" value=<%=user.local.email%>>
+                        <label for="email">Email</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="localPassword" type="text" class="input" name="local[password]">
+                        <label for="password">Password</label>
+                      </div>
+                <% } else {%>
+                      <div class="input-field col s12">
+                        <input id="fbName" type="text" class="input" name="facebook[name]" value=<%=user.facebook.name%>>
+                        <label for="fbName">Username</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="fbEmail" type="email" class="input" name="facebook[email]" value=<%=user.facebook.nameb%>>
+                        <label for="fbEmail">Email</label>
+                      </div>
+                <% } %>
+                      <div class="input-field col s12">
+                        <input id="Descr" type="text" class="input" name="description" value= <%=user.description%>>
+                        <label for="Descr">Description (Tell us about yourself and the activities you like!)</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                  <!-- <input id="localName" type="text" name="local[name]" value= <%= user.local.name %> Username
+                  <input id="localEmail" type="text" name="local[email]" value= <%= user.local.email %> Email
+                  <input id="localPassword" type="text" name="local[password]" value= <%= user.local.password %> Password
+                <% } else {%>
+                  <input id="fbName" type="text" name="facebook[name]" value= <%= user.facebook.name %> Username
+                  <input id="fbEmail" type="text" name="facebook[email]" value= <%= user.facebook.email %> Email
+                <% } %>
+                <input id="Descr" type="text" name="description" value= <%=user.description%> >Description (Tell us about yourself and the activities you like!)
+              </form>
+            </div> -->
+
+              <div class="modal-footer">
+                <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          <div class="col s4 card-panel hoverable center-align">
+            <h5>4 Favs</h5>
+            <br><br><br><br><br><br><br>
+          </div>
+          <br>
+          <div class="col s12">
+            <h5>Biceps Rating</h5>
+            <br><br><br><br><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="parallax-container">
+  <div class="parallax">
+    <img src="/assets/images/-1750769553.jpg">
+  </div>
+</div>
+
+
+<div class="section white">
+  <div class="row container">
+    <!-- <h2 class="grey-text header">Parallax</h2>
+    <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p> -->
+    <div class="col s12 center-align">
+    <h5>Recent SpotBuds</h5>
+      <div class="col s3 center-align bud">Bud 1
+        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+      </div>
+      <div class="col s3 center-align bud">Bud 2
+        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+      </div>
+      <div class="col s3 center-align bud">Bud 3
+        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+      </div>
+      <div class="col s3 center-align bud">Bud 4
+        <img src="http://cdn.skim.gs/image/upload/v1456341996/msi/woman-working-out_ountp9.jpg" class="responsive-img">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="parallax-container">
+  <div class="parallax"><img src="/assets/images/Canine Aviator.jpg"></div>
+</div>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- ~~~~FOOTER~~~~~~~~~~~~~ -->
    <footer class="page-footer">
              <div class="container">
                <div class="row">
@@ -151,17 +244,6 @@
       console.log("it's working!")
 
 
-<<<<<<< HEAD
-      function refreshProfile(){
-        $.ajax({
-          url: '/profile',
-          method: 'GET',
-          data: user.local || user.facebook
-        }).done(function(data){
-          console.log(data)
-        })
-      }
-=======
       // function refreshProfile(user, userId){
       //   console.log("This is the refresh")
       //   $.ajax({
@@ -175,7 +257,6 @@
       //     // document.location.reload()
       //   })
       // }
->>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
       function updateUser(){
        var userId = ($('#user').data("id"))
        var user = {local: {
@@ -196,15 +277,11 @@
          contentType: 'application/json'
        }).done(function(data){
          // manipulate DOM to show new status for todo element.
-<<<<<<< HEAD
-         console.log(data)
-=======
         //  refreshProfile(user, userId)
          console.log(data)
          $(".user-description").text(data.user.description)
 
         //  console.log(data)
->>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
        })
      }
      var $editButton = $('#edit-button')

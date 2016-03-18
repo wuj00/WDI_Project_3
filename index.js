@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(session({
   secret: "user secret",
-  cookie: {_expires: 6000000},
+  cookie: {_expires: 10000000},
   resave: true,
   saveUninitialized: true
 }))
