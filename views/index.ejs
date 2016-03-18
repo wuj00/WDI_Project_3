@@ -2,6 +2,7 @@
 body{
   color: grey;
   font-family: Moon;
+  background-color: black;
 }
 li {
   list-style-type: none;
@@ -37,9 +38,9 @@ h4 {
   </ul>
     <nav>
     <div class="nav-wrapper">
-        <a href="/map"><img src="/assets/images/Logo-icon-white.png" class="nav-img"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
+        <a href="/map"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right"></i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right">perm_identity</i></a></li>
       </ul>
     </div>
   </nav>
@@ -219,7 +220,7 @@ function showUser(){
           google.maps.event.addListener(marker, 'click', function(){
             selectedPlace = place
 
-            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn btn-small" style="font-family: Moon;" id="add-event">Add an event</button>')
+            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event">Add an event</button>')
             infoWindow.open(map, this)
             $('#add-event').on('click', function(){
               console.log(place.place_id)
@@ -263,9 +264,8 @@ function showUser(){
 
 
                             }
-
                         })
-                        infoWindow.setContent(mainUl.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
+                        infoWindow.setContent(mainUl.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event" id="add-event-hardcoded">Add Event</button>')
                         infoWindow.open(map, marker)
                       })
                       // console.log(new_spot, 'this is what you want')
@@ -345,7 +345,7 @@ function showUser(){
             }
 
         })
-        infoWindow.setContent(goUl.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
+        infoWindow.setContent(goUl.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event" id="add-event-hardcoded2">Add Event</button>')
 
       })
     }
@@ -493,7 +493,7 @@ function showUser(){
 
                         // console.log(spot.spot_events.length, 'len')
 
-                        infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
+                        infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event" id="add-event-hardcoded2">Add Event</button>')
                     }
 
                   }
