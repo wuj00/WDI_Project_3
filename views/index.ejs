@@ -138,7 +138,7 @@ li {
       <option value="3">3</option>
       <option value="4">4</option>
       <option value="5">5</option>
-      <option value="5+">5+</option>
+      <option value="6+">6+</option>
     </select>
         <label>Number of buds needed</label>
   </container>
@@ -150,11 +150,7 @@ li {
   </div>
 </div>
 
-
-
 <script>
-
-
 
 function showUser(){
   console.log(user.local.username)
@@ -178,8 +174,6 @@ function showUser(){
       zoom: 13
     });
 
-
-
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position){
         var currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude}
@@ -189,8 +183,6 @@ function showUser(){
         map.setCenter(currentPosition)
       })
     }
-
-
 
     var infoWindow = new google.maps.InfoWindow()
 
@@ -210,9 +202,9 @@ function showUser(){
       if (searchMarkers.length > 0) {
         searchMarkers.forEach(function(location){
           location.setMap(null)
-          console.log('this is the search markers array', searchMarkers)
+          //console.log('this is the search markers array', searchMarkers)
           searchMarkers = []
-          console.log(searchMarkers)
+          //console.log(searchMarkers)
         })
       }
 
@@ -224,7 +216,7 @@ function showUser(){
       places.forEach(function(place){
         //console.log(place.name)
         if (spotBudEvents.includes(place.place_id)) {
-          console.log('already on map', place.name)
+          //console.log('already on map', place.name)
         } else {
           var marker = new google.maps.Marker({
             map: map,
@@ -239,7 +231,7 @@ function showUser(){
             infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event">Add an event</button>')
             infoWindow.open(map, this)
             $('#add-event').on('click', function(){
-              console.log(place.place_id)
+              //console.log(place.place_id)
               $.ajax({
                 method: 'post',
                 url: '/spots',
@@ -247,8 +239,8 @@ function showUser(){
                 contentType: 'application/json'
               })
               .done(function(new_spot){
-                console.log(new_spot, 'marker add one')
-                console.log(new_spot, 'this is the new spot')
+                //console.log(new_spot, 'marker add one')
+                //console.log(new_spot, 'this is the new spot')
                 service.getDetails({
                   placeId: new_spot.spot.spot_location
                 }, function(place, status){
@@ -293,7 +285,6 @@ function showUser(){
                       //   $('#modal1').openModal()
                       // })
 
-
                     })
                   }
                 })
@@ -313,13 +304,13 @@ function showUser(){
               //
               //   })
               // })
-              console.log('clicked already fleek!!!')
+              //console.log('clicked already fleek!!!')
 
-              console.log(searchMarkers)
+              //console.log(searchMarkers)
               searchMarkers.splice(searchMarkers.indexOf(marker), 1)
               marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-              console.log('removing from ui')
-              console.log(searchMarkers)
+              //console.log('removing from ui')
+              //console.log(searchMarkers)
               // console.log(spotBudEvents.length)
             })
 
@@ -331,12 +322,11 @@ function showUser(){
 
     })
 
-
     // marker colors - blue : http://maps.google.com/mapfiles/ms/icons/blue-dot.png
     // green - http://maps.google.com/mapfiles/ms/icons/green-dot.png
     var selectedPlace = null
     function postEvent(place){
-      console.log('Adding an event...')
+      //console.log('Adding an event...')
       $.ajax({
         method: 'post',
         url: '/events',
@@ -344,12 +334,12 @@ function showUser(){
         contentType: 'application/json'
       })
       .done(function(data){
-        console.log(data, 'this is the data')
+        //console.log(data, 'this is the data')
         // infoWindow.setContent($('#event-title-for-db-pin').val())
         var goUl = $('<ul id="ulul"></ul>')
 
         data.the_spot.spot_events.forEach(function(spEvent){
-          console.log(spEvent, 'this is the element')
+          //console.log(spEvent, 'this is the element')
           goUl.html('')
           // console.log(spot.spot_location)
             for (var j = data.the_spot.spot_events.length - 1; j >= 0; j -= 1) {
@@ -357,7 +347,6 @@ function showUser(){
               //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
               goUl.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
                 // console.log(spot.spot_events.length, 'len')
-
 
             }
 
@@ -369,13 +358,13 @@ function showUser(){
 
     // RSVP OPTIONS
      $('body').on('click', '#going-button', function(evt){
-         console.log("going clicked")
-         console.log(evt.target.nodeName)
+        //  console.log("going clicked")
+        //  console.log(evt.target.nodeName)
          if (evt.target.nodeName === 'A') {
            $(evt.target).children().first().text(function(i, text){
              return Number(text) + 1
            })
-           console.log($(evt.target).children().first().attr('id'))
+           //console.log($(evt.target).children().first().attr('id'))
 
            $.ajax({
              method: 'patch',
@@ -385,25 +374,22 @@ function showUser(){
            })
            .done(function(data){
              goingInt = data.going_buds
-             console.log(data, 'going change')
+             //console.log(data, 'going change')
              $(evt.target).children().first().text(data.going_buds)
              location.reload()
            })
          }
      })
 
-
-
-
      $('body').on('click', '#maybe-button', function(evt){
-         console.log("maybe clicked")
-         console.log(evt.target.nodeName)
+        //  console.log("maybe clicked")
+        //  console.log(evt.target.nodeName)
         if (evt.target.nodeName === 'A') {
           $(evt.target).children().first().text(function(i, text){
             return Number(text) + 1
           })
-          console.log($(evt.target).children())
-          console.log($(evt.target).children().first().attr('id'))
+          // console.log($(evt.target).children())
+          // console.log($(evt.target).children().first().attr('id'))
           $.ajax({
             method: 'patch',
             url: '/events/' + $(evt.target).children().first().attr('id'),
@@ -418,18 +404,15 @@ function showUser(){
         }
      })
 
-
     $('body').on('click', '#add-event-hardcoded2', function(){
-      console.log('clicked this is it!!!')
+      // console.log('clicked this is it!!!')
       $('#modal2').openModal()
     })
 
     $('body').on('click', '#add-event-hardcoded', function(){
-      console.log('clicked this is it!!!')
+      // console.log('clicked this is it!!!')
       $('#modal2').openModal()
     })
-
-
 
     $('body').on('click', '#create-event-for-db-pin', function(){
       postEvent(selectedPlace)
@@ -455,7 +438,7 @@ function showUser(){
           allMarkers = []
         })
       }
-      console.log(spots, 'these are all the spots yo')
+      // console.log(spots, 'these are all the spots')
       var toSpot = null
       for (var i = 0; i < spots.length; i +=1){
         if (spots[i].spot_events.length > 0) {
@@ -503,11 +486,6 @@ function showUser(){
                       //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
                       spot_ul.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
 
-
-
-
-
-
                         // console.log(spot.spot_events.length, 'len')
 
                         infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
@@ -518,8 +496,6 @@ function showUser(){
                 })
                 // spot_ul.html().toString()
                 // console.log(spot_ul.html().toString())
-
-
 
               })
               // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
@@ -541,40 +517,6 @@ function showUser(){
 
 
     }
-
-
-
-
-
-    // service.getDetails({
-    //   placeId: 'ChIJGQCRws6kwoARq_Uj_7UKF7Q'
-    // }, function(place, status) {
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     var marker = new google.maps.Marker({
-    //       map: map,
-    //       position: place.geometry.location
-    //     })
-    //     google.maps.event.addListener(marker, 'click', function() {
-    //       // Here were manipulating the place object to diplay the place name provided by google. We are also adding a list to the message box
-    //       infoWindow.setContent('<div class="info-window-box"><strong>' + place.name + '</strong><br>' +
-    //         'Place ID: ' + place.name + '<br>' + place.formatted_address + '</div>' + '<ul><li id="field-hockey-details">Field Hockey Fun</li><li>Volleyball Game</li><li>Squats at Muscle Beach</li><li>Come play sand flag football by Jamie</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li></ul>');
-    //       infoWindow.open(map, this);
-    //       // Here we are adding css to the info window that google provides where we want to show events to change the height of the info box and make it scrollable. We want to show five events (lis) before scrolling
-    //       $('.gm-style-iw').css({'max-height': '250px'})
-    //       var my_li = $('#field-hockey-details');
-    //       var modal = $('#modal1')
-    //       my_li.on('click', function(){
-    //         console.log('my li clicked!!!', my_li)
-    //         modal.openModal()
-    //         // to close a modal
-    //         //   $('#modal1').closeModal()
-    //       })
-    //     });
-    //   }
-    // });
-
-
-
 
   }
 
