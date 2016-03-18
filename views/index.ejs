@@ -17,6 +17,29 @@ li {
 .gm-style .gm-style-iw {
   width: 680px !important;
 }
+.container {
+  margin-left: -5rem;
+  margin-right: -40rem;
+}
+div#materialize-lean-overlay-2.lean-overlay {
+  opacity: 0;
+  display: none;
+}
+.lean-overlay {
+    position: fixed;
+    z-index: 999;
+    top: -100px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 125%;
+    width: 100%;
+    opacity: 0;
+    background-color: none;
+    background: none;
+    display: none;
+}
+
 h4 {
   color: #ff6e40;
 }
@@ -39,6 +62,34 @@ h4 {
     <nav>
     <div class="nav-wrapper">
         <a href="/map"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
+      <ul id="nav-mobile" class="right">
+        <!-- Directions Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal3">Using SpotBuds</a>
+        <!-- Modal Structure -->
+        <div id="modal3" class="modal">
+          <div class="modal-content" style="color: gray; max-height: 400px; overflow-y: scroll !important;">
+            <h4>Find a Spot and meet some Buds!</h4>
+            <p>
+              <h5>Welcome, <%= user.facebook.name || user.local.name%></h5>
+              SpotBuds provides its users, or Buds, with the opportunity to expand their fitness horizons instantly by finding and creating oppotunities to exercise with others on the day they want to exercise. Users can both create and find events that align with their interests. If you like yoga, you can search yoga studios in your area. If you like volleyball, you can find events at the beach!
+              <h6>How does it work?</h6>
+              Creating an Event
+              1. Use the search bar on the map to search for a location near you.
+              2. If the Spot that you are looking for does not have an event, a red pin will drop. Click it and then click 'Add Event' to create a new event!
+              3. When creating an event, add a title, description, and specific location telling Buds where you'll be at, what time the event will happen, and how many Buds you want to join you. **You can only make events that take place on the day you are searching!**
+              4. Submit your event and check back for RSVPs!
+              RSVP to an Event
+              1. Use the search bar on the map to search for a location near you.
+              2. If the Spot you are looking for has an event, you will see a blue pin. Click on it to see a series of events that will happen that day.
+              3. Choose an event, make note of the time, and if you can go, RSVP with either Going or Maybe. Once you click, you're committed, so make sure you go!
+              4. Have fun at your event!
+            </p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">I got it!</a>
+          </div>
+        </div>
+      </ul>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><%= user.local.name || user.facebook.name %><i class="material-icons right">perm_identity</i></a></li>
       </ul>
@@ -64,79 +115,99 @@ h4 {
 <!-- Modal for already dropped pin -->
 <div id="modal2" class="modal">
   <div class="modal-content" style="overflow-x: hidden;">
-    <h4>Create an Event</h4>
-    <p>Please Enter in all information</p>
-    <br>
-    <div class="text-center col-md-8 col-md-offset-2">
-      <form class="form-content">
+    <h4 style="text-align: center;">Create an Event</h4>
+    <p style="text-align: center;">Please Enter in all information</p>
+
+
+    <div class="row" style="margin-bottom: -10px !important;">
+    <form class="col s12" style="margin-bottom: -400px !important;">
+      <div class="row">
         <div class="input-field col s12">
           <input type="text" id="event-title-for-db-pin" class="validate">
           <label for="event-title-for-db-pin">Add a Title</label>
         </div>
+
+      </div>
+    </form>
+    </div>
+
+    <div class="row" style="margin-bottom: -10px !important;">
+    <form class="col s12" style="margin-bottom: -350px !important;">
+      <div class="row">
         <div class="input-field col s12">
           <textarea id="description-text-input-for-db-pin" class="materialize-textarea"></textarea>
           <label for="description-text-input-for-db-pin">Add a description</label>
         </div>
-        <div class="input-field col s12">
-          <input type="text" id="specific-location-text-for-db-pin" class="validate">
-          <label for="specific-location-text-for-db-pin">Give a specific location</label>
-        </div>
-      </form>
+      </div>
+    </form>
+  </div>
+
+  <div class="row" style="margin-bottom: -10px !important;">
+  <form class="col s12" style="margin-bottom: -320px !important;">
+    <div class="row">
+      <div class="input-field col s12">
+        <input type="text" id="specific-location-text-for-db-pin" class="validate">
+        <label for="specific-location-text-for-db-pin">Give a specific location:</label>
+        <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px; margin-bottom: 10px;">
+        <select id="hour-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
+          <option value="" disabled selected>Hour</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+        :
+        <select id="mins-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
+          <option value="" disabled selected>Mins</option>
+          <option value="00">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
+        <select id="am-pm-for-db-pin" class="browser-default" style="max-width: 58px; max-height: 30px; display: inline; margin-left: 4px;">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+            <span>Select a time</span>
+      </container>
+      <br>
+      <br>
+      <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px;">
+        <select id="how-many-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline; margin-left: 4px;">
+          <option value="" disabled selected>Buds</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6+">6+</option>
+        </select>
+            <span>Number of buds needed</span>
+      </container>
+      </div>
     </div>
-    <br>
-    <container class="container" id="event-time-text" style="float: right;">
-      <select id="hour-for-db-pin" class="browser-default" style="max-width: 80px; max-height: margin-left: -5px; 30px; display: inline;">
-        <option value="" disabled selected>Hour</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-      </select>
-      :
-      <select id="mins-for-db-pin" class="browser-default" style="max-width: 80px; max-height: 30px; margin-left: -5px; display: inline;">
-        <option value="" disabled selected>Mins</option>
-        <option value="00">00</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="45">45</option>
-      </select>
-      <select id="am-pm-for-db-pin" class="browser-default" style="max-width: 70px; max-height: 30px; margin-left: -5px; display: inline;">
-        <option value="AM">AM</option>
-        <option value="PM">PM</option>
-      </select>
-        <label>Select a time</label>
-    </container>
-    <br>
-    <br>
-    <br>
-    <container class="container" id="event-time-text" style="float: right; margin-right: -30px;">
-      <select id="how-many-db-pin" class="browser-default" style="max-width: 80px; max-height: 30px; margin-left: -5px; display: inline;">
-        <option value="" disabled selected>Buds</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="5+">5+</option>
-      </select>
-          <label>Number of buds needed</label>
-    </container>
+  </form>
+  </div>
+
+
+
+
+
+
   </div>
   <br>
   <div class="modal-footer">
     <a style="color: #ff6e40;" href="#!" id="create-event-for-db-pin" class="modal-action modal-close waves-effect btn-flat">Create Event</a>
   </div>
 </div>
-
-
 
 <script>
 
@@ -162,8 +233,6 @@ function showUser(){
       zoom: 13
     });
 
-
-
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position){
         var currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude}
@@ -173,8 +242,6 @@ function showUser(){
         map.setCenter(currentPosition)
       })
     }
-
-
 
     var infoWindow = new google.maps.InfoWindow()
 
@@ -194,9 +261,9 @@ function showUser(){
       if (searchMarkers.length > 0) {
         searchMarkers.forEach(function(location){
           location.setMap(null)
-          console.log('this is the search markers array', searchMarkers)
+          //console.log('this is the search markers array', searchMarkers)
           searchMarkers = []
-          console.log(searchMarkers)
+          //console.log(searchMarkers)
         })
       }
 
@@ -208,7 +275,7 @@ function showUser(){
       places.forEach(function(place){
         //console.log(place.name)
         if (spotBudEvents.includes(place.place_id)) {
-          console.log('already on map', place.name)
+          //console.log('already on map', place.name)
         } else {
           var marker = new google.maps.Marker({
             map: map,
@@ -223,7 +290,7 @@ function showUser(){
             infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event">Add an event</button>')
             infoWindow.open(map, this)
             $('#add-event').on('click', function(){
-              console.log(place.place_id)
+              //console.log(place.place_id)
               $.ajax({
                 method: 'post',
                 url: '/spots',
@@ -231,8 +298,8 @@ function showUser(){
                 contentType: 'application/json'
               })
               .done(function(new_spot){
-                console.log(new_spot, 'marker add one')
-                console.log(new_spot, 'this is the new spot')
+                //console.log(new_spot, 'marker add one')
+                //console.log(new_spot, 'this is the new spot')
                 service.getDetails({
                   placeId: new_spot.spot.spot_location
                 }, function(place, status){
@@ -240,9 +307,12 @@ function showUser(){
                     var marker = new google.maps.Marker({
                       map: map,
                       position: place.geometry.location,
-                      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                      icon: '/assets/images/TinyLogoABig.png'
                     })
+
+
                     google.maps.event.addListener(marker, 'click', function(){
+                      // marker.setVisible(false)
                       selectedPlace = place
                       $.ajax({
                         method: 'get',
@@ -259,8 +329,8 @@ function showUser(){
                             for (var j = data.spot.spot_events.length - 1; j >= 0; j -= 1) {
 
                               //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-                              mainUl.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
-                                // console.log(spot.spot_events.length, 'len')
+                              mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
+
 
 
                             }
@@ -275,7 +345,6 @@ function showUser(){
                       //   console.log('clicked go today!!!')
                       //   $('#modal1').openModal()
                       // })
-
 
                     })
                   }
@@ -296,13 +365,13 @@ function showUser(){
               //
               //   })
               // })
-              console.log('clicked already fleek!!!')
+              //console.log('clicked already fleek!!!')
 
-              console.log(searchMarkers)
+              //console.log(searchMarkers)
               searchMarkers.splice(searchMarkers.indexOf(marker), 1)
-              marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-              console.log('removing from ui')
-              console.log(searchMarkers)
+              marker.setIcon('/assets/images/TinyLogo.png')
+              //console.log('removing from ui')
+              //console.log(searchMarkers)
               // console.log(spotBudEvents.length)
             })
 
@@ -314,12 +383,11 @@ function showUser(){
 
     })
 
-
     // marker colors - blue : http://maps.google.com/mapfiles/ms/icons/blue-dot.png
     // green - http://maps.google.com/mapfiles/ms/icons/green-dot.png
     var selectedPlace = null
     function postEvent(place){
-      console.log('Adding an event...')
+      //console.log('Adding an event...')
       $.ajax({
         method: 'post',
         url: '/events',
@@ -327,19 +395,18 @@ function showUser(){
         contentType: 'application/json'
       })
       .done(function(data){
-        console.log(data, 'this is the data')
+        //console.log(data, 'this is the data')
         // infoWindow.setContent($('#event-title-for-db-pin').val())
         var goUl = $('<ul id="ulul"></ul>')
 
         data.the_spot.spot_events.forEach(function(spEvent){
-          console.log(spEvent, 'this is the element')
+          //console.log(spEvent, 'this is the element')
           goUl.html('')
           // console.log(spot.spot_location)
             for (var j = data.the_spot.spot_events.length - 1; j >= 0; j -= 1) {
 
               //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-              goUl.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
-                // console.log(spot.spot_events.length, 'len')
+              goUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
 
 
             }
@@ -352,13 +419,13 @@ function showUser(){
 
     // RSVP OPTIONS
      $('body').on('click', '#going-button', function(evt){
-         console.log("going clicked")
-         console.log(evt.target.nodeName)
+        //  console.log("going clicked")
+        //  console.log(evt.target.nodeName)
          if (evt.target.nodeName === 'A') {
            $(evt.target).children().first().text(function(i, text){
              return Number(text) + 1
            })
-           console.log($(evt.target).children().first().attr('id'))
+           //console.log($(evt.target).children().first().attr('id'))
 
            $.ajax({
              method: 'patch',
@@ -368,25 +435,22 @@ function showUser(){
            })
            .done(function(data){
              goingInt = data.going_buds
-             console.log(data, 'going change')
+             //console.log(data, 'going change')
              $(evt.target).children().first().text(data.going_buds)
              location.reload()
            })
          }
      })
 
-
-
-
      $('body').on('click', '#maybe-button', function(evt){
-         console.log("maybe clicked")
-         console.log(evt.target.nodeName)
+        //  console.log("maybe clicked")
+        //  console.log(evt.target.nodeName)
         if (evt.target.nodeName === 'A') {
           $(evt.target).children().first().text(function(i, text){
             return Number(text) + 1
           })
-          console.log($(evt.target).children())
-          console.log($(evt.target).children().first().attr('id'))
+          // console.log($(evt.target).children())
+          // console.log($(evt.target).children().first().attr('id'))
           $.ajax({
             method: 'patch',
             url: '/events/' + $(evt.target).children().first().attr('id'),
@@ -401,18 +465,15 @@ function showUser(){
         }
      })
 
-
     $('body').on('click', '#add-event-hardcoded2', function(){
-      console.log('clicked this is it!!!')
+      // console.log('clicked this is it!!!')
       $('#modal2').openModal()
     })
 
     $('body').on('click', '#add-event-hardcoded', function(){
-      console.log('clicked this is it!!!')
+      // console.log('clicked this is it!!!')
       $('#modal2').openModal()
     })
-
-
 
     $('body').on('click', '#create-event-for-db-pin', function(){
       postEvent(selectedPlace)
@@ -438,7 +499,7 @@ function showUser(){
           allMarkers = []
         })
       }
-      console.log(spots, 'these are all the spots yo')
+      // console.log(spots, 'these are all the spots')
       var toSpot = null
       for (var i = 0; i < spots.length; i +=1){
         if (spots[i].spot_events.length > 0) {
@@ -459,7 +520,7 @@ function showUser(){
             var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              icon: '/assets/images/TinyLogoABig.png',
               title: spot.spot_location
             })
             allMarkers.push(marker)
@@ -484,14 +545,9 @@ function showUser(){
                   if (marker.title === spot.spot_location) {
                     for (var j = spot.spot_events.length - 1; j >= 0; j -= 1) {
                       //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-                      spot_ul.append($('<li class="row"> <div style="max-width: 625px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
+                      spot_ul.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
 
 
-
-
-
-
-                        // console.log(spot.spot_events.length, 'len')
 
                         infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event" id="add-event-hardcoded2">Add Event</button>')
                     }
@@ -501,8 +557,6 @@ function showUser(){
                 })
                 // spot_ul.html().toString()
                 // console.log(spot_ul.html().toString())
-
-
 
               })
               // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
@@ -524,40 +578,6 @@ function showUser(){
 
 
     }
-
-
-
-
-
-    // service.getDetails({
-    //   placeId: 'ChIJGQCRws6kwoARq_Uj_7UKF7Q'
-    // }, function(place, status) {
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     var marker = new google.maps.Marker({
-    //       map: map,
-    //       position: place.geometry.location
-    //     })
-    //     google.maps.event.addListener(marker, 'click', function() {
-    //       // Here were manipulating the place object to diplay the place name provided by google. We are also adding a list to the message box
-    //       infoWindow.setContent('<div class="info-window-box"><strong>' + place.name + '</strong><br>' +
-    //         'Place ID: ' + place.name + '<br>' + place.formatted_address + '</div>' + '<ul><li id="field-hockey-details">Field Hockey Fun</li><li>Volleyball Game</li><li>Squats at Muscle Beach</li><li>Come play sand flag football by Jamie</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li><li>Workout Swimming</li></ul>');
-    //       infoWindow.open(map, this);
-    //       // Here we are adding css to the info window that google provides where we want to show events to change the height of the info box and make it scrollable. We want to show five events (lis) before scrolling
-    //       $('.gm-style-iw').css({'max-height': '250px'})
-    //       var my_li = $('#field-hockey-details');
-    //       var modal = $('#modal1')
-    //       my_li.on('click', function(){
-    //         console.log('my li clicked!!!', my_li)
-    //         modal.openModal()
-    //         // to close a modal
-    //         //   $('#modal1').closeModal()
-    //       })
-    //     });
-    //   }
-    // });
-
-
-
 
   }
 
