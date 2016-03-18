@@ -1,6 +1,7 @@
 <style>
-body {
+body{
   color: grey;
+  font-family: Moon;
 }
 li {
   list-style-type: none;
@@ -14,6 +15,9 @@ li {
 }
 .gm-style .gm-style-iw {
   width: 680px !important;
+}
+h4 {
+  color: #ff6e40;
 }
 </style>
 
@@ -44,117 +48,96 @@ li {
 <!-- Modal -->
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-    <p>enter in a title for your event</p>
+    <h4>I Am a CoOl Header</h4>
+    <p>Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…</p>
     <input type="text" id="event-title">
   </div>
   <div class="modal-footer">
-    <a href="#!" id="close-button" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    <a style="color: #ff6e40;" href="#!" id="close-button" class="modal-action modal-close waves-effect btn-flat">Close</a>
   </div>
 </div>
 <input id="search-box" class="search-box-class" type="text" placeholder="Search for a place">
 <div id="map"></div>
+
 
 <!-- Modal for already dropped pin -->
 <div id="modal2" class="modal">
   <div class="modal-content" style="overflow-x: hidden;">
     <h4>Create an Event</h4>
     <p>Please Enter in all information</p>
-
-
-    <div class="row">
-    <form class="col s12">
-      <div class="row">
+    <br>
+    <div class="text-center col-md-8 col-md-offset-2">
+      <form class="form-content">
         <div class="input-field col s12">
           <input type="text" id="event-title-for-db-pin" class="validate">
-          <label for="event-title-for-db-pin">Add a Title:</label>
+          <label for="event-title-for-db-pin">Add a Title</label>
         </div>
-      </div>
-    </form>
-    </div>
-
-    <div class="row">
-    <form class="col s12">
-      <div class="row">
         <div class="input-field col s12">
           <textarea id="description-text-input-for-db-pin" class="materialize-textarea"></textarea>
-          <label for="description-text-input-for-db-pin">Add a description:</label>
+          <label for="description-text-input-for-db-pin">Add a description</label>
         </div>
-      </div>
-    </form>
-  </div>
-
-  <div class="row">
-  <form class="col s12">
-    <div class="row">
-      <div class="input-field col s12">
-        <input type="text" id="specific-location-text-for-db-pin" class="validate">
-        <label for="specific-location-text-for-db-pin">Give a specific location:</label>
-      </div>
+        <div class="input-field col s12">
+          <input type="text" id="specific-location-text-for-db-pin" class="validate">
+          <label for="specific-location-text-for-db-pin">Give a specific location</label>
+        </div>
+      </form>
     </div>
-  </form>
-  </div>
-
-
-
-    <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px;">
-    <select id="hour-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
-      <option value="" disabled selected>Hour</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-    </select>
-    :
-    <select id="mins-for-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline;">
-      <option value="" disabled selected>Mins</option>
-      <option value="00">00</option>
-      <option value="15">15</option>
-      <option value="30">30</option>
-      <option value="45">45</option>
-    </select>
-    <select id="am-pm-for-db-pin" class="browser-default" style="max-width: 58px; max-height: 30px; display: inline; margin-left: 4px;">
-      <option value="AM">AM</option>
-      <option value="PM">PM</option>
-    </select>
+    <br>
+    <container class="container" id="event-time-text" style="float: right;">
+      <select id="hour-for-db-pin" class="browser-default" style="max-width: 80px; max-height: margin-left: -5px; 30px; display: inline;">
+        <option value="" disabled selected>Hour</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+      :
+      <select id="mins-for-db-pin" class="browser-default" style="max-width: 80px; max-height: 30px; margin-left: -5px; display: inline;">
+        <option value="" disabled selected>Mins</option>
+        <option value="00">00</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="45">45</option>
+      </select>
+      <select id="am-pm-for-db-pin" class="browser-default" style="max-width: 70px; max-height: 30px; margin-left: -5px; display: inline;">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
         <label>Select a time</label>
-  </container>
-  <br>
-  <br>
-  <container class="container" id="event-time-text" style="float: right; margin-right: -45px; margin-top: -5px;">
-    <select id="how-many-db-pin" class="browser-default" style="max-width: 68px; max-height: 30px; display: inline; margin-left: 4px;">
-      <option value="" disabled selected>Buds</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="5+">5+</option>
-    </select>
-        <label>Number of buds needed</label>
-  </container>
-
+    </container>
+    <br>
+    <br>
+    <br>
+    <container class="container" id="event-time-text" style="float: right; margin-right: -30px;">
+      <select id="how-many-db-pin" class="browser-default" style="max-width: 80px; max-height: 30px; margin-left: -5px; display: inline;">
+        <option value="" disabled selected>Buds</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="5+">5+</option>
+      </select>
+          <label>Number of buds needed</label>
+    </container>
   </div>
   <br>
   <div class="modal-footer">
-    <a style="margin-right: 375px !important;" href="#!" id="create-event-for-db-pin" class="modal-action modal-close waves-effect waves-green btn">Create Event</a>
+    <a style="color: #ff6e40;" href="#!" id="create-event-for-db-pin" class="modal-action modal-close waves-effect btn-flat">Create Event</a>
   </div>
 </div>
 
 
 
 <script>
-
-
 
 function showUser(){
   console.log(user.local.username)
@@ -184,7 +167,7 @@ function showUser(){
       navigator.geolocation.getCurrentPosition(function(position){
         var currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude}
         infoWindow.setPosition(currentPosition)
-        infoWindow.setContent('This is where you are')
+        infoWindow.setContent('YOU ARE CURRENTLY HERE')
         infoWindow.open(map)
         map.setCenter(currentPosition)
       })
@@ -236,7 +219,7 @@ function showUser(){
           google.maps.event.addListener(marker, 'click', function(){
             selectedPlace = place
 
-            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event">Add an event</button>')
+            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn btn-small" style="font-family: Moon;" id="add-event">Add an event</button>')
             infoWindow.open(map, this)
             $('#add-event').on('click', function(){
               console.log(place.place_id)

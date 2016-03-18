@@ -1,82 +1,88 @@
 <style>
-    body {
-      background-color: black;
-      background-image: url("/assets/images/Logo-text-lowopacity.png");
-      background-position: center;
-      background-attachment: fixed;
-      background-size: 100%;
-      background-repeat: no-repeat;
-    }
-    .container{
-      /*background-color: #455a64;*/
-      box-shadow: white;
+  body {
+    background-color: black;
+    background-image: url("/assets/images/Logo-text-lowopacity.png");
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .container{
+    /*background-color: #455a64;*/
+    box-shadow: white;
 
-      width: 600px;
-      padding: 50px;
-    }
-    a {
-      color: #ffd54f;
-    }
-    /*.my-img img {
-      width: 100%;
-      position: center;
-      opacity: 0.8;
-    }*/
+    width: 600px;
+    padding: 50px;
+  }
+  a {
+    color: #ffd54f;
+  }
+  /*.my-img img {
+    width: 100%;
+    position: center;
+    opacity: 0.8;
+  }*/
 
-  /*~~~~~~~~~~~ for input forms ~~~~~~~~~~~~~~~~*/
-    .input-field label {
-      font-size: 0.8rem;
-      color: white;
-    }
-    label {
-       color: white;
-    }
-    input[type=text], input[type=password], input[type=email], textarea.materialize-textarea {
-        border-bottom: 1px solid white;
-    }
-    input[type=email]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
-       color: #ffd54f;
-     }
+/*~~~~~~~~~~~ for input forms ~~~~~~~~~~~~~~~~*/
+  .input-field label {
+    font-size: 0.8rem;
+    color: white;
+  }
+  label {
+    color: white;
+  }
+  input[type=name], input[type=password], input[type=email], textarea.materialize-textarea {
+    border-bottom: 1px solid white;
+  }
+  input[type=email]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
+    color: #ffd54f;
+  }
+  input[type=name]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=password]:focus:not([readonly]) {
+    color: #ffd54f;
+    border-bottom: 1px solid #ffd54f;
+    box-shadow: 0 1px 0 0 #ffd54f;
+  }
+
   /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
   /*~~~~~~~~~~ for horizonal line ~~~~~~~~~~~*/
-    .subtitle {
-    font-size: 30px;
-    }
-    .fancy {
-      overflow: hidden;
-      text-align: center;
-    }
-    .fancy span {
-      position: relative;
-    }
-    .fancy span:before,
-    .fancy span:after {
-      line-height: 7px;
-      content: "";
-      position: absolute;
-      border-bottom: 1px solid white;
-      border-top: 1px solid white;
-      width: 600px;
-      height: $linesHeight;
-      top: 50%;
-      margin-top: floor(-$linesHeight / 2);
-    }
-    .fancy span:before {
-      right: 100%;
-      margin-right: 15px;
-    }
-    .fancy span:after {
-      left: 100%;
-      margin-left: 15px;
-    }
-    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    .btn-center {
-      text-align: center;
-    }
-    p {
-      margin-bottom: -10px;
-    }
+  .subtitle {
+  font-size: 30px;
+  }
+  .fancy {
+    overflow: hidden;
+    text-align: center;
+  }
+  .fancy span {
+    position: relative;
+  }
+  .fancy span:before,
+  .fancy span:after {
+    line-height: 7px;
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    width: 600px;
+    height: $linesHeight;
+    top: 50%;
+    margin-top: floor(-$linesHeight / 2);
+  }
+  .fancy span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+  .fancy span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
+  /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  .btn-center {
+    text-align: center;
+  }
+  p {
+    margin-bottom: -10px;
+  }
 </style>
 
 <body>
@@ -114,14 +120,14 @@
           </div>
         </div>
         <div class="btn-center">
-          <button type="submit" class="btn waves-effect waves-light btn-info">Login</button>
+          <button type="submit" class="btn waves-effect waves-light btn-large"><font size="5">Login</font></button>
         </div>
       </form>
 
       <br>
       <p class="subtitle fancy"><span><strong>OR</strong></span></p>
       <div class="btn-center">
-        <h6> Login with </h6><br><a href="/auth/facebook" class="btn waves-effect waves-light btn-primary btn-large">FACEBOOK</a>
+        <h6> Login with </h6><br><a href="/auth/facebook" class="btn waves-effect waves-light btn-primary">FACEBOOK</a>
       </div>
       <br>
       <p>Don't have an account? <a href="/signup">Signup!</a></p>
