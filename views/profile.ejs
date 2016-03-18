@@ -2,6 +2,9 @@
 body {
   color: grey;
 }
+a {
+  color: #ff6e40;
+}
 /*this styling lets the images be more circular*/
 .responsive-img{
   border: 10px solid white;
@@ -66,6 +69,12 @@ footer.page-footer {
   background: -moz-linear-gradient(bottom right, #ff6e40, #ffd54f); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, #ff6e40, #ffd54f); /* Standard syntax*/
 }
+div.col.l6.s12 {
+  padding: 10px 10px 10px 80px;
+}
+div.col.l4.offset-l2 {
+  padding: 10px 10px 10px 50px;
+}
 </style>
 
 
@@ -106,9 +115,10 @@ footer.page-footer {
 <div class="section white">
   <div class="container2">
     <div class="profile-space">
-      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
-      <a id="delete-button" class="waves-effect waves-light btn">Delete Account</a>
-      <a class="waves-effect waves-light btn" href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up for Gravatar To Create a Profile Pic</a>
+      <a class="waves-effect waves-light btn btn-small modal-trigger" href="#modal1">Edit Profile</a>
+      <a id="delete-button" class="waves-effect waves-light btn btn-small">Delete Account</a>
+      <!-- <a class="waves-effect waves-light btn" -->
+      <a class="waves-effect waves-orange btn-flat" style="float: right; color: #ff6e40" href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up To Gravatar To Upload a Profile Pic</a>
       <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
       <div class="col s8" id="description">
         <h5>Description</h5>
@@ -121,6 +131,7 @@ footer.page-footer {
     <div id="modal1" class="modal">
       <div class="modal-content">
         <h4>Edit Your Settings!</h4>
+        <br>
         <% if (user.local.name){ %>
         <div class="text-center col-md-8 col-md-offset-2">
           <form class="form-content" action="/users/:id" method="patch">
@@ -153,7 +164,7 @@ footer.page-footer {
           </form>
         </div>
         <div class="modal-footer">
-          <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-light btn" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+          <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-orange btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
         </div>
       </div>
     </div>
@@ -203,7 +214,7 @@ footer.page-footer {
 </div>
     <div class="parallax-container">
       <div class="parallax">
-        <img src="/assets/images/Canine Aviator.jpg">
+        <img src="/assets/images/-1750769553.jpg">
       </div>
     </div>
 

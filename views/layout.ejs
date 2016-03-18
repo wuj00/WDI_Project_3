@@ -24,7 +24,7 @@
       }
       @font-face {
         font-family: Moon;
-        src: url('/assets/fonts/Moon Light.otf') 
+        src: url('/assets/fonts/Moon Light.otf')
       }
       #map {
         height: 80%;
@@ -35,6 +35,8 @@
       }
       .btn {
         background: linear-gradient(to bottom right, #ff6e40, #ffd54f);
+        box-shadow: 0 1px 2px 0 #bdbdbd;
+        padding: 0 1rem;
       }
       .info-window-box {
 
@@ -69,11 +71,16 @@
         display: inline-block;
       }
       #search-box {
-       background-color: white;
-       font-size: 15px;
-       padding-left: 15px;
-       text-overflow: ellipsis;
-       width: 500px;
+        background-color: white;
+        font-size: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+        padding-left: 15px;
+        overflow-x: hidden;
+        white-space:nowrap;
+        text-overflow: ellipsis;
+        width: 500px;
+        height: 32px;
      }
     </style>
   </head>
