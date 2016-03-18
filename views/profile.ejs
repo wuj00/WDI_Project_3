@@ -3,6 +3,24 @@
   .responsive-img{
     border-radius: 500px;
   }
+  .rating {
+  unicode-bidi: bidi-override;
+  /*direction: rtl;*/
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+span{
+  color: #4dd0e1;
+
+}
 </style>
 <div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content">
@@ -80,6 +98,12 @@
        <br>
        <div class="col s12">
           <h5>Biceps Rating</h5>
+          <h6>Click Star to Rate User</h6>
+          <div class="rating">
+            <div id="star" class="star"><span ="star">☆</span></div>
+          </div>
+        </div>
+      </div>
           <br><br><br><br><br>
        </div>
        <div class="col s12 center-align">
@@ -135,6 +159,7 @@
 
 <script type="text/javascript" >
     $(function(){
+      console.log("it's working!")
       var userEmail = "<%= user.facebook.email ||  user.local.email%>"
       //ajax that will allow a get to be carried out once the edit button is clicked
       //profile image using gravatar
@@ -151,9 +176,6 @@
   // })
 
 // $(function(){
-      console.log("it's working!")
-
-
       // function refreshProfile(user, userId){
       //   console.log("This is the refresh")
       //   $.ajax({
@@ -216,6 +238,20 @@
        updateUser()
 
      })
+     //append star rating to user
+          var $starDiv = $("#star")
+          var $star = $('.star')
+          var count = 0
+          $star.on('click', function(){
+              if (count < 4){
+                  $starDiv.append('<span star>☆</span>')
+                  count +=1
+              }
+              else {
+                return ("too many")
+              }
+            })
+
      $('#layout-nav').css({'display': 'none'});
    })
 
