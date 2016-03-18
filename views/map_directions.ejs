@@ -1,0 +1,26 @@
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Using SpotBuds</a>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Find a Spot and meet some Buds!</h4>
+    <p>
+      <h5>Welcome, <%= user.facebook.name || user.local.name%></h5>
+      SpotBuds provides its users, or Buds, with the opportunity to expand their fitness horizons instantly by finding and creating oppotunities to exercise with others on the day they want to exercise. Users can both create and find events that align with their interests. If you like yoga, you can search yoga studios in your area. If you like volleyball, you can find events at the beach!
+      <h6>How does it work?</h6>
+      Creating an Event
+      1. Use the search bar on the map to search for a location near you.
+      2. If the Spot that you are looking for does not have an event, a red pin will drop. Click it and then click 'Add Event' to create a new event!
+      3. When creating an event, add a title, description, and specific location telling Buds where you'll be at, what time the event will happen, and how many Buds you want to join you. **You can only make events that take place on the day you are searching!**
+      4. Submit your event and check back for RSVPs!
+      RSVP to an Event
+      1. Use the search bar on the map to search for a location near you.
+      2. If the Spot you are looking for has an event, you will see a blue pin. Click on it to see a series of events that will happen that day.
+      3. Choose an event, make note of the time, and if you can go, RSVP with either Going or Maybe. Once you click, you're committed, so make sure you go!
+      4. Have fun at your event!
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">I got it!</a>
+  </div>
+</div>
