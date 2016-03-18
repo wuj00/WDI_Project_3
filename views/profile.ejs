@@ -102,7 +102,7 @@
     <div class="parallax"><img src="https://cdn.tutsplus.com/photo/uploads/legacy/335_panoramicimages/1.jpg"></div>
   </div>
 
-   <footer class="page-footer">
+  <footer class="page-footer">
              <div class="container">
                <div class="row">
                  <div class="col l6 s12">
@@ -153,17 +153,6 @@
       console.log("it's working!")
 
 
-<<<<<<< HEAD
-      function refreshProfile(){
-        $.ajax({
-          url: '/profile',
-          method: 'GET',
-          data: user.local || user.facebook
-        }).done(function(data){
-          console.log(data)
-        })
-      }
-=======
       // function refreshProfile(user, userId){
       //   console.log("This is the refresh")
       //   $.ajax({
@@ -177,9 +166,6 @@
       //     // document.location.reload()
       //   })
       // }
-<<<<<<< HEAD
->>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
-=======
       var $deleteButton = $('#delete-button')
       $deleteButton.on('click', function(evt){
         console.log("delete clicked")
@@ -195,7 +181,6 @@
         evt.preventDefault()
       })
 
->>>>>>> 2eeb77b6565436fea0dee91b6279451e1fc554f0
       function updateUser(){
        var userId = ($('#user').data("id"))
        var user = {local: {
@@ -216,15 +201,11 @@
          contentType: 'application/json'
        }).done(function(data){
          // manipulate DOM to show new status for todo element.
-<<<<<<< HEAD
-         console.log(data)
-=======
         //  refreshProfile(user, userId)
          console.log(data)
          $(".user-description").text(data.user.description)
 
         //  console.log(data)
->>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
        })
      }
      var $editButton = $('#edit-button')
