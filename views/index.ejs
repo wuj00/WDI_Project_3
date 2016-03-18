@@ -307,9 +307,12 @@ function showUser(){
                     var marker = new google.maps.Marker({
                       map: map,
                       position: place.geometry.location,
-                      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                      icon: '/assets/images/TinyLogoABig.png'
                     })
+
+
                     google.maps.event.addListener(marker, 'click', function(){
+                      // marker.setVisible(false)
                       selectedPlace = place
                       $.ajax({
                         method: 'get',
@@ -366,7 +369,7 @@ function showUser(){
 
               //console.log(searchMarkers)
               searchMarkers.splice(searchMarkers.indexOf(marker), 1)
-              marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+              marker.setIcon('/assets/images/TinyLogo.png')
               //console.log('removing from ui')
               //console.log(searchMarkers)
               // console.log(spotBudEvents.length)
@@ -517,7 +520,7 @@ function showUser(){
             var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              icon: '/assets/images/TinyLogoABig.png',
               title: spot.spot_location
             })
             allMarkers.push(marker)
