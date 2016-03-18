@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+
 var ejs = require('ejs')
 var ejsLayouts = require('express-ejs-layouts')
 var flash = require('connect-flash')

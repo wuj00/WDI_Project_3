@@ -1,4 +1,5 @@
 var express = require('express')
+var app = express()
 var passport = require('passport')
 var userRouter = express.Router()
 var Spot = require('../models/Spot.js')
@@ -66,6 +67,29 @@ userRouter.get('/spots/:id', function(req, res){
 userRouter.get('/events', function(req, res){
   Event.find({}, function(err, events){
     res.json(events)
+  })
+})
+
+userRouter.patch('/events/:id', function(req, res){
+  Event.findOne({_id: req.params.id}).exec(function(err, event){
+    if (err) throw err
+    console.log(event, 'this is the event')
+    console.log(req.body, 'this is body')
+    console.log(req.body.going, 'going val con')
+    console.log(req.body.maybe, 'maybe val con')
+    if (req.body.going === true) {
+      event.going_buds += 1
+      event.save(function(err, data){
+        if (err) throw err
+        res.json({message: 'going went up 1', data: data})
+      })
+    } else if (req.body.maybe === true) {
+      event.maybe_buds += 1
+      event.save(function(err, data){
+        if (err) throw err
+        res.json({message: 'maybe went up 1', data: data})
+      })
+    }
   })
 })
 
