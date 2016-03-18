@@ -25,8 +25,8 @@ var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbud
 
 // Connect to Mongo DB Via Remote Heroku
 mongoose.connect(DB_URL, function(err){
-  if(err) return console.log('Cannot connect, weep')
-  console.log('Connected to MongoDb, woot!')
+  if(err) return console.log('Cannot connect, weep...')
+  console.log('Connected to MongoDb, WOOTWOOT!')
 })
 
 app.use(express.static(path.join(__dirname, "/public")))

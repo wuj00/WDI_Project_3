@@ -10,7 +10,6 @@
   .container{
     /*background-color: #455a64;*/
     box-shadow: white;
-
     width: 600px;
     padding: 50px;
   }
@@ -32,15 +31,20 @@
     color: white;
   }
   label {
-     color: white;
+    color: white;
   }
-  input[type=text], input[type=password], input[type=email], textarea.materialize-textarea {
-      border-bottom: 1px solid white;
+  input[type=name], input[type=password], input[type=email], textarea.materialize-textarea {
+    border-bottom: 1px solid white;
   }
-  input[type=email]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
-     color: #ffd54f;
+  input[type=name]:focus:not([readonly])+label, input[type=email]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label {
+    color: #ffd54f;
    }
-  input[type="radio"]:not(:checked)+label:before {
+  input[type=name]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=password]:focus:not([readonly]) {
+    color: white;
+    border-bottom: 1px solid #ffd54f;
+    box-shadow: 0 1px 0 0 #ffd54f;
+   }
+  input[type="radio"]:not(:checked)+label::before {
     border: 2px solid white;
   }
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -77,11 +81,14 @@
     margin-left: 15px;
   }
   /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-  .btn-center {
+  div.btn-center {
     text-align: center;
   }
   p {
     margin-bottom: -10px;
+  }
+  .btn-primary {
+    background-color: #3b5998;
   }
 </style>
 
@@ -91,7 +98,7 @@
   <div class="navbar-fixed" id="signup-nav">
     <nav>
       <div class="nav-wrapper">
-        <a href="/map"><img src="/assets/images/Logo-icon-white.png" class="nav-img"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
+        <a href="/map"><img src="/assets/images/Logo-text-white.png" class="nav-img2"></a>
       </div>
     </nav>
   </div>
@@ -151,13 +158,15 @@
           </div>
         </div>
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <button type="submit" class="btn waves-effect waves-light btn-info">Join Now!</button>
+      <div class="btn-center">
+        <button type="submit" class="btn waves-effect waves-light btn-large"><font size="5">Join Now!</font></button>
+      </div>
       </form>
     </div>
     <br>
     <p class="subtitle fancy"><span><strong>OR</strong></span></p>
     <div class="btn-center">
-      <h6> Login with </h6><br><a href="/auth/facebook" class="btn waves-effect waves-light btn-primary btn-large">FACEBOOK</a>
+      <h6> Login with </h6><br><a href="/auth/facebook" class="btn waves-effect waves-light btn-primary" style="background-color: #3b5998;">FACEBOOK</a>
     </div>
     <br>
     <p>Already have an account? <a href="/login">Login!</a></p>
