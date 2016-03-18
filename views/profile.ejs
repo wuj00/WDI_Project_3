@@ -3,6 +3,24 @@
   .responsive-img{
     border-radius: 500px;
   }
+  .rating {
+  unicode-bidi: bidi-override;
+  /*direction: rtl;*/
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+span{
+  color: #4dd0e1;
+
+}
 </style>
 <div class="navbar-fixed">
   <ul id="dropdown1" class="dropdown-content">
@@ -79,12 +97,12 @@
        <br>
        <div class="col s12">
           <h5>Biceps Rating</h5>
-          <h6>Click Logo to Rate User</h6>
-            <div id="bicep-rating-div">
-              <div class="tiny-logo">
-                <img class="bicep" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>
-              </div>
-            </div>
+          <h6>Click Star to Rate User</h6>
+          <div class="rating">
+            <div id="star" class="star"><span ="star">☆</span></div>
+          </div>
+        </div>
+      </div>
           <br><br><br><br><br>
        </div>
        <div class="col s12 center-align">
@@ -206,25 +224,33 @@
        updateUser()
 
      })
-          var $newTinyLogoImg = $('<img class="bicep" src="/assets/images/TinyLogo.png" alt="TinyLogo"/>')
-          var $tinyLogoDiv = $('.tiny-logo')
-          var $bicepRating = $("#new-bicep-rating-div")
-          var $newTinyLogoDiv = $('.bicep')
+     //append bicep rating to user
+          var $starDiv = $("#star")
+          var $star = $('.star')
 
             // for(i = 0; i<=5; i +=1){
-            $('body').on("click", ".bicep" ,function(){
-              $tinyLogoDiv.append($newTinyLogoImg)
-            })
-
-            //  function(){
-            // console.log("logo click")
-            //
-            // $tinyLogoDiv.append($newTinyLogoImg)
+            // $star.on("click" ,function(){
+            //   console.log("star clicked")
+            //   $starDiv.append("<span star>☆</span>")
             // })
-          // }
-          // $bicepRating.append($tinyLogoDiv.append($newTinyLogoImg))
 
 
+                $star.on('click', function(){
+                  for(count = 0; count<4; count +=1){
+                    if (count === 4){
+                      
+                    }
+                  $starDiv.append('"<span star>☆</span>"')
+                  }
+                })
+
+              // $star.on('click', (function(){
+              //   for(i=0; )
+              //     if ($star >= 5) return;
+              //     var $star = $('.star')
+              //     maxAppend++;
+              //     $('#star').append($star);
+              // }));
 
      //add bicep rating directly to profile
     //  var $tinyLogoImg = $('#tiny-logo')
