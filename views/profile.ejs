@@ -42,6 +42,8 @@
                  <%= user.description %>
                </p>
                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+               <a id="delete-button" class="waves-effect waves-light btn">Delete Account</a>
+
               <!-- Modal Structure -->
                   <div id="modal1" class="modal">
                     <div class="modal-content">
@@ -175,7 +177,25 @@
       //     // document.location.reload()
       //   })
       // }
+<<<<<<< HEAD
 >>>>>>> 67dc01f06f4d17998330772c4bb0cce88a8101b7
+=======
+      var $deleteButton = $('#delete-button')
+      $deleteButton.on('click', function(evt){
+        console.log("delete clicked")
+        var userId = ($('#user').data("id"))
+        $.ajax({
+          method: 'delete',
+          url: '/users/' + userId,
+          success: function(result){
+            window.alert('You deleted your accout!')
+            window.location.replace('/login')
+          }
+        })
+        evt.preventDefault()
+      })
+
+>>>>>>> 2eeb77b6565436fea0dee91b6279451e1fc554f0
       function updateUser(){
        var userId = ($('#user').data("id"))
        var user = {local: {
