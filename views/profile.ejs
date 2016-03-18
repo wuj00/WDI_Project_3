@@ -106,13 +106,15 @@ footer.page-footer {
 <div class="section white">
   <div class="container2">
     <div class="profile-space">
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
+      <a id="delete-button" class="waves-effect waves-light btn">Delete Account</a>
+      <a class="waves-effect waves-light btn" href="https://signup.wordpress.com/signup/?ref=oauth2&oauth2_redirect=8cc7be1bd5398464de0dd62439d0761a%40https%3A%2F%2Fpublic-api.wordpress.com%2Foauth2%2Fauthorize%2F%3Fclient_id%3D1854%26response_type%3Dcode%26blog_id%3D0%26state%3D99a2088d617f242667d57a1fa4b3709cc63fc9b7064361a3a6c1bb06aad84009%26redirect_uri%3Dhttps%253A%252F%252Fen.gravatar.com%252Fconnect%252F%253Faction%253Drequest_access_token%26jetpack-code%26jetpack-user-id%3D0%26action%3Doauth2-login&wpcom_connect=1">Sign Up for Gravatar To Create a Profile Pic</a>
       <h3>Welcome, <%= user.facebook.name || user.local.name%></h3>
       <div class="col s8" id="description">
         <h5>Description</h5>
         <p class = "user-description">
           <%= user.description %>
         </p>
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Profile</a>
 
   <!-- ~~~~~~~~~~~~~Modal Structure~~~~~~~~~~~~~~~~~~~ -->
   <div class="container">
@@ -151,7 +153,7 @@ footer.page-footer {
           </form>
         </div>
         <div class="modal-footer">
-          <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-green btn-flat" action="/users/:id" method="PATCH" id="edit-button">Update</a>
+          <a type="submit" href="/profile" class="modal-action modal-close waves-effect waves-light btn" action="/users/:id" method="PATCH" id="edit-button">Update</a>
         </div>
       </div>
     </div>
@@ -163,11 +165,12 @@ footer.page-footer {
           </div>
           <br>
           <div class="col s12">
-            <h5>Biceps Rating</h5>
-            <br><br><br><br><br>
+            <h6>Click Star to Rate User</h6>
+              <div class="rating">
+                <div id="star" class="star"><span ="star">☆</span></div>
+                </div>
+              </div>
           </div>
-        </div>
-
         <div class="row">
           <div class="col s12 center-align">
           <h5>Recent SpotBuds</h5>
