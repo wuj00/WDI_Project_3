@@ -41,7 +41,7 @@ userRouter.delete('/users/:id', isLoggedIn, function(req,res){
 userRouter.get('/spots', function(req, res){
   Spot.find({}).populate('spot_events').exec(function(err, results){
     if (err) throw err
-      console.log(results)
+      // console.log(results)
       res.json(results)
   })
 })
@@ -50,8 +50,8 @@ userRouter.get('/spots', function(req, res){
 userRouter.post('/spots', function(req, res){
   Spot.create(req.body, function(err, spot){
     if (err) throw err
-    console.log(spot, 'this is spot')
-    console.log(req.body.spot_location, 'this is spot loc')
+    // console.log(spot, 'this is spot')
+    // console.log(req.body.spot_location, 'this is spot loc')
     res.json({success: true, spot: spot})
   })
 })
@@ -76,10 +76,10 @@ userRouter.get('/events', function(req, res){
 userRouter.patch('/events/:id', function(req, res){
   Event.findOne({_id: req.params.id}).exec(function(err, event){
     if (err) throw err
-    console.log(event, 'this is the event')
-    console.log(req.body, 'this is body')
-    console.log(req.body.going, 'going val con')
-    console.log(req.body.maybe, 'maybe val con')
+    // console.log(event, 'this is the event')
+    // console.log(req.body, 'this is body')
+    // console.log(req.body.going, 'going val con')
+    // console.log(req.body.maybe, 'maybe val con')
     // console.log(event.going_buds, 'going buds count yo')
     // console.log(Number(event.how_many_buds), 'this is how many poeple limit')
     if (req.user.local.name === event.spot_author || req.user.facebook.name === event.spot_author) {
@@ -90,7 +90,7 @@ userRouter.patch('/events/:id', function(req, res){
         })
       } else if (req.body.maybe) {
         Event.findOne({_id: event._id}).populate('maybe_buds_users').exec(function(err, users){
-          console.log('all maybe rsvps')
+          //console.log('all maybe rsvps')
           users.maybe_buds_users.forEach(function(user){
             if (user.local.name) {
               console.log('local:', user.local.name)
@@ -198,15 +198,15 @@ userRouter.patch('/events/:id', function(req, res){
         })
       }
       else if (event.maybe_buds_users.indexOf(req.user._id) === -1 && event.going_buds_users.indexOf(req.user._id) !== -1){
-        console.log(req.user._id, '<<<< this is what req user _id is')
-        console.log(req.user, '<<< this is what req user is')
-        console.log(req.params.id, '<<< this is the params id that what given from ajax call')
-        event.going_buds_users.forEach(function(el, i){
-          console.log(el, '<<<< element', i, '<< index in array', 'this is the user and its id right next to each other')
-        })
-        console.log(event.going_buds_users.indexOf(req.user._id), ' <<<<<<<<<====== this is the index of user in going buds array maybe array is 0 and going arr is not 0')
-        console.log(event.going_buds_users, ' <<<< this is all the users in the going buds users array')
-        console.log(event.maybe_buds_users, ' <<<< this is all the users in the maybe buds users array')
+        // console.log(req.user._id, '<<<< this is what req user _id is')
+        // console.log(req.user, '<<< this is what req user is')
+        // console.log(req.params.id, '<<< this is the params id that what given from ajax call')
+        // event.going_buds_users.forEach(function(el, i){
+        //   console.log(el, '<<<< element', i, '<< index in array', 'this is the user and its id right next to each other')
+        // })
+        // console.log(event.going_buds_users.indexOf(req.user._id), ' <<<<<<<<<====== this is the index of user in going buds array maybe array is 0 and going arr is not 0')
+        // console.log(event.going_buds_users, ' <<<< this is all the users in the going buds users array')
+        // console.log(event.maybe_buds_users, ' <<<< this is all the users in the maybe buds users array')
         event.going_buds_users.splice(event.going_buds_users.indexOf(req.user._id), 1)
         event.maybe_buds_users.push(req.user._id)
         event.maybe_buds += 1
@@ -224,8 +224,8 @@ userRouter.patch('/events/:id', function(req, res){
         })
       }
       else if (event.maybe_buds_users.indexOf(req.user._id) !== -1 && event.going_buds_users.indexOf(req.user._id) !== -1) {
-        console.log(event.going_buds_users.indexOf(req.user._id), ' <<<<<<<<<====== this is the index of user in going buds array')
-        console.log(event.going_buds_users, ' <<<< this is all the users in the going buds users array')
+        // console.log(event.going_buds_users.indexOf(req.user._id), ' <<<<<<<<<====== this is the index of user in going buds array')
+        // console.log(event.going_buds_users, ' <<<< this is all the users in the going buds users array')
         event.going_buds_users.splice(event.going_buds_users.indexOf(req.user._id), 1)
         event.going_buds -= 1
         event.save(function(err, data){
@@ -247,7 +247,7 @@ userRouter.post('/events', isLoggedIn, function(req, res){
   //console.log(req.body.spot_location)
   User.findOne({_id: req.user._id}, function(err, user){
     Spot.findOne({spot_location: req.body.spot_location}).populate('spot_events').exec(function(err, spot){
-      console.log(spot, 'this is spot')
+      //console.log(spot, 'this is spot')
       if (user.local.email) {
         var newEvent = new Event({_created_by: user._id, _location: spot._id, title: req.body.title, description: req.body.description, time: req.body.time, how_many_buds: req.body.how_many_buds, specific_location: req.body.specific_location, photo: req.user.local.email, spot_author: req.user.local.name})
 
