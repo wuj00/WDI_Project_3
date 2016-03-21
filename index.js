@@ -1,6 +1,6 @@
 var express = require('express')
 var app = express()
-
+var dotenv = require('dotenv').config({silent: true})
 var ejs = require('ejs')
 var ejsLayouts = require('express-ejs-layouts')
 var flash = require('connect-flash')
@@ -22,9 +22,9 @@ var User = require('./models/User.js')
 var PORT = process.env.PORT || 3000
 // var DB_URL = 'mongodb://spotbuds:generalassembly@ds015869.mlab.com:15869/spotbuds'
 var LOCAL_DB_URL = 'mongodb://localhost/spot_buds'
-
+var DB_URL = process.env.MLAB_LINK || 'mongodb://localhost/spot_buds'
 // Connect to Mongo DB Via Remote Heroku
-mongoose.connect(LOCAL_DB_URL, function(err){
+mongoose.connect(DB_URL, function(err){
   if(err) return console.log('Cannot connect, weep...')
   console.log('Connected to MongoDb, WOOTWOOT!')
 })
