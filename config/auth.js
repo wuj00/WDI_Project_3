@@ -1,4 +1,5 @@
 //this is where the facebook OAuth Information goes
+var dotenv = require('dotenv').config({silent: true})
 module.exports = {
   'facebook':{
     'clientID':'966966436690708', //taken from my developer dashboard for the app
