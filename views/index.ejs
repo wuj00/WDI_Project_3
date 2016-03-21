@@ -97,17 +97,18 @@ h4 {
   </nav>
 </div>
 
-<!-- Modal -->
+<!-- Modal for showing rsvp user profiles -->
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h4>I Am a CoOl Header</h4>
-    <p>Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…</p>
-    <input type="text" id="event-title">
+    <h4 id="rsvp-modal-title" style="text-align: center;"></h4>
+    <ul class="collection" id="rsvp-ul"></ul>
   </div>
   <div class="modal-footer">
     <a style="color: #ff6e40;" href="#!" id="close-button" class="modal-action modal-close waves-effect btn-flat">Close</a>
   </div>
 </div>
+
+
 <input id="search-box" class="search-box-class" type="text" placeholder="Search for a place">
 <div id="map"></div>
 
@@ -210,10 +211,8 @@ h4 {
 </div>
 
 <script>
-
-function showUser(){
-  console.log(user.local.username)
-}
+var currentUserId = '<%= user._id %>'
+var currentUserName = '<%= user.local.name || user.facebook.name %>'
   // This example requires the Places library. Include the libraries=places
   // parameter when you first load the API. For example:
   // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -286,95 +285,104 @@ function showUser(){
           searchMarkers.push(marker)
           google.maps.event.addListener(marker, 'click', function(){
             selectedPlace = place
-
-            infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event">Add an event</button>')
-            infoWindow.open(map, this)
-            $('#add-event').on('click', function(){
-              //console.log(place.place_id)
-              $.ajax({
-                method: 'post',
-                url: '/spots',
-                data: JSON.stringify({spot_location: place.place_id.toString()}),
-                contentType: 'application/json'
-              })
-              .done(function(new_spot){
-                //console.log(new_spot, 'marker add one')
-                //console.log(new_spot, 'this is the new spot')
-                service.getDetails({
-                  placeId: new_spot.spot.spot_location
-                }, function(place, status){
-                  if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    var marker = new google.maps.Marker({
-                      map: map,
-                      position: place.geometry.location,
-                      icon: '/assets/images/TinyLogoABig.png'
-                    })
-
-
-                    google.maps.event.addListener(marker, 'click', function(){
-                      // marker.setVisible(false)
-                      selectedPlace = place
-                      $.ajax({
-                        method: 'get',
-                        url: '/spots/' + new_spot.spot._id
-                      })
-                      .done(function(data){
-                        console.log(data)
-                        var mainUl = $('<ul id="ulul"></ul>')
-
-                        data.spot.spot_events.forEach(function(spEvent){
-                          console.log(spEvent, 'this is the element')
-                          mainUl.html('')
-                          // console.log(spot.spot_location)
-                            for (var j = data.spot.spot_events.length - 1; j >= 0; j -= 1) {
-
-                              //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-                              mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
-
-
-
-                            }
-                        })
-                        infoWindow.setContent(mainUl.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event-hardcoded">Add Event</button>')
-                        infoWindow.open(map, marker)
-                      })
-                      // console.log(new_spot, 'this is what you want')
-                      // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
-
-                      // $('#add-event-hardcoded').on('click', function(){
-                      //   console.log('clicked go today!!!')
-                      //   $('#modal1').openModal()
-                      // })
-
-                    })
-                  }
-                })
-              })
-
-              $('#modal2').openModal()
-
-              // $('#close-button').on('click', function(){
-              //   $.ajax({
-              //     method: 'post',
-              //     url: '/events',
-              //     data: JSON.stringify({spot_location: place.place_id.toString(), title: $('#event-title').val()}),
-              //     contentType: 'application/json'
-              //   })
-              //   .done(function(data){
-              //     infoWindow.setContent($('#event-title').val() + 'it worked!!!! added event!')
-              //
-              //   })
-              // })
-              //console.log('clicked already fleek!!!')
-
-              //console.log(searchMarkers)
-              searchMarkers.splice(searchMarkers.indexOf(marker), 1)
-              marker.setIcon('/assets/images/TinyLogo.png')
-              //console.log('removing from ui')
-              //console.log(searchMarkers)
-              // console.log(spotBudEvents.length)
+            console.log(place.place_id, 'this is place')
+            $.ajax({
+              method: 'get',
+              url: '/spots/' + selectedPlace.place_id
             })
+            .done(function(data){
+              console.log(data)
+              if (data.spot) {
+                console.log('has events')
+                var mainUl = $('<ul id="ulul"></ul>')
+                data.spot.spot_events.forEach(function(spEvent){
+                  console.log(spEvent, 'this is the element')
+                  mainUl.html('')
+                    for (var j = data.spot.spot_events.length - 1; j >= 0; j -= 1) {
+                      if (data.spot.spot_events[j].going_buds_users.includes(currentUserId)) {
+                        mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                      } else if (data.spot.spot_events[j].maybe_buds_users.includes(currentUserId)) {
+                        mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                      } else {
+                        mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                      }
 
+                    }
+                })
+                infoWindow.setContent(mainUl.html() + selectedPlace.name + '<br>' + selectedPlace.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event-hardcoded">Add Event</button>')
+
+
+              } else {
+                infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event">Add an event</button>')
+                $('#add-event').on('click', function(){
+                  console.log(selectedPlace.place_id)
+                  $.ajax({
+                    method: 'post',
+                    url: '/spots',
+                    data: JSON.stringify({spot_location: selectedPlace.place_id}),
+                    contentType: 'application/json'
+                  })
+                  .done(function(new_spot){
+                    //console.log(new_spot, 'marker add one')
+                    //console.log(new_spot, 'this is the new spot')
+                    service.getDetails({
+                      placeId: new_spot.spot.spot_location
+                    }, function(place, status){
+                      if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var marker = new google.maps.Marker({
+                          map: map,
+                          position: place.geometry.location,
+                          icon: '/assets/images/TinyLogoABig.png'
+                        })
+
+
+                        google.maps.event.addListener(marker, 'click', function(){
+                          // marker.setVisible(false)
+                          selectedPlace = place
+                          $.ajax({
+                            method: 'get',
+                            url: '/spots/' + selectedPlace.place_id
+                          })
+                          .done(function(data){
+                            console.log(selectedPlace.place_id)
+                            console.log(data)
+                            var mainUl = $('<ul id="ulul"></ul>')
+
+                            data.spot.spot_events.forEach(function(spEvent){
+                              console.log(spEvent, 'this is the element')
+                              mainUl.html('')
+                                for (var j = data.spot.spot_events.length - 1; j >= 0; j -= 1) {
+                                  if (data.spot.spot_events[j].going_buds_users.includes(currentUserId)) {
+                                    mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                                  } else if (data.spot.spot_events[j].maybe_buds_users.includes(currentUserId)) {
+                                    mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                                  } else {
+                                    mainUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                                  }
+
+                                }
+                            })
+                            infoWindow.setContent(mainUl.html() + selectedPlace.name + '<br>' + selectedPlace.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event-hardcoded">Add Event</button>')
+
+                          })
+                          // console.log(new_spot, 'this is what you want')
+                          // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded">Add Event</button>')
+
+                          infoWindow.open(map, marker)
+                        })
+                      }
+                    })
+                  })
+
+                  $('#modal2').openModal()
+
+                  //console.log(searchMarkers)
+                  searchMarkers.splice(searchMarkers.indexOf(marker), 1)
+                  marker.setIcon('/assets/images/TinyLogo.png')
+                })
+              }
+            })
+            infoWindow.open(map, this)
           })
         }
 
@@ -395,6 +403,7 @@ function showUser(){
         contentType: 'application/json'
       })
       .done(function(data){
+
         //console.log(data, 'this is the data')
         // infoWindow.setContent($('#event-title-for-db-pin').val())
         var goUl = $('<ul id="ulul"></ul>')
@@ -404,9 +413,13 @@ function showUser(){
           goUl.html('')
           // console.log(spot.spot_location)
             for (var j = data.the_spot.spot_events.length - 1; j >= 0; j -= 1) {
-
-              //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-              goUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
+              if (data.the_spot.spot_events[j].going_buds_users.includes(currentUserId)){
+                goUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i class="fa fa-calendar-check-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+              } else if (data.the_spot.spot_events[j].maybe_buds_users.includes(currentUserId)) {
+                goUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i class="fa fa-check-circle-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+              } else {
+                goUl.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.the_spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.the_spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.the_spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.the_spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.the_spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.the_spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.the_spot.spot_events[j]._id + '" class="right">' + data.the_spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+              }
 
 
             }
@@ -418,26 +431,72 @@ function showUser(){
     }
 
     // RSVP OPTIONS
+    var rsvp_list = $('#rsvp-ul')
+    var rsvp_title = $('#rsvp-modal-title')
      $('body').on('click', '#going-button', function(evt){
         //  console.log("going clicked")
         //  console.log(evt.target.nodeName)
+        console.log($(evt.target).children().eq(1))
+        //console.log($(evt.target).children().eq(0))
          if (evt.target.nodeName === 'A') {
-           $(evt.target).children().first().text(function(i, text){
+           $(evt.target).children().eq(1).text(function(i, text){
              return Number(text) + 1
            })
-           //console.log($(evt.target).children().first().attr('id'))
-
            $.ajax({
              method: 'patch',
-             url: '/events/' + $(evt.target).children().first().attr('id'),
+             url: '/events/' + $(evt.target).children().eq(1).attr('id'),
              data: JSON.stringify({going: true, maybe: false}),
              contentType: 'application/json'
            })
            .done(function(data){
-             goingInt = data.going_buds
-             //console.log(data, 'going change')
-             $(evt.target).children().first().text(data.going_buds)
-             location.reload()
+             console.log(data, 'going change')
+             if (data.message === 'show-users-going') {
+               rsvp_list.html('')
+               rsvp_title.text('Buds Going(' + data.users.going_buds + ' buds)')
+               console.log('all going rsvps')
+               data.users.going_buds_users.forEach(function(user){
+                 console.log(user, 'this is user signular')
+                 var bud_li = $('<li class="collection-item avatar"></li>')
+                 if (user.local) {
+                   bud_li.html('<span style="margin-left: -50px;" class="title">' + user.local.name + '</span> <img style="position: initial !important; float: right;" src="http://gravatar.com/avatar/"' + MD5(user.local.email) + '?s=600" class="circle"> <p style="margin-left: -50px; font-size: 12px;">Email<br>' + user.local.email + '</p>')
+                   rsvp_list.append(bud_li)
+                   console.log('local:', user.local.name)
+                 } else if (user.facebook) {
+                   bud_li.html('<span style="margin-left: -50px;" class="title">' + user.facebook.name + '</span> <img style="position: initial !important; float: right;" src="http://gravatar.com/avatar/"' + MD5(user.facebook.email) + '?s=600" class="circle"> <p style="margin-left: -50px; font-size: 12px;">Email<br>' + user.facebook.email + '</p>')
+                   rsvp_list.append(bud_li)
+                   console.log('facbook:', user.facebook.name)
+                 }
+               })
+               if (data.users.going_buds_users.length === 0) {
+                 var no_buds_li = $('<li></li>')
+                 no_buds_li.text('No buds have confirmed an rsvp for this event yet.')
+                 rsvp_list.append(no_buds_li)
+                 console.log('no buds going yet')
+               }
+               console.log(data.users.going_buds)
+               $(evt.target).children().eq(1).text(data.users.going_buds)
+               $('#modal1').openModal()
+             } else if (data.message === 'nope on going add' || data.message === 'limit maxed out no more rsvp for going.'){
+               console.log(data, 'this is data')
+               console.log(data.message, 'message from route')
+               console.log(data.event_ob, 'this is event ob <<<<<')
+               console.log(data.event_ob.going_buds)
+               $(evt.target).children().eq(1).text(data.event_ob.going_buds)
+               $(evt.target).siblings().children().eq(1).text(data.event_ob.maybe_buds)
+             } else if (data.message === 'maybe went down 1 and going went up one'){
+               $(evt.target).children().eq(0).fadeIn('slow')
+               $(evt.target).siblings().children().eq(0).hide()
+               $(evt.target).siblings().children().eq(1).text(data.data.maybe_buds)
+               console.log(data.data.going_buds)
+               $(evt.target).children().eq(1).text(data.data.going_buds)
+             } else {
+               $(evt.target).children().eq(0).fadeIn()
+               console.log(data.data.going_buds)
+               $(evt.target).children().eq(1).text(data.data.going_buds)
+             }
+
+
+            //  location.reload()
            })
          }
      })
@@ -445,22 +504,64 @@ function showUser(){
      $('body').on('click', '#maybe-button', function(evt){
         //  console.log("maybe clicked")
         //  console.log(evt.target.nodeName)
+        console.log($(evt.target).children(), 'this is maybe button clicked')
         if (evt.target.nodeName === 'A') {
-          $(evt.target).children().first().text(function(i, text){
+          $(evt.target).children().eq(1).text(function(i, text){
             return Number(text) + 1
           })
           // console.log($(evt.target).children())
           // console.log($(evt.target).children().first().attr('id'))
           $.ajax({
             method: 'patch',
-            url: '/events/' + $(evt.target).children().first().attr('id'),
+            url: '/events/' + $(evt.target).children().eq(1).attr('id'),
             data: JSON.stringify({going: false, maybe: true}),
             contentType: 'application/json'
           })
           .done(function(data){
             console.log(data, 'maybe change')
-            $(evt.target).children().first().text(data.maybe_buds)
-            location.reload()
+            if (data.message === 'show-maybe-users') {
+              rsvp_list.html('')
+              rsvp_title.text('Buds That Might Go (' + data.users.maybe_buds + ' buds)')
+              console.log('all maybe rsvps')
+              data.users.maybe_buds_users.forEach(function(user){
+               console.log(user, 'this is user signular')
+                var bud_li = $('<li class="collection-item avatar"></li>')
+                if (user.local) {
+                  bud_li.html('<span style="margin-left: -50px;" class="title">' + user.local.name + '</span> <img style="position: initial !important; float: right;" src="http://gravatar.com/avatar/"' + MD5(user.local.email) + '?s=600" class="circle"> <p style="margin-left: -50px; font-size: 12px;">Email<br>' + user.local.email + '</p>')
+                  rsvp_list.append(bud_li)
+                  console.log('local:', user.local.name)
+                } else if (user.facebook) {
+                  bud_li.html('<span style="margin-left: -50px;" class="title">' + user.facebook.name + '</span> <img style="position: initial !important; float: right;" src="http://gravatar.com/avatar/"' + MD5(user.facebook.email) + '?s=600" class="circle"> <p style="margin-left: -50px; font-size: 12px;">Email<br>' + user.facebook.email + '</p>')
+                  rsvp_list.append(bud_li)
+                  console.log('facbook:', user.facebook.name)
+                }
+              })
+              if (data.users.maybe_buds_users.length === 0) {
+                var no_buds_li = $('<li></li>')
+                no_buds_li.text('No buds have confirmed a maybe rsvp for this event.')
+                rsvp_list.append(no_buds_li)
+                console.log('no buds have placed a maybe rsvp yet')
+              }
+              console.log(data.users.maybe_buds)
+              $(evt.target).children().eq(1).text(data.users.maybe_buds)
+              $('#modal1').openModal()
+            } else if (data.message === 'nope on maybe add'){
+              console.log(data.event_ob.maybe_buds)
+              $(evt.target).children().eq(1).text(data.event_ob.maybe_buds)
+              $(evt.target).siblings().children().eq(1).text(data.event_ob.going_buds)
+            } else if (data.message === 'maybe went up 1 and going went down one') {
+              $(evt.target).children().eq(0).fadeIn('slow')
+              $(evt.target).siblings().children().eq(0).hide()
+              $(evt.target).siblings().children().eq(1).text(data.data.going_buds)
+              console.log(data.data.maybe_buds)
+              $(evt.target).children().eq(1).text(data.data.maybe_buds)
+            } else {
+              $(evt.target).children().eq(0).fadeIn()
+              console.log(data.data.maybe_buds)
+              $(evt.target).children().eq(1).text(data.data.maybe_buds)
+            }
+
+            // location.reload()
           })
         }
      })
@@ -490,7 +591,7 @@ function showUser(){
       url: '/spots'
     })
     .done(function(spots){
-
+      // console.log(spots)
 
       //console.log('dropping pins!!!!!!!')
       if (allMarkers.length > 0) {
@@ -534,32 +635,42 @@ function showUser(){
             google.maps.event.addListener(marker, 'click', function(){
               selectedPlace = place
               //console.log(place)
-              spots.forEach(function(spot){
-                var uInfoWindow = new google.maps.InfoWindow()
+              $.ajax({
+                method: 'get',
+                url: '/spots/' + selectedPlace.place_id
+              })
+              .done(function(data){
+                console.log(data, 'get get get')
 
-                spot.spot_events.forEach(function(spEvent){
-                  // console.log(spEvent, 'rsvp')
-                  spot_ul.html('')
+                  // var uInfoWindow = new google.maps.InfoWindow()
 
-                  // console.log(spot.spot_location)
-                  if (marker.title === spot.spot_location) {
-                    for (var j = spot.spot_events.length - 1; j >= 0; j -= 1) {
-                      //  spot_ul.append($('<li>' + spot.spot_events[j].title + '</li>'))
-                      spot_ul.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].going_buds + '</i>Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i id="' + spot.spot_events[j]._id + '" class="right">' + spot.spot_events[j].maybe_buds + '</i>Maybe</a> </div> </div> </div> </li>'))
+                    // console.log(spEvent, 'rsvp')
+                    spot_ul.html('')
+                    // console.log(spot.spot_location)
+                    if (marker.title === data.spot.spot_location) {
+                      for (var j = data.spot.spot_events.length - 1; j >= 0; j -= 1) {
+                        if (data.spot.spot_events[j].going_buds_users.includes(currentUserId)) {
+                          spot_ul.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                        } else if (data.spot.spot_events[j].maybe_buds_users.includes(currentUserId)) {
+                          spot_ul.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                        } else {
+                          spot_ul.append($('<li class="row"> <div style="max-width: 625px; margin-bottom: -258px;" class="col s12 m6"> <div class="card blue-grey darken-1"> <div style="height: 245px;" class="card-content white-text"> <!-- How Many Buds Integer --> <i style="float: right; margin-top: 176px;" id="icon-color" class="fa fa-users fa-2x"><span id="how-many-buds-text" style="padding-left: 10px;">' + data.spot.spot_events[j].how_many_buds + '</span></i> <!-- Event Profile picture --> <img id="event-image-source" src="' + 'http://gravatar.com/avatar/' + MD5(data.spot.spot_events[j].photo) + '?s=600' + '" style="float: right; width: 150px; height: 150px; border: 2px solid white; border-radius: 300px; margin-top: 3px; margin-right: -44px;"></img> <div style="max-width: 350px; "> <div> <!-- Event Title --> <span style="font-size: 18px; padding-left: 4px;" class="card-title" id="event-title-text"><strong>' + data.spot.spot_events[j].title + '</strong></span> <!-- Event Time --> <span id="event-time-text" style="float: right">' + data.spot.spot_events[j].time + '</span> </div> <br> <!-- Event Description --> <p id="event-description-text" style="margin-top: -8px; padding-left: 4px; word-wrap: break-word;">' + data.spot.spot_events[j].description + '</p> <br> <div> <!-- Specific Location --> <p id="event-specific-location-text" style="font-size: 12px; padding-left: 4px; display: inline-block;">' + data.spot.spot_events[j].specific_location + '</p> <!-- Event Creator --> <p id="event-creator-text" style="float: right; font-size: 12px; display: inline-block; padding-right: 4px;">Created By: ' + data.spot.spot_events[j].spot_author + '</p> </div> </div> <hr style="max-width: 375px; margin-left: 0;"> <div style="max-width: 350px;" > <!-- Going Button With Integer --> <a id="going-button" style="float: left;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-calendar-check-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].going_buds + '</i> Going</a> <!-- Maybe Button With Integer --> <a id="maybe-button" style="float: right;" href="#" class="waves-effect waves-light btn"><i style="display: none;" class="fa fa-check-circle-o"></i><i id="' + data.spot.spot_events[j]._id + '" class="right">' + data.spot.spot_events[j].maybe_buds + '</i> Maybe</a> </div> </div> </div> </li>'))
+                        }
 
+                      }
 
-
-                        infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event-hardcoded2">Add Event</button>')
                     }
 
-                  }
+                  infoWindow.setContent(spot_ul.html() + place.name + '<br>' + place.formatted_address + '<br><br>' + '<button class="waves-effect waves-light btn" style="font-family: Moon;" id="add-event-hardcoded2">Add Event</button>')
 
-                })
-                // spot_ul.html().toString()
-                // console.log(spot_ul.html().toString())
+                  // spot_ul.html().toString()
+                  // console.log(spot_ul.html().toString())
+
 
               })
+
               // infoWindow.setContent(place.name + '<br>' + place.formatted_address + '<br>' + '<button id="add-event-hardcoded2">Add Event</button>')
+
 
               infoWindow.open(map, marker)
 
