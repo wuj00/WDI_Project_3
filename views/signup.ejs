@@ -60,17 +60,15 @@
   .fancy span {
     position: relative;
   }
-  .fancy span::before,
-  .fancy span::after {
-    line-height: 7px;
+  .fancy span:before, .fancy span:after {
     content: "";
     position: absolute;
     border-bottom: 1px solid white;
     border-top: 1px solid white;
     width: 600px;
-    height: $linesHeight;
+    height: 7px;
     top: 50%;
-    margin-top: floor($line-height / 2);
+    margin-top: -4px;
   }
   .fancy span:before {
     right: 100%;
